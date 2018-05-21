@@ -245,6 +245,7 @@ class TemplateModel extends FormModel
 				return $coreFile;
 			}
 		}
+		
 		$app->enqueueMessage(Text::_('COM_TEMPLATES_ERROR_CORE_FILE_NOT_FOUND'), 'error');
 
 		return false;
@@ -263,16 +264,17 @@ class TemplateModel extends FormModel
 	{
 		if (preg_match('/[0-9]/', $name))
 		{
-				// Get the extension
-				$extension = File::getExt($name);
+			// Get the extension
+			$extension = File::getExt($name);
 
-				// Remove ( Date ) from file
-				$explodeArray         = explode('-', $name);
-				$nameWithoutExtension = implode('-', array_slice($explodeArray, 0, -2));
+			// Remove ( Date ) from file
+			$explodeArray         = explode('-', $name);
+			$nameWithoutExtension = implode('-', array_slice($explodeArray, 0, -2));
 
-				//Filtered name
-				$name = $nameWithoutExtension . '.' . $extension;
+			//Filtered name
+			$name = $nameWithoutExtension . '.' . $extension;
 		}
+
 		return $name;
 	}
 
@@ -294,6 +296,7 @@ class TemplateModel extends FormModel
 		{
 			$app->enqueueMessage(Text::_('COM_TEMPLATES_ERROR_CORE_FILE_NOT_FOUND'), 'error');
 		}
+
 		return $path;
 	}
 
