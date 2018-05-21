@@ -346,6 +346,26 @@ class TemplateController extends BaseController
 	}
 
 	/**
+	 * Method for get core file of override file
+	 *
+	 * @return  void
+	 *
+	 * @since   4.0.0
+	 */
+	public function loadCoreFiles()
+	{
+		/* @var \Joomla\Component\Templates\Administrator\Model\TemplateModel $model */
+		$model     = $this->getModel();
+		$file      = $this->input->get('file');
+		$id        = $this->input->get('id');
+		$client_id = $this->input->get('client_id');
+
+		$path = $model->loadCoreFile($file, $client_id);
+		$url = 'index.php?option=com_templates&view=template&id=' . $id . '&file=' . $file;
+		$this->setRedirect(\JRoute::_($url, false));
+	}
+
+	/**
 	 * Method for deleting a file.
 	 *
 	 * @return  void
