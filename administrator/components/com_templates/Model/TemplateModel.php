@@ -10,10 +10,14 @@ namespace Joomla\Component\Templates\Administrator\Model;
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\MVC\Model\FormModel;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\Component\Templates\Administrator\Helper\TemplateHelper;
 
 /**
@@ -151,23 +155,23 @@ class TemplateModel extends FormModel
 	/**
 	 * Method to get the core file of override file
 	 *
-	 * @param   string  $file  Override file
-	 * @param   mixed  $client Client Id
+	 * @param   string   $file  Override file
+	 * @param   integer  $client Client Id
 	 *
 	 * @return  string  $corefile The full path and file name for the target file, or boolean false if the file is not found in any of the paths.
 	 *
-	 * @since   4.0
+	 * @since   __DEPLOY_VERSION__
 	 */
 	public function loadCoreFile($file, $client_id)
 	{
-		$app           = \JFactory::getApplication();
-		$filePath      = \JPath::clean($file);
+		$app           = Factory::getApplication();
+		$filePath      = Path::clean($file);
 		$explodeArray  = explode(DIRECTORY_SEPARATOR, $filePath);
 
 		// Only allow html/ folder
 		if($explodeArray['1'] !== 'html')
 		{
-			$app->enqueueMessage(\JText::_('COM_TEMPLATES_ERROR_ONLY_HTML_FOLDER_ALLOWED'), 'error');
+			$app->enqueueMessage(Text::_('COM_TEMPLATES_ERROR_ONLY_HTML_FOLDER_ALLOWED'), 'error');
 
 			return false;
 		}
@@ -176,15 +180,15 @@ class TemplateModel extends FormModel
 		$type     = $explodeArray['2'];
 		$client   = ApplicationHelper::getClientInfo($client_id);
 
-		$componentPath = \JPath::clean($client->path . '/components/');
-		$modulePath    = \JPath::clean($client->path . '/modules/');
-		$layoutPath    = \JPath::clean(JPATH_ROOT . '/layouts/');
+		$componentPath = Path::clean($client->path . '/components/');
+		$modulePath    = Path::clean($client->path . '/modules/');
+		$layoutPath    = Path::clean(JPATH_ROOT . '/layouts/');
 
 		// For modules
 		if (stristr($type, 'mod_') != false)
 		{
 			$folder   = $explodeArray['2'];
-			$htmlPath = \JPath::clean($modulePath . $folder . '/tmpl/');
+			$htmlPath = Path::clean($modulePath . $folder . '/tmpl/');
 			$fileName = $this->getSafeName($fileName);
 			$coreFile = $this->findPath($htmlPath, $fileName);
 
@@ -198,12 +202,12 @@ class TemplateModel extends FormModel
 			$fileName  = $this->getSafeName($fileName);
 
 			// The old scheme, if a view has a tmpl folder
-			$oldHtmlPath = \JPath::clean($componentPath . $folder . '/views/' . $subFolder . '/tmpl/');
+			$oldHtmlPath = Path::clean($componentPath . $folder . '/views/' . $subFolder . '/tmpl/');
 
-			if(!$coreFile = \JPath::find($oldHtmlPath, $fileName))
+			if(!$coreFile = Path::find($oldHtmlPath, $fileName))
 			{
 				// The new scheme, the views are directly in the component/tmpl folder
-				$newHtmlPath = \JPath::clean($componentPath . $folder . '/tmpl/' . $subFolder . '/');
+				$newHtmlPath = Path::clean($componentPath . $folder . '/tmpl/' . $subFolder . '/');
 				$coreFile    = $this->findPath($newHtmlPath, $fileName);
 
 				return $coreFile;
@@ -221,7 +225,7 @@ class TemplateModel extends FormModel
 				$folder    = $explodeArray['3'];
 		 		$subFolder = array_slice($explodeArray, 4, -1);
 				$subFolder = implode(DIRECTORY_SEPARATOR, $subFolder);
-				$htmlPath  = \JPath::clean($componentPath . $folder . '/layouts/' . $subFolder);
+				$htmlPath  = Path::clean($componentPath . $folder . '/layouts/' . $subFolder);
 				$fileName  = $this->getSafeName($fileName);
 				$coreFile  = $this->findPath($htmlPath, $fileName);
 
@@ -231,7 +235,7 @@ class TemplateModel extends FormModel
 			{
 				$subFolder = array_slice($explodeArray, 3, -1);
 				$subFolder = implode(DIRECTORY_SEPARATOR, $subFolder);
-				$htmlPath  = \JPath::clean($layoutPath . $subFolder);
+				$htmlPath  = Path::clean($layoutPath . $subFolder);
 				$fileName  = $this->getSafeName($fileName);
 				$coreFile  = $this->findPath($htmlPath, $fileName);
 
@@ -239,7 +243,7 @@ class TemplateModel extends FormModel
 			}
 		}
 
-		$app->enqueueMessage(\JText::_('COM_TEMPLATES_ERROR_CORE_FILE_NOT_FOUND'), 'error');
+		$app->enqueueMessage(Text::_('COM_TEMPLATES_ERROR_CORE_FILE_NOT_FOUND'), 'error');
 
 		return false;
 	}
@@ -251,14 +255,14 @@ class TemplateModel extends FormModel
 	 *
 	 * @return  string $fileName  The filtered name without Date
 	 *
-	 * @since   4.0.0
+	 * @since   __DEPLOY_VERSION__
 	 */
 	private function getSafeName($name)
 	{
 		if (preg_match('/[0-9]/', $name))
 		{
 			// Get the extension
-			$extension = \JFile::getExt($name);
+			$extension = File::getExt($name);
 
 			// Remove ( Date ) from file
 			$explodeArray         = explode('-', $name);
@@ -279,15 +283,15 @@ class TemplateModel extends FormModel
 	 *
 	 * @return mixed  $path The full path and file name for the target file, or boolean false if the file is not found in any of the paths.
 	 *
-	 * @since  4.0.0
+	 * @since  __DEPLOY_VERSION__
 	 */
 	private function findPath($paths, $file)
 	{
-		$app = \JFactory::getApplication();
+		$app = Factory::getApplication();
 
-		if(!$path = \JPath::find($paths, $file))
+		if(!$path = Path::find($paths, $file))
 		{
-			$app->enqueueMessage(\JText::_('COM_TEMPLATES_ERROR_CORE_FILE_NOT_FOUND'), 'error');
+			$app->enqueueMessage(Text::_('COM_TEMPLATES_ERROR_CORE_FILE_NOT_FOUND'), 'error');
 		}
 
 		return $path;
