@@ -10,14 +10,15 @@ namespace Joomla\Component\Templates\Administrator\Model;
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\MVC\Model\FormModel;
 use Joomla\CMS\Plugin\PluginHelper;
-use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\Component\Templates\Administrator\Helper\TemplateHelper;
 
 /**
@@ -162,7 +163,7 @@ class TemplateModel extends FormModel
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function loadCoreFile($file, $client_id)
+	public function getCoreFile($file, $client_id)
 	{
 		$app           = Factory::getApplication();
 		$filePath      = Path::clean($file);
@@ -185,7 +186,7 @@ class TemplateModel extends FormModel
 		$layoutPath    = Path::clean(JPATH_ROOT . '/layouts/');
 
 		// For modules
-		if (stristr($type, 'mod_') != false)
+		if (stristr($type, 'mod_') !== false)
 		{
 			$folder   = $explodeArray['2'];
 			$htmlPath = Path::clean($modulePath . $folder . '/tmpl/');
@@ -194,7 +195,7 @@ class TemplateModel extends FormModel
 
 			return $coreFile;
 		}
-		elseif (stristr($type, 'com_') != false)
+		elseif (stristr($type, 'com_') !== false)
 		{
 			// For components
 			$folder    = $explodeArray['2'];
@@ -215,7 +216,7 @@ class TemplateModel extends FormModel
 
 			return $coreFile;
 		}
-		elseif (stristr($type, 'layouts') != false)
+		elseif (stristr($type, 'layouts') !== false)
 		{
 			// For Jlayouts
 			$subtype = $explodeArray['3'];
@@ -265,15 +266,38 @@ class TemplateModel extends FormModel
 			$extension = File::getExt($name);
 
 			// Remove ( Date ) from file
-			$explodeArray         = explode('-', $name);
-			$nameWithoutExtension = implode('-', array_slice($explodeArray, 0, -2));
+			$explodeArray = explode('-', $name);
+			$size         = count($explodeArray);
+			$date         = $explodeArray[$size-2] . '-' . str_replace('.' . $extension, '', $explodeArray[$size-1]);
 
-			//Filtered name
-			$name = $nameWithoutExtension . '.' . $extension;
+			if($this->validateDate($date))
+			{
+				$nameWithoutExtension = implode('-', array_slice($explodeArray, 0, -2));
+
+				//Filtered name
+				$name = $nameWithoutExtension . '.' . $extension;
+			}
 		}
 
 		return $name;
 	}
+
+	/**
+	 * Validate Date in file name.
+	 *
+	 * @param  string $date Date to validate.
+	 *
+	 * @return boolean Return true if date is valid and false if not.
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 */
+	 private function validateDate($date)
+	 {
+		 $format = 'Ymd-His';
+		 $valid  = Date::createFromFormat($format, $date);
+
+		 return $valid && $valid->format($format) == $date;
+	 }
 
 	/**
 	 * Find file in given folde
