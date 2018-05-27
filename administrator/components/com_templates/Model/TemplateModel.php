@@ -631,7 +631,7 @@ class TemplateModel extends FormModel
 				$item->filename = $fileName;
 				$item->source = file_get_contents($filePath);
 
-				if($coreFile = $this->getCoreFile($fileName, $this->template->client_id))
+				if ($coreFile = $this->getCoreFile($fileName, $this->template->client_id))
 				{
 					$item->coreFile = $coreFile;
 					$item->core = file_get_contents($coreFile);
