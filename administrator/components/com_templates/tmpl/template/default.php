@@ -11,6 +11,9 @@ defined('_JEXEC') or die;
 
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+JHtml::_('script', 'vendor/diff/diff.min.js', array('version' => 'auto', 'relative' => true));
+//Todo minify com_templates/admin-compare-compare.js
+JHtml::_('script', 'com_templates/admin-compare-compare.js', array('version' => 'auto', 'relative' => true));
 
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
@@ -80,8 +83,25 @@ if ($this->type == 'font')
 			</form>
 			<div class="editor-border">
 				<?php if (!empty($this->source->coreFile)) : ?>
-					<p class="lead"><?php echo JText::sprintf('COM_TEMPLATES_TEMPLATE_CORE_FILENAME', $this->source->coreFile); ?></p>
-					<?php echo $this->form->getInput('core'); ?>
+					<?php $coreFileContent = file_get_contents($this->source->coreFile); ?>
+					<?php $overrideFileContent = file_get_contents(JPATH_SITE . '/templates/' . $this->template->element . $this->source->filename); ?>
+
+					<table id="diff" class="table">
+						<thead>
+							<tr>
+								<th style="display:none"><?php echo JText::_('COM_TEMPLATES_COMPARE_ORIGINAL'); ?></th>
+								<th style="display:none"><?php echo JText::_('COM_TEMPLATES_COMPARE_CHANGED'); ?></th>
+								<th><?php echo JText::sprintf('COM_TEMPLATES_COMPARE_DIFF') . ' ' .$this->source->coreFile; ?></th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td style="display:none" class="original"><?php echo htmlspecialchars($coreFileContent, ENT_COMPAT, 'UTF-8'); ?></td>
+							<td style="display:none" class="changed" ><?php echo htmlspecialchars($overrideFileContent, ENT_COMPAT, 'UTF-8'); ?></td>
+							<td class="diff">&nbsp;</td>
+						</tr>
+						</tbody>
+					</table>
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>
