@@ -12,8 +12,7 @@ defined('_JEXEC') or die;
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('script', 'vendor/diff/diff.min.js', array('version' => 'auto', 'relative' => true));
-//Todo minify com_templates/admin-compare-compare.js
-JHtml::_('script', 'com_templates/admin-compare-compare.js', array('version' => 'auto', 'relative' => true));
+JHtml::_('script', 'com_templates/admin-compare-compare.min.js', array('version' => 'auto', 'relative' => true));
 
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
@@ -85,23 +84,16 @@ if ($this->type == 'font')
 				<?php if (!empty($this->source->coreFile)) : ?>
 					<?php $coreFileContent = file_get_contents($this->source->coreFile); ?>
 					<?php $overrideFileContent = file_get_contents(JPATH_SITE . '/templates/' . $this->template->element . $this->source->filename); ?>
-
-					<table id="diff" class="table">
-						<thead>
-							<tr>
-								<th style="display:none"><?php echo JText::_('COM_TEMPLATES_COMPARE_ORIGINAL'); ?></th>
-								<th style="display:none"><?php echo JText::_('COM_TEMPLATES_COMPARE_CHANGED'); ?></th>
-								<th><?php echo JText::sprintf('COM_TEMPLATES_COMPARE_DIFF') . ' ' .$this->source->coreFile; ?></th>
-							</tr>
-						</thead>
-						<tbody>
-						<tr>
-							<td style="display:none" class="original"><?php echo htmlspecialchars($coreFileContent, ENT_COMPAT, 'UTF-8'); ?></td>
-							<td style="display:none" class="changed" ><?php echo htmlspecialchars($overrideFileContent, ENT_COMPAT, 'UTF-8'); ?></td>
-							<td class="diff">&nbsp;</td>
-						</tr>
-						</tbody>
-					</table>
+					<div id="diff-main">
+						<p class="lead" style="display:none"><?php echo JText::_('COM_TEMPLATES_COMPARE_ORIGINAL'); ?></p>
+						<p class="lead" style="display:none"><?php echo JText::_('COM_TEMPLATES_COMPARE_CHANGED'); ?></p>
+						<p class="lead"><?php echo JText::sprintf('COM_TEMPLATES_COMPARE_DIFF', '', $this->source->coreFile); ?></p>
+						<div class="diff-pane">
+							<pre class="diffview" style="display:none" id="original"><?php echo htmlspecialchars($coreFileContent, ENT_COMPAT, 'UTF-8'); ?></pre>
+							<pre class="diffview" style="display:none" id="changed"><?php echo htmlspecialchars($overrideFileContent, ENT_COMPAT, 'UTF-8'); ?></pre>
+							<div id="diff"></div>
+						</div>
+					</div>
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>

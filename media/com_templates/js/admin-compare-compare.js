@@ -3,11 +3,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 (function() {
-	//alert('here I am');
+
 	document.addEventListener('DOMContentLoaded', function() {
 
-		function compare(original, changed)
-		{
+		function compare(original, changed) {
 			var display  = changed.nextElementSibling,
 			    color    = '',
 			    pre     = null,
@@ -18,15 +17,34 @@
 				color = part.added ? '#a6f3a6' : part.removed ? '#f8cbcb' : '';
 				pre = document.createElement('pre');
 				pre.style.backgroundColor = color;
-				pre.style.borderRadius = '.2rem';
-				pre.appendChild(document.createTextNode(part.value.split('&lt;').join('<').split('&gt;').join('>')));
+				pre.className = 'diffview';
+				pre.appendChild(document.createTextNode(decodeHtmlspecialChars(part.value)));
 				fragment.appendChild(pre);
 			});
 
 			display.appendChild(fragment);
 		}
 
-		var diffs = document.querySelectorAll('.original');
+		function decodeHtmlspecialChars(text) {
+			var map = {
+				'&amp;'  : '&',
+				'&#038;' : "&",
+				'&lt;'   : '<',
+				'&gt;'   : '>',
+				'&quot;' : '"',
+				'&#039;' : "'",
+				'&#8217;': "’",
+				'&#8216;': "‘",
+				'&#8211;': "–",
+				'&#8212;': "—",
+				'&#8230;': "…",
+				'&#8221;': '”'
+			};
+
+			return text.replace(/\&[\w\d\#]{2,5}\;/g, function(m) { return map[m]; });
+		}
+
+		var diffs = [].slice.call(document.querySelectorAll('#original'));
 		for (var i = 0, l = diffs.length; i < l; i++) {
 			compare(diffs[i], diffs[i].nextElementSibling)
 		}
