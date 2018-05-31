@@ -87,7 +87,7 @@ if ($this->type == 'font')
 					<div id="diff-main">
 						<p class="lead" style="display:none"><?php echo JText::_('COM_TEMPLATES_COMPARE_ORIGINAL'); ?></p>
 						<p class="lead" style="display:none"><?php echo JText::_('COM_TEMPLATES_COMPARE_CHANGED'); ?></p>
-						<p class="lead"><?php echo JText::sprintf('COM_TEMPLATES_COMPARE_DIFF', '', $this->source->coreFile); ?></p>
+						<p class="lead"><?php echo JText::sprintf('COM_TEMPLATES_COMPARE_DIFF', $this->source->coreFile); ?></p>
 						<div class="diff-pane">
 							<pre class="diffview" style="display:none" id="original"><?php echo htmlspecialchars($coreFileContent, ENT_COMPAT, 'UTF-8'); ?></pre>
 							<pre class="diffview" style="display:none" id="changed"><?php echo htmlspecialchars($overrideFileContent, ENT_COMPAT, 'UTF-8'); ?></pre>
