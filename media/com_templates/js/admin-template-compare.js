@@ -9,7 +9,7 @@
 		function compare(original, changed) {
 			var display  = changed.nextElementSibling,
 			    color    = '',
-			    pre     = null,
+			    pre      = null,
 			    diff     = JsDiff.diffLines(original.innerHTML, changed.innerHTML),
 			    fragment = document.createDocumentFragment();
 
@@ -68,12 +68,12 @@
 							var display = element.style.display;
 							if(display == 'none') {
 								e.target.className = 'btn btn-success';
-								e.target.innerHTML = 'Hide Core';
+								e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_CORE');
 								element.style.display = 'block';
 								override.className = 'col-md-6';
 							} else {
 								e.target.className = 'btn btn-danger';
-								e.target.innerHTML = 'Show Core';
+								e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_CORE');
 								element.style.display = 'none';
 								override.className = 'col-md-12';
 							}
@@ -85,11 +85,11 @@
 								var display = element.style.display;
 								if(display == 'none') {
 									e.target.className = 'btn btn-success';
-									e.target.innerHTML = 'Hide Diff';
+									e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_DIFF');
 									element.style.display = 'block';
 								} else {
 									e.target.className = 'btn btn-danger';
-									e.target.innerHTML = 'Show Diff';
+									e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_DIFF');
 									element.style.display = 'none';
 								}
 							}

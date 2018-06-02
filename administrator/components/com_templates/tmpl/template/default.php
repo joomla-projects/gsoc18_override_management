@@ -13,6 +13,12 @@ use Joomla\CMS\Layout\FileLayout;
 
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+
+JText::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_CORE');
+JText::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_CORE');
+JText::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_DIFF');
+JText::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_DIFF');
+
 JHtml::_('script', 'vendor/diff/diff.min.js', array('version' => 'auto', 'relative' => true));
 JHtml::_('script', 'com_templates/admin-template-compare.min.js', array('version' => 'auto', 'relative' => true));
 
