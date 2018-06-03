@@ -242,8 +242,6 @@ class TemplateModel extends FormModel
 			}
 		}
 
-		$app->enqueueMessage(Text::_('COM_TEMPLATES_ERROR_CORE_FILE_NOT_FOUND'), 'warning');
-
 		return false;
 	}
 
@@ -310,11 +308,7 @@ class TemplateModel extends FormModel
 	private function findPath($paths, $file)
 	{
 		$app = Factory::getApplication();
-
-		if (!$path = Path::find($paths, $file))
-		{
-			$app->enqueueMessage(Text::_('COM_TEMPLATES_ERROR_CORE_FILE_NOT_FOUND'), 'warning');
-		}
+		$path = Path::find($paths, $file);
 
 		return $path;
 	}
