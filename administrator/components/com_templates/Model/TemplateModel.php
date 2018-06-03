@@ -307,10 +307,7 @@ class TemplateModel extends FormModel
 	 */
 	private function findPath($paths, $file)
 	{
-		$app = Factory::getApplication();
-		$path = Path::find($paths, $file);
-
-		return $path;
+		return Path::find($paths, $file);
 	}
 
 	/**
