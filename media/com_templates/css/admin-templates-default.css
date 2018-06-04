@@ -46,3 +46,7 @@
 	overflow: auto;
 	padding: 10px;
 }
+
+#core-pane .CodeMirror-code {
+	background-color: #F0F0EE;
+}
