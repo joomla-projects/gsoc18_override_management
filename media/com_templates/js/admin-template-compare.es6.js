@@ -1,16 +1,11 @@
 /**
-* PLEASE DO NOT MODIFY THIS FILE. WORK ON THE ES6 VERSION.
-* OTHERWISE YOUR CHANGES WILL BE REPLACED ON THE NEXT BUILD.
-**/
-
-/**
  * @copyright  Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
-(function () {
-  document.addEventListener('DOMContentLoaded', function () {
-    var decodeHtmlspecialChars = function decodeHtmlspecialChars(text) {
-      var map = {
+(() => {
+  document.addEventListener('DOMContentLoaded', () => {
+    const decodeHtmlspecialChars = (text) => {
+      const map = {
         '&amp;': '&',
         '&#038;': '&',
         '&lt;': '<',
@@ -22,22 +17,20 @@
         '&#8211;': '–',
         '&#8212;': '—',
         '&#8230;': '…',
-        '&#8221;': '”'
+        '&#8221;': '”',
       };
 
-      return text.replace(/\&[\w\d\#]{2,5}\;/g, function (m) {
-        var n = map[m];return n;
-      });
+      return text.replace(/\&[\w\d\#]{2,5}\;/g, (m) => { const n = map[m]; return n; });
     };
 
-    var compare = function compare(original, changed) {
-      var display = changed.nextElementSibling;
-      var color = '';
-      var pre = null;
-      var diff = JsDiff.diffLines(original.innerHTML, changed.innerHTML);
-      var fragment = document.createDocumentFragment();
+    const compare = (original, changed) => {
+      const display = changed.nextElementSibling;
+      let color = '';
+      let pre = null;
+      const diff = JsDiff.diffLines(original.innerHTML, changed.innerHTML);
+      const fragment = document.createDocumentFragment();
 
-      diff.forEach(function (part) {
+      diff.forEach((part) => {
         if (part.added) {
           color = '#a6f3a6';
         } else if (part.removed) {
@@ -55,16 +48,15 @@
       display.appendChild(fragment);
     };
 
-    var buttonDataSelector = 'onclick-task';
-    var override = document.getElementById('override-pane');
+    const buttonDataSelector = 'onclick-task';
+    const override = document.getElementById('override-pane');
 
-    var toggle = function toggle(e) {
-      var task = e.target.getAttribute(buttonDataSelector);
+    const toggle = (e) => {
+      const task = e.target.getAttribute(buttonDataSelector);
       if (task === 'template.show.core') {
-        var element = document.getElementById('core-pane');
+        const element = document.getElementById('core-pane');
         if (element) {
-          var display = element.style.display;
-
+          const { display } = element.style;
           if (display === 'none') {
             e.target.className = 'btn btn-success';
             e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_CORE');
@@ -78,29 +70,28 @@
           }
         }
       } else if (task === 'template.show.diff') {
-        var _element = document.getElementById('diff-main');
-        if (_element) {
-          var _display = _element.style.display;
-
-          if (_display === 'none') {
+        const element = document.getElementById('diff-main');
+        if (element) {
+          const { display } = element.style;
+          if (display === 'none') {
             e.target.className = 'btn btn-success';
             e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_DIFF');
-            _element.style.display = 'block';
+            element.style.display = 'block';
           } else {
             e.target.className = 'btn btn-danger';
             e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_DIFF');
-            _element.style.display = 'none';
+            element.style.display = 'none';
           }
         }
       }
     };
 
-    var buttons = [].slice.call(document.querySelectorAll('[' + buttonDataSelector + ']'));
-    var conditionalSection = document.getElementById('conditional-section');
+    const buttons = [].slice.call(document.querySelectorAll(`[${buttonDataSelector}]`));
+    const conditionalSection = document.getElementById('conditional-section');
 
     if (buttons !== '' || buttons.length !== 0) {
-      buttons.forEach(function (button) {
-        button.addEventListener('click', function (e) {
+      buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
           e.preventDefault();
           toggle(e);
         });
@@ -110,8 +101,8 @@
       override.className = 'col-md-12';
     }
 
-    var diffs = [].slice.call(document.querySelectorAll('#original'));
-    for (var i = 0, l = diffs.length; i < l; i += 1) {
+    const diffs = [].slice.call(document.querySelectorAll('#original'));
+    for (let i = 0, l = diffs.length; i < l; i += 1) {
       compare(diffs[i], diffs[i].nextElementSibling);
     }
   });
