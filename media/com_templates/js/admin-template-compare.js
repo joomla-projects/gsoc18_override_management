@@ -98,7 +98,7 @@
     var buttons = [].slice.call(document.querySelectorAll('[' + buttonDataSelector + ']'));
     var conditionalSection = document.getElementById('conditional-section');
 
-    if (buttons !== '' || buttons.length !== 0) {
+    if (buttons.length !== 0) {
       buttons.forEach(function (button) {
         button.addEventListener('click', function (e) {
           e.preventDefault();
