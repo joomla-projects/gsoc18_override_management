@@ -122,14 +122,14 @@
         var cState = JSON.parse(localStorage.getItem('coreButtonState'));
         var dState = JSON.parse(localStorage.getItem('diffButtonState'));
 
-        if (cState !== 'null') {
+        if (cState !== null) {
           buttons[0].className = cState.class;
           buttons[0].innerHTML = cState.title;
           corePane.style.display = cState.display;
           override.className = cState.overrideClass;
         }
 
-        if (dState !== 'null') {
+        if (dState !== null) {
           buttons[1].className = dState.class;
           buttons[1].innerHTML = dState.title;
           diffMain.style.display = dState.display;
