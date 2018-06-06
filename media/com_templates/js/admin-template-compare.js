@@ -57,39 +57,58 @@
 
     var buttonDataSelector = 'onclick-task';
     var override = document.getElementById('override-pane');
+    var corePane = document.getElementById('core-pane');
+    var diffMain = document.getElementById('diff-main');
 
     var toggle = function toggle(e) {
       var task = e.target.getAttribute(buttonDataSelector);
       if (task === 'template.show.core') {
-        var element = document.getElementById('core-pane');
-        if (element) {
-          var display = element.style.display;
+        if (corePane) {
+          var display = corePane.style.display;
 
           if (display === 'none') {
             e.target.className = 'btn btn-success';
             e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_CORE');
-            element.style.display = 'block';
+            corePane.style.display = 'block';
             override.className = 'col-md-6';
           } else {
             e.target.className = 'btn btn-danger';
             e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_CORE');
-            element.style.display = 'none';
+            corePane.style.display = 'none';
             override.className = 'col-md-12';
+          }
+          var coreState = {
+            class: e.target.className,
+            title: e.target.innerHTML,
+            display: corePane.style.display,
+            overrideClass: override.className
+          };
+
+          if (typeof Storage !== 'undefined') {
+            localStorage.setItem('coreButtonState', JSON.stringify(coreState));
           }
         }
       } else if (task === 'template.show.diff') {
-        var _element = document.getElementById('diff-main');
-        if (_element) {
-          var _display = _element.style.display;
+        if (diffMain) {
+          var _display = diffMain.style.display;
 
           if (_display === 'none') {
             e.target.className = 'btn btn-success';
             e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_DIFF');
-            _element.style.display = 'block';
+            diffMain.style.display = 'block';
           } else {
             e.target.className = 'btn btn-danger';
             e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_DIFF');
-            _element.style.display = 'none';
+            diffMain.style.display = 'none';
+          }
+          var diffState = {
+            class: e.target.className,
+            title: e.target.innerHTML,
+            display: diffMain.style.display
+          };
+
+          if (typeof Storage !== 'undefined') {
+            localStorage.setItem('diffButtonState', JSON.stringify(diffState));
           }
         }
       }
@@ -98,6 +117,20 @@
     var buttons = [].slice.call(document.querySelectorAll('[' + buttonDataSelector + ']'));
     var conditionalSection = document.getElementById('conditional-section');
 
+    var setPrestate = function setPrestate() {
+      if (typeof Storage !== 'undefined') {
+        var cState = JSON.parse(localStorage.getItem('coreButtonState'));
+        var dState = JSON.parse(localStorage.getItem('diffButtonState'));
+        buttons[0].className = cState.class;
+        buttons[0].innerHTML = cState.title;
+        corePane.style.display = cState.display;
+        override.className = cState.overrideClass;
+        buttons[1].className = dState.class;
+        buttons[1].innerHTML = dState.title;
+        diffMain.style.display = dState.display;
+      }
+    };
+
     if (buttons.length !== 0) {
       buttons.forEach(function (button) {
         button.addEventListener('click', function (e) {
@@ -105,7 +138,8 @@
           toggle(e);
         });
       });
-    } else {
+      setPrestate();
+    } else if (override && conditionalSection) {
       conditionalSection.className = 'col-md-12';
       override.className = 'col-md-12';
     }
