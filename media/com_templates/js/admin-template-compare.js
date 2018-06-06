@@ -71,6 +71,7 @@
             e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_CORE');
             corePane.style.display = 'block';
             override.className = 'col-md-6';
+            Joomla.editors.instances.jform_core.refresh();
           } else {
             e.target.className = 'btn btn-danger';
             e.target.innerHTML = Joomla.JText._('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_CORE');

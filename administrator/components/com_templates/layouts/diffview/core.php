@@ -9,6 +9,6 @@
 
 defined('_JEXEC') or die;
 
-$title = JText::_('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_CORE');
+$title = JText::_('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_CORE');
 ?>
-<button type="button" class="btn btn-success" onclick-task="template.show.core" title="<?php echo $title; ?>"><?php echo $title; ?></button>
+<button type="button" class="btn btn-danger" onclick-task="template.show.core" title="<?php echo $title; ?>"><?php echo $title; ?></button>

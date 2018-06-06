@@ -102,7 +102,7 @@ if ($this->type == 'font')
 		<?php endif; ?>
 		<?php if ($this->type == 'file') : ?>
 			<div class="row">
-				<div class="col-md-6" id="override-pane">
+				<div class="col-md-12" id="override-pane">
 					<p class="lead"><?php echo JText::_('COM_TEMPLATES_FILE_OVERRIDE_PANE'); ?></p>
 					<form action="<?php echo JRoute::_('index.php?option=com_templates&view=template&id=' . $input->getInt('id') . '&file=' . $this->file); ?>" method="post" name="adminForm" id="adminForm">
 						<div class="editor-border">
@@ -117,7 +117,7 @@ if ($this->type == 'font')
 				<?php if (!empty($this->source->coreFile)) : ?>
 					<?php $coreFileContent = file_get_contents($this->source->coreFile); ?>
 					<?php $overrideFileContent = file_get_contents(JPATH_SITE . '/templates/' . $this->template->element . $this->source->filename); ?>
-					<div class="col-md-6" id="core-pane">
+					<div style="display:none" class="col-md-6" id="core-pane">
 						<p class="lead"><?php echo JText::_('COM_TEMPLATES_FILE_CORE_PANE'); ?></p>
 						<div class="editor-border">
 							<?php echo $this->form->getInput('core'); ?>
