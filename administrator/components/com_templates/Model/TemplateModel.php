@@ -88,7 +88,7 @@ class TemplateModel extends FormModel
 			$temp->id = urlencode(base64_encode($path . $name));
 			$temp->client = $client;
 			$temp->template = $template;
-			$temp->modifiedDate = date ("F d Y H:i:s.", filemtime($coreFile));
+			$temp->modifiedDate = date("F d Y H:i:s.", filemtime($coreFile));
 			$temp->coreFile = md5_file($coreFile);
 
 			return $temp;
