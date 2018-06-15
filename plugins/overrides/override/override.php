@@ -152,11 +152,11 @@ class PlgOverridesOverride extends CMSPlugin
 	}
 
 	/**
-	 * Event after joomla update.
+   * Event after joomla update.
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-  public function onJoomlaAfterUpdate()
+	public function onJoomlaAfterUpdate()
 	{
 		$this->afterEventFiles = $this->getOverrideCoreList();
 		$results = $this->getUpdatedFiles();
@@ -175,7 +175,7 @@ class PlgOverridesOverride extends CMSPlugin
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-  public function onInstallerBeforeInstaller()
+	public function onInstallerBeforeInstaller()
 	{
 		$this->beforeEventFiles = $this->getOverrideCoreList();
 	}
@@ -185,7 +185,7 @@ class PlgOverridesOverride extends CMSPlugin
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-  public function onInstallerAfterInstaller()
+	public function onInstallerAfterInstaller()
 	{
 		$this->afterEventFiles = $this->getOverrideCoreList();
 		$results = $this->getUpdatedFiles();
