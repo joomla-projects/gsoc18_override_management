@@ -54,7 +54,7 @@ class PlgContentEmailcloak extends CMSPlugin
 	 *
 	 * @return  string	A regular expression that matches a link containing the parameters.
 	 */
-protected function _getPattern ($link, $text)
+	protected function _getPattern ($link, $text)
 	{
 		$pattern = '~(?:<a ([^>]*)href\s*=\s*"mailto:' . $link . '"([^>]*))>' . $text . '</a>~i';
 
