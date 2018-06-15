@@ -114,7 +114,7 @@ class TemplateModel extends FormModel
 		// Create a new query object.
 		$query = $db->getQuery(true);
 
-		// Select the required fields from the table.
+		// Select the required fields from the table
 		$query->select(
 			$this->getState(
 				'list.select',
@@ -123,10 +123,10 @@ class TemplateModel extends FormModel
 		);
 
 		$query->from($db->quoteName('#__extensions', 'a'))
-		  ->where($db->quoteName('a.enabled') . ' = 1')
+			->where($db->quoteName('a.enabled') . ' = 1')
 			->where($db->quoteName('a.type') . ' = ' . $db->quote('template'));
 
-		// Reset the query using our newly populated query object.
+		// Reset the query.
 		$db->setQuery($query);
 
 		// Load the results as a list of stdClass objects.
