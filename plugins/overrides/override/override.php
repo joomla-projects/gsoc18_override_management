@@ -48,9 +48,9 @@ class PlgOverridesOverride extends CMSPlugin
 	/**
 	 * Method to get com_templates model instance.
 	 *
-	 * @param   string  $name    The model name. Optional
+	 * @param   string  $name  The model name. Optional
 	 *
-	 * @param		string  $prefix  The class prefix. Optional
+	 * @param   string  $prefix  The class prefix. Optional
 	 *
 	 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel The model.
 	 *
@@ -67,7 +67,7 @@ class PlgOverridesOverride extends CMSPlugin
 	/**
 	 * Method to prepare changed or updated core file.
 	 *
-	 * @return  array  A list of changed files.
+	 * @return   array  A list of changed files.
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -75,15 +75,14 @@ class PlgOverridesOverride extends CMSPlugin
 	{
 		$after  = $this->afterEventFiles;
 		$before = $this->beforeEventFiles;
-
 		$size1  = count($after);
 		$size2  = count($before);
+
 		$result = null;
 
 		if ($size1 === $size2)
 		{
 			$result = array();
-
 			for ($i = 0; $i <= $size1; $i++)
 			{
 				if ($after[$i]->coreFile !== $before[$i]->coreFile)
@@ -99,7 +98,7 @@ class PlgOverridesOverride extends CMSPlugin
 	/**
 	 * Method to get core list of override files.
 	 *
-	 * @return  array  The list of core files.
+	 * @return   array  The list of core files.
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -137,7 +136,6 @@ class PlgOverridesOverride extends CMSPlugin
 		{
 			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $num), 'warning');
 		}
-
 		file_put_contents('exresult.txt', print_r($results, true));
 	}
 
@@ -152,7 +150,7 @@ class PlgOverridesOverride extends CMSPlugin
 	}
 
 	/**
-   * Event after joomla update.
+	 * Event after joomla update.
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -166,7 +164,6 @@ class PlgOverridesOverride extends CMSPlugin
 		{
 			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $num), 'warning');
 		}
-
 		file_put_contents('joresult.txt', print_r($results, true));
 	}
 
@@ -195,7 +192,6 @@ class PlgOverridesOverride extends CMSPlugin
 		{
 			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $num), 'warning');
 		}
-
 		file_put_contents('inresult.txt', print_r($results, true));
 	}
 }
