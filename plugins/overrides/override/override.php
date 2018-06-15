@@ -185,7 +185,7 @@ class PlgOverridesOverride extends CMSPlugin
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function onInstallerAfterInstaller()
+  public function onInstallerAfterInstaller()
 	{
 		$this->afterEventFiles = $this->getOverrideCoreList();
 		$results = $this->getUpdatedFiles();
