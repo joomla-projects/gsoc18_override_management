@@ -48,7 +48,7 @@ class PlgOverridesOverride extends CMSPlugin
 	/**
 	 * Method to get com_templates model instance.
 	 *
-	 * @param   string  $name  The model name. Optional
+	 * @param   string  $name    The model name. Optional
 	 *
 	 * @param   string  $prefix  The class prefix. Optional
 	 *
@@ -124,6 +124,8 @@ class PlgOverridesOverride extends CMSPlugin
 	/**
 	 * Event after extension update.
 	 *
+	 * @return   void
+	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function onExtensionAfterUpdate()
@@ -142,6 +144,8 @@ class PlgOverridesOverride extends CMSPlugin
 	/**
 	 * Event before joomla update.
 	 *
+	 * @return   void
+	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function onJoomlaBeforeUpdate()
@@ -151,6 +155,8 @@ class PlgOverridesOverride extends CMSPlugin
 
 	/**
 	 * Event after joomla update.
+	 *
+	 * @return   void
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -170,6 +176,8 @@ class PlgOverridesOverride extends CMSPlugin
 	/**
 	 * Event before install.
 	 *
+	 * @return   void
+	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function onInstallerBeforeInstaller()
@@ -179,6 +187,8 @@ class PlgOverridesOverride extends CMSPlugin
 
 	/**
 	 * Event after install.
+	 *
+	 * @return   void
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
