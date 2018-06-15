@@ -114,6 +114,8 @@ class PlgOverridesOverride extends CMSPlugin
 	/**
 	 * Event before extension update.
 	 *
+	 * @return   void
+	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function onExtensionBeforeUpdate()
