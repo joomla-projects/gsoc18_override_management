@@ -399,6 +399,9 @@ class UpdateModel extends ListModel
 	{
 		$app = \JFactory::getApplication();
 
+		// Load overrides plugins.
+		PluginHelper::importPlugin('overrides');
+
 		if (!isset($update->get('downloadurl')->_data))
 		{
 			\JFactory::getApplication()->enqueueMessage(\JText::_('COM_INSTALLER_INVALID_EXTENSION_UPDATE'), 'error');

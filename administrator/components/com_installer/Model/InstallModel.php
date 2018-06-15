@@ -76,6 +76,9 @@ class InstallModel extends BaseDatabaseModel
 		// Load installer plugins for assistance if required:
 		PluginHelper::importPlugin('installer');
 
+		// Load overrides plugins.
+		PluginHelper::importPlugin('overrides');
+
 		$package = null;
 
 		// This event allows an input pre-treatment, a custom pre-packing or custom installation.
