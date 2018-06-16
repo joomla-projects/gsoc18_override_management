@@ -147,7 +147,8 @@ class PlgOverridesOverride extends CMSPlugin
 
 		if ($num != 0)
 		{
-			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $num), 'warning');
+			$span = '<span class="badge badge-light">' . $num . '</span>';
+			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $span), 'notice');
 		}
 		file_put_contents('exresult.txt', print_r($results, true));
 	}
@@ -179,7 +180,8 @@ class PlgOverridesOverride extends CMSPlugin
 
 		if ($num != 0)
 		{
-			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $num), 'warning');
+			$span = '<span class="badge badge-light">' . $num . '</span>';
+			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $span), 'notice');
 		}
 		file_put_contents('joresult.txt', print_r($results, true));
 	}
@@ -211,7 +213,8 @@ class PlgOverridesOverride extends CMSPlugin
 
 		if ($num != 0)
 		{
-			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $num), 'warning');
+			$span = '<span class="badge badge-light">' . $num . '</span>';
+			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $span), 'notice');
 		}
 		file_put_contents('inresult.txt', print_r($results, true));
 	}

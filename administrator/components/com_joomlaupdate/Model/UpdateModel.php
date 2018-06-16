@@ -395,10 +395,16 @@ class UpdateModel extends BaseDatabaseModel
 	 */
 	public function createRestorationFile($basename = null)
 	{
+		// Load overrides plugin.
+		\JPluginHelper::importPlugin('overrides');
+
 		// Get a password
 		$password = \JUserHelper::genRandomPassword(32);
 		$app = \JFactory::getApplication();
 		$app->setUserState('com_joomlaupdate.password', $password);
+
+		// Trigger on before joomla event.
+		$app->triggerEvent('onJoomlaBeforeUpdate', array($this));
 
 		// Do we have to use FTP?
 		$method = \JFactory::getApplication()->getUserStateFromRequest('com_joomlaupdate.method', 'method', 'direct', 'cmd');
@@ -830,11 +836,19 @@ ENDDATA;
 	 */
 	public function cleanUp()
 	{
+		// Load overrides plugin.
+		\JPluginHelper::importPlugin('overrides');
+
+		$app = \JFactory::getApplication();
+
+		// Trigger on before joomla event.
+		$app->triggerEvent('onJoomlaAfterUpdate', array($this));
+
 		// Remove the update package.
 		$config = \JFactory::getConfig();
 		$tempdir = $config->get('tmp_path');
 
-		$file = \JFactory::getApplication()->getUserState('com_joomlaupdate.file', null);
+		$file = $app->getUserState('com_joomlaupdate.file', null);
 		$target = $tempdir . '/' . $file;
 
 		if (!@unlink($target))
