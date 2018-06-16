@@ -150,6 +150,8 @@ class PlgOverridesOverride extends CMSPlugin
 			$span = '<span class="badge badge-light">' . $num . '</span>';
 			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $span), 'notice');
 		}
+
+		// Remove after PR mark as successful. Created only for test.
 		file_put_contents('exresult.txt', print_r($results, true));
 	}
 
@@ -183,6 +185,8 @@ class PlgOverridesOverride extends CMSPlugin
 			$span = '<span class="badge badge-light">' . $num . '</span>';
 			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $span), 'notice');
 		}
+
+		// Remove after PR mark as successful. Created only for test.
 		file_put_contents('joresult.txt', print_r($results, true));
 	}
 
@@ -216,6 +220,8 @@ class PlgOverridesOverride extends CMSPlugin
 			$span = '<span class="badge badge-light">' . $num . '</span>';
 			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $span), 'notice');
 		}
+
+		// Remove after PR mark as successful. Created only for test.
 		file_put_contents('inresult.txt', print_r($results, true));
 	}
 }
