@@ -27,6 +27,15 @@ class PlgOverridesOverride extends CMSPlugin
 	protected $app;
 
 	/**
+	 * Load the language file on instantiation.
+	 *
+	 * @var    boolean
+	 *
+	 * @since  3.6.0
+	 */
+	protected $autoloadLanguage = true;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   object  &$subject  The object to observe -- event dispatcher.
