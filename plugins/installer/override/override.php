@@ -17,7 +17,7 @@ use Joomla\CMS\Factory;
  *
  * @since  __DEPLOY_VERSION__
  */
-class PlgOverridesOverride extends CMSPlugin
+class PlgInstallerOverride extends CMSPlugin
 {
 
 	/**
@@ -36,29 +36,9 @@ class PlgOverridesOverride extends CMSPlugin
 	protected $autoloadLanguage = true;
 
 	/**
-	 * Constructor.
-	 *
-	 * @param   object  &$subject  The object to observe -- event dispatcher.
-	 * @param   object  $config    An optional associative array of configuration settings.
-	 *
-	 * @since   __VERSION__
-	 */
-	public function __construct(&$subject, $config)
-	{
-		parent::__construct($subject, $config);
-
-		// If we are not on admin don't process.
-		if ($this->app->isClient('site'))
-		{
-			return;
-		}
-	}
-
-	/**
 	 * Method to get com_templates model instance.
 	 *
 	 * @param   string  $name    The model name. Optional
-	 *
 	 * @param   string  $prefix  The class prefix. Optional
 	 *
 	 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel The model.
@@ -92,6 +72,7 @@ class PlgOverridesOverride extends CMSPlugin
 		if ($size1 === $size2)
 		{
 			$result = array();
+
 			for ($i = 0; $i <= $size1; $i++)
 			{
 				if ($after[$i]->coreFile !== $before[$i]->coreFile)
@@ -148,7 +129,7 @@ class PlgOverridesOverride extends CMSPlugin
 		if ($num != 0)
 		{
 			$span = '<span class="badge badge-light">' . $num . '</span>';
-			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $span), 'notice');
+			$this->app->enqueueMessage(\JText::sprintf('PLG_INSTALLER_OVERRIDE_FILE_UPDATED', $span), 'notice');
 		}
 
 		// Remove after PR mark as successful. Created only for test.
@@ -183,7 +164,7 @@ class PlgOverridesOverride extends CMSPlugin
 		if ($num != 0)
 		{
 			$span = '<span class="badge badge-light">' . $num . '</span>';
-			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $span), 'notice');
+			$this->app->enqueueMessage(\JText::sprintf('PLG_INSTALLER_OVERRIDE_FILE_UPDATED', $span), 'notice');
 		}
 
 		// Remove after PR mark as successful. Created only for test.
@@ -218,7 +199,7 @@ class PlgOverridesOverride extends CMSPlugin
 		if ($num != 0)
 		{
 			$span = '<span class="badge badge-light">' . $num . '</span>';
-			$this->app->enqueueMessage(\JText::sprintf('PLG_OVERRIDES_OVERRIDE_UPDATED', $span), 'notice');
+			$this->app->enqueueMessage(\JText::sprintf('PLG_INSTALLER_OVERRIDE_FILE_UPDATED', $span), 'notice');
 		}
 
 		// Remove after PR mark as successful. Created only for test.

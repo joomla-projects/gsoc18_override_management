@@ -385,7 +385,8 @@ class UpdateModel extends BaseDatabaseModel
 	}
 
 	/**
-	 * Create restoration file.
+	 * Create restoration file and trigger onJoomlaBeforeUpdate event, which find the updated core files
+	 * which have changed during the update, where there are override for.
 	 *
 	 * @param   string  $basename  Optional base path to the file.
 	 *
@@ -396,7 +397,7 @@ class UpdateModel extends BaseDatabaseModel
 	public function createRestorationFile($basename = null)
 	{
 		// Load overrides plugin.
-		\JPluginHelper::importPlugin('overrides');
+		\JPluginHelper::importPlugin('installer, override');
 
 		// Get a password
 		$password = \JUserHelper::genRandomPassword(32);
@@ -404,7 +405,7 @@ class UpdateModel extends BaseDatabaseModel
 		$app->setUserState('com_joomlaupdate.password', $password);
 
 		// Trigger on before joomla event.
-		$app->triggerEvent('onJoomlaBeforeUpdate', array($this));
+		$app->triggerEvent('onJoomlaBeforeUpdate');
 
 		// Do we have to use FTP?
 		$method = \JFactory::getApplication()->getUserStateFromRequest('com_joomlaupdate.method', 'method', 'direct', 'cmd');
@@ -828,7 +829,8 @@ ENDDATA;
 	}
 
 	/**
-	 * Removes the extracted package file.
+	 * Removes the extracted package file and trigger onJoomlaAfterUpdate event, which find the updated core files
+	 * which have changed during the update, where there are override for.
 	 *
 	 * @return  void
 	 *
@@ -837,12 +839,12 @@ ENDDATA;
 	public function cleanUp()
 	{
 		// Load overrides plugin.
-		\JPluginHelper::importPlugin('overrides');
+		\JPluginHelper::importPlugin('installer, override');
 
 		$app = \JFactory::getApplication();
 
 		// Trigger on before joomla event.
-		$app->triggerEvent('onJoomlaAfterUpdate', array($this));
+		$app->triggerEvent('onJoomlaAfterUpdate');
 
 		// Remove the update package.
 		$config = \JFactory::getConfig();

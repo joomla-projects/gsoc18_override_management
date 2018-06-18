@@ -398,7 +398,7 @@ class UpdateModel extends ListModel
 	private function install($update)
 	{
 		// Load overrides plugin.
-		PluginHelper::importPlugin('overrides');
+		PluginHelper::importPlugin('installer, override');
 
 		$app = \JFactory::getApplication();
 
