@@ -397,7 +397,7 @@ class UpdateModel extends BaseDatabaseModel
 	public function createRestorationFile($basename = null)
 	{
 		// Load overrides plugin.
-		\JPluginHelper::importPlugin('installer, override');
+		\JPluginHelper::importPlugin('installer');
 
 		// Get a password
 		$password = \JUserHelper::genRandomPassword(32);
@@ -839,7 +839,7 @@ ENDDATA;
 	public function cleanUp()
 	{
 		// Load overrides plugin.
-		\JPluginHelper::importPlugin('installer, override');
+		\JPluginHelper::importPlugin('installer');
 
 		$app = \JFactory::getApplication();
 
