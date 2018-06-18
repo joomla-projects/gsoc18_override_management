@@ -164,7 +164,7 @@ class TemplateModel extends FormModel
 			}
 			else
 			{
-				$app->enqueueMessage(\JText::_('COM_TEMPLATES_ERROR_TEMPLATE_FOLDER_NOT_FOUND'), 'error');
+				$app->enqueueMessage(Text::_('COM_TEMPLATES_ERROR_TEMPLATE_FOLDER_NOT_FOUND'), 'error');
 
 				return false;
 			}
