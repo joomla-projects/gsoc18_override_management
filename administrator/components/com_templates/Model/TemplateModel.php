@@ -150,13 +150,13 @@ class TemplateModel extends FormModel
 		// Intialize the array variable to store core file list.
 		$this->coreFileList = array();
 
-		$app    = \JFactory::getApplication();
+		$app    = Factory::getApplication();
 
 		foreach ($templates as $template)
 		{
 			$client  = ApplicationHelper::getClientInfo($template->client_id);
-			$element = \JPath::clean($client->path . '/templates/' . $template->element . '/');
-			$path    = \JPath::clean($element . 'html/');
+			$element = Path::clean($client->path . '/templates/' . $template->element . '/');
+			$path    = Path::clean($element . 'html/');
 
 			if (is_dir($path))
 			{
