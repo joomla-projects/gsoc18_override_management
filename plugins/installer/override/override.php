@@ -54,6 +54,58 @@ class PlgInstallerOverride extends CMSPlugin
 	}
 
 	/**
+	 * Purges session array.
+	 *
+	 * @return  void
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function purge()
+	{
+		// Delete stored session value.
+		$session = Factory::getSession();
+		$session->clear('override.beforeEventFiles');
+		$session->clear('override.afterEventFiles');
+	}
+
+	/**
+	 * Method to store files before event.
+	 *
+	 * @return  void
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function storeBeforeEventFiles()
+	{
+		// Get session instance.
+		$session = Factory::getSession();
+
+		// Delete stored session value.
+		$this->purge();
+
+		// Get list and store in session.
+		$list = $this->getOverrideCoreList();
+		$session->set('override.beforeEventFiles', $list);
+	}
+
+	/**
+	 * Method to store files after event.
+	 *
+	 * @return  void
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function storeAfterEventFiles()
+	{
+		// Get session instance
+		$session = Factory::getSession();
+
+		// Get list and store in session.
+		$list = $this->getOverrideCoreList();
+		$session->set('override.afterEventFiles', $list);
+	}
+
+	/**
 	 * Method to prepare changed or updated core file.
 	 *
 	 * @return   array  A list of changed files.
@@ -62,8 +114,11 @@ class PlgInstallerOverride extends CMSPlugin
 	 */
 	public function getUpdatedFiles()
 	{
-		$after  = $this->afterEventFiles;
-		$before = $this->beforeEventFiles;
+		// Get session instance
+		$session = Factory::getSession();
+
+		$after  = $session->get('override.afterEventFiles');
+		$before = $session->get('override.beforeEventFiles');
 		$size1  = count($after);
 		$size2  = count($before);
 
@@ -110,7 +165,7 @@ class PlgInstallerOverride extends CMSPlugin
 	 */
 	public function onExtensionBeforeUpdate()
 	{
-		$this->beforeEventFiles = $this->getOverrideCoreList();
+		$this->storeBeforeEventFiles();
 	}
 
 	/**
@@ -122,7 +177,7 @@ class PlgInstallerOverride extends CMSPlugin
 	 */
 	public function onExtensionAfterUpdate()
 	{
-		$this->afterEventFiles = $this->getOverrideCoreList();
+		$this->storeAfterEventFiles();
 		$results = $this->getUpdatedFiles();
 		$num = count($results);
 
@@ -145,7 +200,7 @@ class PlgInstallerOverride extends CMSPlugin
 	 */
 	public function onJoomlaBeforeUpdate()
 	{
-		$this->beforeEventFiles = $this->getOverrideCoreList();
+		$this->storeBeforeEventFiles();
 	}
 
 	/**
@@ -157,7 +212,7 @@ class PlgInstallerOverride extends CMSPlugin
 	 */
 	public function onJoomlaAfterUpdate()
 	{
-		$this->afterEventFiles = $this->getOverrideCoreList();
+		$this->storeAfterEventFiles();
 		$results = $this->getUpdatedFiles();
 		$num = count($results);
 
@@ -180,7 +235,7 @@ class PlgInstallerOverride extends CMSPlugin
 	 */
 	public function onInstallerBeforeInstaller()
 	{
-		$this->beforeEventFiles = $this->getOverrideCoreList();
+		$this->storeBeforeEventFiles();
 	}
 
 	/**
@@ -192,7 +247,7 @@ class PlgInstallerOverride extends CMSPlugin
 	 */
 	public function onInstallerAfterInstaller()
 	{
-		$this->afterEventFiles = $this->getOverrideCoreList();
+		$this->storeAfterEventFiles();
 		$results = $this->getUpdatedFiles();
 		$num = count($results);
 
