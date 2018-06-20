@@ -81,22 +81,24 @@ class TemplateModel extends FormModel
 	 */
 	protected function storeFileInfo($path, $name, $client, $template)
 	{
+		$temp = new \stdClass;
+		$temp->name = $name;
+		$temp->id = urlencode(base64_encode($path . $name));
+		$temp->client = $client;
+		$temp->template = $template;
+
 		if ($coreFile = $this->getCoreFile($path . $name, $client))
 		{
-			$temp = new \stdClass;
-			$temp->name = $name;
-			$temp->id = urlencode(base64_encode($path . $name));
-			$temp->client = $client;
-			$temp->template = $template;
 			$temp->modifiedDate = date("F d Y H:i:s.", filemtime($coreFile));
 			$temp->coreFile = md5_file($coreFile);
-
-			return $temp;
 		}
 		else
 		{
-			return null;
+			$temp->modifiedDate = null;
+			$temp->coreFile = null;
 		}
+
+		return $temp;
 	}
 
 	/**
