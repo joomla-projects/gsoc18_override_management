@@ -102,6 +102,21 @@ class TemplateModel extends FormModel
 	}
 
 	/**
+	 * Method to compare two id's. A callback function.
+	 *
+	 * @param   mixed   $a   The input array.
+	 * @param   mixed   $b   The input array.
+	 *
+	 * @return  boolean  True on success else false.
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	private static function usortCompare($a, $b)
+	{
+		return strcmp($a->id, $b->id);
+	}
+
+	/**
 	 * Method to get all template list.
 	 *
 	 * @return  object  stdClass object
@@ -171,6 +186,9 @@ class TemplateModel extends FormModel
 				return false;
 			}
 		}
+
+		// Sort list of stdClass array.
+		usort($this->coreFileList, array($this, "usortCompare"));
 
 		return $this->coreFileList;
 	}
