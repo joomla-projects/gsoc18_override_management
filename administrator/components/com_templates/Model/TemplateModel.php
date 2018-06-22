@@ -174,7 +174,7 @@ class TemplateModel extends FormModel
 
 		// Sort list of stdClass array.
 		usort(
-			$this->coreFileList, 
+			$this->coreFileList,
 			function ($a, $b)
 			{
 				return strcmp($a->id, $b->id);
@@ -202,27 +202,29 @@ class TemplateModel extends FormModel
 
 		foreach ($dirFiles as $key => $value)
 		{
-			if (!in_array($value, array('.', '..', 'node_modules')))
+			if (in_array($value, array('.', '..', 'node_modules')))
 			{
-				if (is_dir($dir . $value))
-				{
-					$relativePath = str_replace($element, '', $dir . $value);
-					$this->prepareCoreFiles($dir . $value . '/', $client, $element, $template);
-				}
-				else
-				{
-					$ext           = pathinfo($dir . $value, PATHINFO_EXTENSION);
-					$allowedFormat = $this->checkFormat($ext);
+				continue;
+			}
 
-					if ($allowedFormat == true)
+			if (is_dir($dir . $value))
+			{
+				$relativePath = str_replace($element, '', $dir . $value);
+				$this->prepareCoreFiles($dir . $value . '/', $client, $element, $template);
+			}
+			else
+			{
+				$ext           = pathinfo($dir . $value, PATHINFO_EXTENSION);
+				$allowedFormat = $this->checkFormat($ext);
+
+				if ($allowedFormat == true)
+				{
+					$relativePath = str_replace($element, '', $dir);
+					$info = $this->storeFileInfo('/' . $relativePath, $value, $client, $template);
+
+					if($info)
 					{
-						$relativePath = str_replace($element, '', $dir);
-						$info = $this->storeFileInfo('/' . $relativePath, $value, $client, $template);
-
-						if($info && $info !== null)
-						{
-							$this->coreFileList[] = $info;
-						}
+						$this->coreFileList[] = $info;
 					}
 				}
 			}
