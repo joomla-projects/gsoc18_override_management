@@ -66,13 +66,9 @@
 		var jform_show_core = document.getElementById('jform_show_core');
 		var jform_show_diff = document.getElementById('jform_show_diff');
 
-		if (jform_show_core) {
+		if (jform_show_core && corePane) {
 			jform_show_core.addEventListener('change', function (e) {
-				var displayCore = 'none';
-
-				if (corePane) {
-					displayCore = corePane.style.display;
-				}
+				var displayCore = corePane.style.display;
 
 				if (displayCore === 'none' && e.target.id === 'jform_show_core1') {
 					corePane.style.display = 'block';
@@ -94,29 +90,27 @@
 			});
 		}
 
-		if (jform_show_diff) {
+		if (jform_show_diff && diffMain) {
 			jform_show_diff.addEventListener('change', function (e) {
-				var displayDiff = 'none';
+				var displayDiff = diffMain.style.display;
 
-				if (diffMain) {
-					displayDiff = diffMain.style.display;
-
-					if (displayDiff === 'none' && e.target.id === 'jform_show_diff1') {
-						diffMain.style.display = 'block';
-					} else if (displayDiff === 'block' && e.target.id === 'jform_show_diff0') {
-						diffMain.style.display = 'none';
-					}
-
-					var diffState = {
-						activeSwitch: e.target.id
-					};
-
-					if (typeof Storage !== 'undefined') {
-						localStorage.setItem('diffSwitchState', JSON.stringify(diffState));
-					}
+				if (displayDiff === 'none' && e.target.id === 'jform_show_diff1') {
+					diffMain.style.display = 'block';
+				} else if (displayDiff === 'block' && e.target.id === 'jform_show_diff0') {
+					diffMain.style.display = 'none';
 				}
+
+				var diffState = {
+					activeSwitch: e.target.id
+				};
+
+				if (typeof Storage !== 'undefined') {
+					localStorage.setItem('diffSwitchState', JSON.stringify(diffState));
+				}
+
 			});
 		}
+
 		var setPrestate = function setPrestate() {
 			if (typeof Storage !== 'undefined') {
 				// Fetch the Storage elements
@@ -133,13 +127,15 @@
 					cStateActiveSwitch = cState.activeSwitch;
 				}
 
-				if (cStateActiveSwitch === 'jform_show_core0') {
+				if (cStateActiveSwitch === 'jform_show_core0' && jform_show_core) {
 					corePane.style.display = 'none';
 					override.className = 'col-md-12';
-					// Todo make switch aktive
-				} else if (cStateActiveSwitch === 'jform_show_core1') {
+					//console.log('Todo set state of jform_show_core');
+				} else if (cStateActiveSwitch === 'jform_show_core1' && jform_show_core) {
 					corePane.style.display = 'block';
 					override.className = 'col-md-6';
+					//console.log('Todo set state of jform_show_core');
+					//console.log(jform_show_core);
 				}
 
 				// Prestate the diff view state
@@ -152,11 +148,12 @@
 					cStateActiveSwitch = dState.activeSwitch;
 				}
 
-				if (cStateActiveSwitch === 'jform_show_diff0') {
-					// Todo make switch aktive
+				if (cStateActiveSwitch === 'jform_show_diff0' && jform_show_diff) {
 					diffMain.style.display = 'none';
-				} else if (cStateActiveSwitch === 'jform_show_diff1'){
+					//console.log('Todo set state of jform_show_diff');
+				} else if (cStateActiveSwitch === 'jform_show_diff1' && jform_show_diff) {
 					diffMain.style.display = 'block';
+					//console.log('Todo set state of jform_show_diff');
 				}
 			}
 		};
