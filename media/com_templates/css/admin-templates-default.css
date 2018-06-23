@@ -50,3 +50,8 @@
 #core-pane .CodeMirror-code {
 	background-color: #F0F0EE;
 }
+
+#jform_show_core, #jform_show_diff {
+	margin-right: 70px;
+	margin-bottom: 3px;
+}
