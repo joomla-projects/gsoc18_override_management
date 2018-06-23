@@ -75,6 +75,8 @@ if ($this->type == 'font')
 	</div>
 	<?php if ($this->type == 'file' && !empty($this->source->coreFile)) : ?>
 		<div class="col-md-6 text-right">
+			<?php echo $this->form->getInput('show_core'); ?>
+			<?php echo $this->form->getInput('show_diff'); ?>
 			<?php $layout_core_button = new FileLayout('diffview.core', JPATH_COMPONENT_ADMINISTRATOR . '/layouts'); ?>
 			<?php echo $layout_core_button->render(array()); ?>
 			<?php $layout_diff_button = new FileLayout('diffview.diff', JPATH_COMPONENT_ADMINISTRATOR . '/layouts'); ?>
