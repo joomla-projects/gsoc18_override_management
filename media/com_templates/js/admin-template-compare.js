@@ -74,7 +74,7 @@
 					displayCore = corePane.style.display;
 				}
 
-				if (displayCore === 'none') {
+				if (displayCore === 'none' && e.target.id === 'jform_show_core1') {
 					corePane.style.display = 'block';
 					override.className = 'col-md-6';
 					Joomla.editors.instances.jform_core.refresh();
@@ -85,7 +85,8 @@
 
 				var coreState = {
 					display: corePane.style.display,
-					overrideClass: override.className
+					overrideClass: override.className,
+					aktiveSwitch: e.target.id
 				};
 
 				if (typeof Storage !== 'undefined') {
@@ -102,14 +103,15 @@
 				if (diffMain) {
 					displayDiff = diffMain.style.display;
 
-					if (displayDiff === 'none') {
+					if (displayDiff === 'none' && e.target.id === 'jform_show_diff1') {
 						diffMain.style.display = 'block';
 					} else {
 						diffMain.style.display = 'none';
 					}
 
 					var diffState = {
-						display: diffMain.style.display
+						display: diffMain.style.display,
+						aktiveSwitch: e.target.id
 					};
 
 					if (typeof Storage !== 'undefined') {
@@ -119,7 +121,6 @@
 			});
 		}
 		var setPrestate = function setPrestate() {
-			alert('set prestate');
 			if (typeof Storage !== 'undefined') {
 				var cState = JSON.parse(localStorage.getItem('coreSwitchState'));
 				var dState = JSON.parse(localStorage.getItem('diffSwitchState'));
