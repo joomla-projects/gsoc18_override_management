@@ -52,6 +52,6 @@
 }
 
 #jform_show_core, #jform_show_diff {
+	display: inline;
 	margin-right: 70px;
-	margin-bottom: 3px;
 }
