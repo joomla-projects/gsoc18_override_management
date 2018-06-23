@@ -78,7 +78,7 @@
 					corePane.style.display = 'block';
 					override.className = 'col-md-6';
 					Joomla.editors.instances.jform_core.refresh();
-				} else {
+				} else if (displayCore === 'block' && e.target.id === 'jform_show_core0') {
 					corePane.style.display = 'none';
 					override.className = 'col-md-12';
 				}
@@ -105,7 +105,7 @@
 
 					if (displayDiff === 'none' && e.target.id === 'jform_show_diff1') {
 						diffMain.style.display = 'block';
-					} else {
+					} else if (displayDiff === 'block' && e.target.id === 'jform_show_diff0') {
 						diffMain.style.display = 'none';
 					}
 
