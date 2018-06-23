@@ -84,9 +84,7 @@
 				}
 
 				var coreState = {
-					display: corePane.style.display,
-					overrideClass: override.className,
-					aktiveSwitch: e.target.id
+					activeSwitch: e.target.id
 				};
 
 				if (typeof Storage !== 'undefined') {
@@ -110,8 +108,7 @@
 					}
 
 					var diffState = {
-						display: diffMain.style.display,
-						aktiveSwitch: e.target.id
+						activeSwitch: e.target.id
 					};
 
 					if (typeof Storage !== 'undefined') {
@@ -122,16 +119,44 @@
 		}
 		var setPrestate = function setPrestate() {
 			if (typeof Storage !== 'undefined') {
+				// Fetch the Storage elements
 				var cState = JSON.parse(localStorage.getItem('coreSwitchState'));
 				var dState = JSON.parse(localStorage.getItem('diffSwitchState'));
 
-				if (cState !== null) {
-					corePane.style.display = cState.display;
-					override.className = cState.overrideClass;
+				// Prestate the core file view state
+
+				// Set jform_show_core0 as default
+				var cStateActiveSwitch = 'jform_show_core0';
+
+				// Set jform_show_core0 with the value in storage if not undefined
+				if (cState.activeSwitch !== undefined) {
+					cStateActiveSwitch = cState.activeSwitch;
 				}
 
-				if (dState !== null) {
-					diffMain.style.display = dState.display;
+				if (cStateActiveSwitch === 'jform_show_core0') {
+					corePane.style.display = 'none';
+					override.className = 'col-md-12';
+					// Todo make switch aktive
+				} else if (cStateActiveSwitch === 'jform_show_core1') {
+					corePane.style.display = 'block';
+					override.className = 'col-md-6';
+				}
+
+				// Prestate the diff view state
+
+				// Set jform_show_diff0 as default
+				var cStateActiveSwitch = 'jform_show_diff0';
+
+				// Set jform_show_core0 with the value in storage if not undefined
+				if (dState.activeSwitch !== undefined) {
+					cStateActiveSwitch = dState.activeSwitch;
+				}
+
+				if (cStateActiveSwitch === 'jform_show_diff0') {
+					// Todo make switch aktive
+					diffMain.style.display = 'none';
+				} else if (cStateActiveSwitch === 'jform_show_diff1'){
+					diffMain.style.display = 'block';
 				}
 			}
 		};
