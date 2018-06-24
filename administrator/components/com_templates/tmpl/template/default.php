@@ -80,6 +80,11 @@ if ($this->type == 'font')
 			<?php $layout_diff_button = new FileLayout('diffview.diff', JPATH_COMPONENT_ADMINISTRATOR . '/layouts'); ?>
 			<?php echo $layout_diff_button->render(array()); ?>
 		</div>
+	<?php else : ?>
+		<div class="col-md-6 text-right">
+			<?php $layout_disabled_button = new FileLayout('diffview.disabled', JPATH_COMPONENT_ADMINISTRATOR . '/layouts'); ?>
+			<?php echo $layout_disabled_button->render(array()); ?>
+		</div>
 	<?php endif; ?>
 </div>
 <div class="row">
