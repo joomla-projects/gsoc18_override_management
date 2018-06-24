@@ -73,14 +73,14 @@ if ($this->type == 'font')
 			<p class="lead path hidden"><?php echo $this->font['rel_path']; ?></p>
 		<?php endif; ?>
 	</div>
-	<?php if ($this->type == 'file' && !empty($this->source->coreFile)) : ?>
+	<?php if ($this->type === 'file' && !empty($this->source->coreFile)) : ?>
 		<div class="col-md-6 text-right">
 			<?php $layout_core_button = new FileLayout('diffview.core', JPATH_COMPONENT_ADMINISTRATOR . '/layouts'); ?>
 			<?php echo $layout_core_button->render(array()); ?>
 			<?php $layout_diff_button = new FileLayout('diffview.diff', JPATH_COMPONENT_ADMINISTRATOR . '/layouts'); ?>
 			<?php echo $layout_diff_button->render(array()); ?>
 		</div>
-	<?php else : ?>
+	<?php elseif ($this->type === 'file')  : ?>
 		<div class="col-md-6 text-right">
 			<?php $layout_disabled_button = new FileLayout('diffview.disabled', JPATH_COMPONENT_ADMINISTRATOR . '/layouts'); ?>
 			<?php echo $layout_disabled_button->render(array()); ?>
