@@ -36,7 +36,7 @@
               }
             } else {
               var messages = {
-                message: [Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_OVERRIDEFOUND_MESSAGE').replace('%s', '<span class="badge badge-light">' + updateInfoList.length + '</span>') + '<button class="btn btn-primary" onclick="document.location=\'' + options.url + '\'">' + Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_UPDATEFOUND_BUTTON') + '</button>']
+                message: [Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_OVERRIDEFOUND_MESSAGE').replace('%s', '<span class="badge badge-light">' + updateInfoList.length + '</span>') + '<button class="btn btn-primary" onclick="document.location=\'' + options.url + '\'">' + Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_OVERRIDEFOUND_BUTTON') + '</button>']
               };
 
               // Render the message
