@@ -35,6 +35,14 @@ class PlgInstallerOverride extends CMSPlugin
 	protected $autoloadLanguage = true;
 
 	/**
+	 * Database object
+	 *
+	 * @var    JDatabaseDriver
+	 * @since  __DEPLOY_VERSION__
+	 */
+	protected $db;
+
+	/**
 	 * Method to get com_templates model instance.
 	 *
 	 * @param   string  $name    The model name. Optional
@@ -84,7 +92,6 @@ class PlgInstallerOverride extends CMSPlugin
 
 		// Get list and store in session.
 		$list = $this->getOverrideCoreList();
-		file_put_contents('result_before.txt', print_r($list, true));
 		$session->set('override.beforeEventFiles', $list);
 	}
 
@@ -102,7 +109,6 @@ class PlgInstallerOverride extends CMSPlugin
 
 		// Get list and store in session.
 		$list = $this->getOverrideCoreList();
-		file_put_contents('result_after.txt', print_r($list, true));
 		$session->set('override.afterEventFiles', $list);
 	}
 
@@ -136,8 +142,12 @@ class PlgInstallerOverride extends CMSPlugin
 			}
 		}
 
-		file_put_contents('result.txt', print_r($result, true));
-		$this->params->set('overridefiles', json_encode($result));
+		$this->params->set('overridefiles', json_encode($result, JSON_HEX_QUOT));
+
+		if (!$this->saveParams())
+		{
+			throw new RuntimeException('Unable to save plugin settings', 500);
+		}
 
 		return $result;
 	}
@@ -252,5 +262,58 @@ class PlgInstallerOverride extends CMSPlugin
 			$span = '<span class="badge badge-light">' . $num . '</span>';
 			$this->app->enqueueMessage(\JText::sprintf('PLG_INSTALLER_OVERRIDE_FILE_UPDATED', $span), 'notice');
 		}
+	}
+
+	/**
+	 * Save the plugin parameters
+	 *
+	 * @return  boolean
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	private function saveParams()
+	{
+		$query = $this->db->getQuery(true)
+				->update($this->db->quoteName('#__extensions'))
+				->set($this->db->quoteName('params') . ' = ' . $this->db->quote($this->params->toString('JSON')))
+				->where($this->db->quoteName('type') . ' = ' . $this->db->quote('plugin'))
+				->where($this->db->quoteName('folder') . ' = ' . $this->db->quote('installer'))
+				->where($this->db->quoteName('element') . ' = ' . $this->db->quote('override'));
+
+		try
+		{
+			// Lock the tables to prevent multiple plugin executions causing a race condition
+			$this->db->lockTable('#__extensions');
+		}
+		catch (Exception $e)
+		{
+			// If we can't lock the tables it's too risky to continue execution
+			return false;
+		}
+
+		try
+		{
+			// Update the plugin parameters
+			$result = $this->db->setQuery($query)->execute();
+		}
+		catch (Exception $exc)
+		{
+			// If we failed to execute
+			$this->db->unlockTables();
+			$result = false;
+		}
+
+		try
+		{
+			// Unlock the tables after writing
+			$this->db->unlockTables();
+		}
+		catch (Exception $e)
+		{
+			// If we can't lock the tables assume we have somehow failed
+			$result = false;
+		}
+
+		return $result;
 	}
 }
