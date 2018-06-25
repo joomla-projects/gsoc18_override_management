@@ -137,7 +137,7 @@ class PlgInstallerOverride extends CMSPlugin
 		}
 
 		file_put_contents('result.txt', print_r($result, true));
-		$this->params->set('overridefiles', implode(";", $result));
+		$this->params->set('overridefiles', json_encode($result));
 
 		return $result;
 	}
