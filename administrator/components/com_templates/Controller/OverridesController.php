@@ -21,7 +21,6 @@ class OverridesController extends BaseController
 {
   /**
 	 * Fetch and report updates in \JSON format, for A\JAX requests
-	 * Created only for test.
 	 *
 	 * @return void
 	 *
@@ -39,6 +38,7 @@ class OverridesController extends BaseController
 			$app->close();
 		}
 
+		// Created only for test.
 		$session = \JFactory::getSession();
 
 		$result = array();
