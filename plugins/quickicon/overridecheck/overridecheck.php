@@ -17,7 +17,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Plugin\CMSPlugin;
 
 /**
- * Joomla! update notification plugin
+ * Joomla! template override notification plugin
  *
  * @since  __DEPLOY_VERSION__
  */
@@ -27,7 +27,8 @@ class PlgQuickiconOverrideCheck extends CMSPlugin
 	 * Load the language file on instantiation.
 	 *
 	 * @var    boolean
-	 * @since  3.1
+	 *
+	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $autoloadLanguage = true;
 
@@ -40,7 +41,7 @@ class PlgQuickiconOverrideCheck extends CMSPlugin
 	 * @return  array  A list of icon definition associative arrays, consisting of the
 	 *                 keys link, image, text and access.
 	 *
-	 * @since   2.5
+	 * @since   __DEPLOY_VERSION__
 	 */
 	public function onGetIcons($context)
 	{

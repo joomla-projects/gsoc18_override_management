@@ -24,7 +24,7 @@ class OverridesController extends BaseController
 	 *
 	 * @return void
 	 *
-	 * @since 2.5
+	 * @since __DEPLOY_VERSION__
 	 */
 	public function ajax()
 	{
