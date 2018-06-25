@@ -84,6 +84,7 @@ class PlgInstallerOverride extends CMSPlugin
 
 		// Get list and store in session.
 		$list = $this->getOverrideCoreList();
+		file_put_contents('result_before.txt', print_r($list, true));
 		$session->set('override.beforeEventFiles', $list);
 	}
 
@@ -101,6 +102,7 @@ class PlgInstallerOverride extends CMSPlugin
 
 		// Get list and store in session.
 		$list = $this->getOverrideCoreList();
+		file_put_contents('result_after.txt', print_r($list, true));
 		$session->set('override.afterEventFiles', $list);
 	}
 
@@ -134,6 +136,7 @@ class PlgInstallerOverride extends CMSPlugin
 			}
 		}
 
+		file_put_contents('result.txt', print_r($result, true));
 		$this->params->set('overridefiles', implode(";", $result));
 
 		return $result;
