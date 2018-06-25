@@ -16,4 +16,15 @@
 		<language tag="en-GB">en-GB.plg_installer_override.ini</language>
 		<language tag="en-GB">en-GB.plg_installer_override.sys.ini</language>
 	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="overridefiles"
+					type="textarea"
+					label="PLG_INSTALLER_OVERRIDE_PLUGIN_FIELD_OVERRIDEFILES_LABEL"
+				/>
+			</fieldset>
+		</fields>
+	</config>
 </extension>
