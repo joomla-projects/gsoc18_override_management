@@ -30,7 +30,7 @@ class PlgInstallerOverride extends CMSPlugin
 	 *
 	 * @var    boolean
 	 *
-	 * @since  3.6.0
+	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $autoloadLanguage = true;
 
@@ -135,6 +135,8 @@ class PlgInstallerOverride extends CMSPlugin
 				}
 			}
 		}
+
+		$this->params->set('overridefiles', implode(";", $result));
 
 		return $result;
 	}
