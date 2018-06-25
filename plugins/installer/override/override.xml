@@ -21,7 +21,7 @@
 			<fieldset name="basic">
 				<field
 					name="overridefiles"
-					type="textarea"
+					type="hidden"
 					label="PLG_INSTALLER_OVERRIDE_PLUGIN_FIELD_OVERRIDEFILES_LABEL"
 				/>
 			</fieldset>
