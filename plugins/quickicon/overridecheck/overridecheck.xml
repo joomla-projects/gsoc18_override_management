@@ -2,7 +2,7 @@
 <extension version="4.0" type="plugin" group="quickicon" method="upgrade">
 	<name>plg_quickicon_overridecheck</name>
 	<author>Joomla! Project</author>
-	<creationDate>August 2011</creationDate>
+	<creationDate>June 2018</creationDate>
 	<copyright>Copyright (C) 2005 - 2018 Open Source Matters. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>admin@joomla.org</authorEmail>
