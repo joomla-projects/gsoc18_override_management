@@ -39,17 +39,17 @@ class OverridesController extends BaseController
 			$app->close();
 		}
 
-    $session = \JFactory::getSession();
+		$session = \JFactory::getSession();
 
 		$result = array();
-    $updates = $session->get('override.result');
+		$updates = $session->get('override.result');
 
-    if (count($updates) !== 0 && is_array($updates))
-    {
-      $result = $updates;
-    }
+		if (count($updates) !== 0 && is_array($updates))
+		{
+			$result = $updates;
+		}
 
-    echo json_encode($result);
+		echo json_encode($result);
 
 		$app->close();
 	}

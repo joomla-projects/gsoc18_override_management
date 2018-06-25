@@ -45,7 +45,6 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected function addToolbar()
 	{
-
 		\JToolbarHelper::title(\JText::_('COM_TEMPLATES_MANAGER_OVERRIDES'), 'eye thememanager');
 	}
 }

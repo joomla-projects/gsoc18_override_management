@@ -19,5 +19,4 @@ use Joomla\CMS\MVC\Model\ListModel;
  */
 class OverridesModel extends ListModel
 {
-
 }
