@@ -32,6 +32,11 @@ class TemplatesHelper
 			$vName == 'styles'
 		);
 		\JHtmlSidebar::addEntry(
+			\JText::_('COM_TEMPLATES_SUBMENU_OVERRIDES'),
+			'index.php?option=com_templates&view=overrides',
+			$vName == 'overrides'
+		);
+		\JHtmlSidebar::addEntry(
 			\JText::_('COM_TEMPLATES_SUBMENU_TEMPLATES'),
 			'index.php?option=com_templates&view=templates',
 			$vName == 'templates'

@@ -137,6 +137,9 @@ class PlgInstallerOverride extends CMSPlugin
 			}
 		}
 
+		$session->clear('override.result');
+		$session->set('override.result', $result);
+
 		return $result;
 	}
 
