@@ -145,11 +145,7 @@ class PlgInstallerOverride extends CMSPlugin
 		}
 
 		$this->params->set('overridefiles', json_encode($result, JSON_HEX_QUOT));
-
-		if (!$this->saveParams())
-		{
-			throw new RuntimeException('Unable to save plugin settings', 500);
-		}
+		$this->saveParams();
 
 		return $result;
 	}
