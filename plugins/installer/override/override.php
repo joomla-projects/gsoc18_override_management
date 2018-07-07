@@ -129,10 +129,12 @@ class PlgInstallerOverride extends CMSPlugin
 		$size1  = count($after);
 		$size2  = count($before);
 
-		$result = array();
+		$result = null;
 
 		if ($size1 === $size2)
 		{
+			$result = array();
+
 			for ($i = 0; $i < $size1; $i++)
 			{
 				if ($after[$i]->coreFile !== $before[$i]->coreFile)
