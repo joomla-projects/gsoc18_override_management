@@ -64,9 +64,10 @@ usort(
 							</td>
 							<td>
 								<?php if (empty($value['modifiedDate'])) : ?>
-									<span class="badge badge-warning">Core file got removed</span>
+									<span class="badge badge-warning"><?php echo Text::_('COM_TEMPLATES_OVERRIDE_CORE_REMOVED'); ?></span>
+								<?php else : ?>
+									<?php echo $value['modifiedDate']; ?>
 								<?php endif; ?>
-								<?php echo $value['modifiedDate']; ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
