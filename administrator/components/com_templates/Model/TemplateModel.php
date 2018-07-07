@@ -83,7 +83,7 @@ class TemplateModel extends FormModel
 	{
 		$temp = new \stdClass;
 		$temp->name = $name;
-		$temp->id = urlencode(base64_encode($path . $name));
+		$temp->id = base64_encode($path . $name);
 		$client = ApplicationHelper::getClientInfo($client_id);
 		$temp->client = $client->name;
 		$temp->template = $template;
