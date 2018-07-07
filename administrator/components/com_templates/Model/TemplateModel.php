@@ -79,15 +79,16 @@ class TemplateModel extends FormModel
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	protected function storeFileInfo($path, $name, $client, $template)
+	protected function storeFileInfo($path, $name, $client_id, $template)
 	{
 		$temp = new \stdClass;
 		$temp->name = $name;
 		$temp->id = urlencode(base64_encode($path . $name));
-		$temp->client = $client;
+		$client = ApplicationHelper::getClientInfo($client_id);
+		$temp->client = $client->name;
 		$temp->template = $template;
 
-		if ($coreFile = $this->getCoreFile($path . $name, $client))
+		if ($coreFile = $this->getCoreFile($path . $name, $client_id))
 		{
 			$temp->modifiedDate = date("F d Y H:i:s.", filemtime($coreFile));
 			$temp->coreFile = md5_file($coreFile);
@@ -231,6 +232,27 @@ class TemplateModel extends FormModel
 		}
 
 		return;
+	}
+
+	/**
+	 * Method to get the state of the Installer Override Plugin.
+	 *
+	 * @return  array  Array of relevant plugins and whether they are enabled or not.
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function getPluginState()
+	{
+		$db = $this->getDbo();
+		$query = $db->getQuery(true)
+			->select('name, enabled')
+			->from($db->quoteName('#__extensions'))
+			->where($db->quoteName('type') . ' = ' . $db->quote('plugin'))
+			->where($db->quoteName('folder') . ' IN (' . $db->quote('system') . ',' . $db->quote('installer') . ')')
+			->where($db->quoteName('element') . ' = ' . $db->quote('override'));
+		$db->setQuery($query);
+
+		return $db->loadObjectList('name');
 	}
 
 	/**

@@ -117,6 +117,15 @@ class HtmlView extends BaseHtmlView
 	protected $archive;
 
 	/**
+	 * The state of installer override plugin.
+	 *
+	 * @var  array
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 */
+	protected $pluginState;
+
+	/**
 	 * Execute and display a template script.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
@@ -125,15 +134,16 @@ class HtmlView extends BaseHtmlView
 	 */
 	public function display($tpl = null)
 	{
-		$app            = \JFactory::getApplication();
-		$this->file     = $app->input->get('file');
-		$this->fileName = \JFilterInput::getInstance()->clean(base64_decode($this->file), 'string');
-		$explodeArray   = explode('.', $this->fileName);
-		$ext            = end($explodeArray);
-		$this->files    = $this->get('Files');
-		$this->state    = $this->get('State');
-		$this->template = $this->get('Template');
-		$this->preview  = $this->get('Preview');
+		$app               = \JFactory::getApplication();
+		$this->file        = $app->input->get('file');
+		$this->fileName    = \JFilterInput::getInstance()->clean(base64_decode($this->file), 'string');
+		$explodeArray      = explode('.', $this->fileName);
+		$ext               = end($explodeArray);
+		$this->files       = $this->get('Files');
+		$this->state       = $this->get('State');
+		$this->template    = $this->get('Template');
+		$this->preview     = $this->get('Preview');
+		$this->pluginState = $this->get('PluginState');
 
 		$params       = ComponentHelper::getParams('com_templates');
 		$imageTypes   = explode(',', $params->get('image_formats'));
