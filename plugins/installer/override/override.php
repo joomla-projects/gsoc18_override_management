@@ -135,7 +135,7 @@ class PlgInstallerOverride extends CMSPlugin
 		{
 			$result = array();
 
-			for ($i = 0; $i < $size1; $i++)
+			for ($i = 0; $i <= $size1; $i++)
 			{
 				if ($after[$i]->coreFile !== $before[$i]->coreFile)
 				{
