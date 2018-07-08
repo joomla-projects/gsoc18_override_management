@@ -12,6 +12,9 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Filesystem\Path;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Application\ApplicationHelper;
 
 $plugin = PluginHelper::getPlugin('installer', 'override');
 $params = new Registry($plugin->params);
@@ -52,24 +55,28 @@ usort(
 				</thead>
 				<tbody>
 					<?php foreach ($result as $value) : ?>
-						<tr>
-							<td>
-								<?php echo base64_decode($value['id']); ?>
-							</td>
-							<td>
-								<span class="badge badge-success"><?php echo $value['template']; ?></span>
-							</td>
-							<td>
-								<span class="badge badge-success"><?php echo $value['client']; ?></span>
-							</td>
-							<td>
-								<?php if (empty($value['modifiedDate'])) : ?>
-									<span class="badge badge-warning"><?php echo Text::_('COM_TEMPLATES_OVERRIDE_CORE_REMOVED'); ?></span>
-								<?php else : ?>
-									<?php echo $value['modifiedDate']; ?>
-								<?php endif; ?>
-							</td>
-						</tr>
+						<?php $client = ApplicationHelper::getClientInfo($value['client']); ?>
+						<?php $path = $client->path . '/templates/' . $value['template'] . base64_decode($value['id']); ?>
+						<?php if (file_exists($path)) : ?>
+							<tr>
+								<td>
+									<a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_templates&view=template&id=' . (int) $value['extension_id'] . '&file=' . $value['id']); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?>"> <?php echo base64_decode($value['id']); ?> </a>
+								</td>
+								<td>
+									<span class="badge badge-success"><?php echo $value['template']; ?></span>
+								</td>
+								<td>
+									<span class="badge badge-success"><?php echo $client->name; ?></span>
+								</td>
+								<td>
+									<?php if (empty($value['modifiedDate'])) : ?>
+										<span class="badge badge-warning"><?php echo Text::_('COM_TEMPLATES_OVERRIDE_CORE_REMOVED'); ?></span>
+									<?php else : ?>
+										<?php echo $value['modifiedDate']; ?>
+									<?php endif; ?>
+								</td>
+							</tr>
+						<?php endif; ?>
 					<?php endforeach; ?>
 				</tbody>
 			</table>
