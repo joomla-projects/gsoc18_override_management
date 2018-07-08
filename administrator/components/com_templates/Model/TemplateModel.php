@@ -217,12 +217,12 @@ class TemplateModel extends FormModel
 				$ext           = pathinfo($dir . $value, PATHINFO_EXTENSION);
 				$allowedFormat = $this->checkFormat($ext);
 
-				if ($allowedFormat == true)
+				if ($allowedFormat === true)
 				{
 					$relativePath = str_replace($element, '', $dir);
 					$info = $this->storeFileInfo('/' . $relativePath, $value, $client, $template);
 
-					if($info)
+					if ($info)
 					{
 						$this->coreFileList[] = $info;
 					}
@@ -366,14 +366,14 @@ class TemplateModel extends FormModel
 			$subFolder = $explodeArray['3'];
 			$fileName  = $this->getSafeName($fileName);
 
-			// The old scheme, if a view has a tmpl folder
-			$oldHtmlPath = Path::clean($componentPath . $folder . '/views/' . $subFolder . '/tmpl/');
+			// The new scheme, if a view has a tmpl folder
+			$newHtmlPath = Path::clean($componentPath . $folder . '/tmpl/' . $subFolder . '/');
 
-			if (!$coreFile = Path::find($oldHtmlPath, $fileName))
+			if (!$coreFile = Path::find($newHtmlPath, $fileName))
 			{
-				// The new scheme, the views are directly in the component/tmpl folder
-				$newHtmlPath = Path::clean($componentPath . $folder . '/tmpl/' . $subFolder . '/');
-				$coreFile    = Path::find($newHtmlPath, $fileName);
+				// The old scheme, the views are directly in the component/tmpl folder
+				$oldHtmlPath = Path::clean($componentPath . $folder . '/views/' . $subFolder . '/tmpl/');
+				$coreFile    = Path::find($oldHtmlPath, $fileName);
 
 				return $coreFile;
 			}
@@ -458,7 +458,7 @@ class TemplateModel extends FormModel
 		$format = 'Ymd-His';
 		$valid  = Date::createFromFormat($format, $date);
 
-		return $valid && $valid->format($format) == $date;
+		return $valid && $valid->format($format) === $date;
 	}
 
 	/**
