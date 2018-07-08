@@ -70,16 +70,9 @@ class TemplateModel extends FormModel
 	/**
 	 * Method to store file information.
 	 *
-<<<<<<< HEAD
 	 * @param   string    $path      The base path.
 	 * @param   string    $name      The file name.
-	 * @param   stdClass  $template  The template element.
-=======
-	 * @param   string   $path       The base path.
-	 * @param   string   $name       The file name.
-	 * @param   integer  $client_id  The client id.
-	 * @param   string   $template   The template element.
->>>>>>> a32437240de82dbf23ca03589b23f50e1fce3188
+	 * @param   stdClass  $template  The std class object of template.
 	 *
 	 * @return  object  StdClass object.
 	 *
