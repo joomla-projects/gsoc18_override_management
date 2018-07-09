@@ -116,7 +116,7 @@ class PlgInstallerOverride extends CMSPlugin
 	/**
 	 * Method to prepare changed or updated core file.
 	 *
-	 * @param   string  $action   The name of the action.
+	 * @param   string  $action  The name of the action.
 	 *
 	 * @return   array   A list of changed files.
 	 *
