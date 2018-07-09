@@ -20,6 +20,20 @@
 		<fields name="params">
 			<fieldset name="basic">
 				<field
+					name="numupdate"
+					type="list"
+					label="PLG_INSTALLER_OVERRIDE_PLUGIN_FIELD_NUMUPDATE"
+					filter="integer"
+					default="3"
+					required="true"
+					>
+					<option value="3">3</option>
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="15">12</option>
+				</field>
+
+				<field
 					name="overridefiles"
 					type="hidden"
 					label="PLG_INSTALLER_OVERRIDE_PLUGIN_FIELD_OVERRIDEFILES_LABEL"

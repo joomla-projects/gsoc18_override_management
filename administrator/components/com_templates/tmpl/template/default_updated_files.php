@@ -19,45 +19,42 @@ use Joomla\CMS\Application\ApplicationHelper;
 $plugin = PluginHelper::getPlugin('installer', 'override');
 $params = new Registry($plugin->params);
 $result = json_decode($params->get('overridefiles'), JSON_HEX_QUOT);
-
-usort(
-	$result,
-	function ($a, $b)
-	{
-		return strcmp($a['template'], $b['template']);
-	}
-);
 ?>
 
 <div class="row">
 	<div class="col-md-12">
-		<?php if (count($result) !== 0) : ?>
-			<joomla-alert type="info" role="alert" class="joomla-alert--show">
-				<span class="icon-info" aria-hidden="true"></span>
-				<?php echo Text::_('COM_TEMPLATES_OVERRIDE_UPDATE_INFO'); ?>
-			</joomla-alert>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th style="width:25%">
-							<?php echo Text::_('COM_TEMPLATES_OVERRIDE_TEMPLATE_FILE'); ?>
-						</th>
-						<th>
-							<?php echo Text::_('COM_TEMPLATES_OVERRIDE_TEMPLATE_ELEMENT'); ?>
-						</th>
-						<th>
-							<?php echo Text::_('COM_TEMPLATES_OVERRIDE_LOCATION'); ?>
-						</th>
-						<th>
-							<?php echo Text::_('COM_TEMPLATES_OVERRIDE_MODIFIED_DATE'); ?>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ($result as $value) : ?>
+		<joomla-alert type="info" role="alert" class="joomla-alert--show">
+			<span class="icon-info" aria-hidden="true"></span>
+			<?php echo Text::_('COM_TEMPLATES_OVERRIDE_UPDATE_INFO'); ?>
+		</joomla-alert>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th style="width:25%">
+						<?php echo Text::_('COM_TEMPLATES_OVERRIDE_TEMPLATE_FILE'); ?>
+					</th>
+					<th>
+						<?php echo Text::_('COM_TEMPLATES_OVERRIDE_TEMPLATE_ELEMENT'); ?>
+					</th>
+					<th>
+						<?php echo Text::_('COM_TEMPLATES_OVERRIDE_LOCATION'); ?>
+					</th>
+					<th>
+						<?php echo Text::_('COM_TEMPLATES_OVERRIDE_MODIFIED_DATE'); ?>
+					</th>
+					<th>
+						<?php echo Text::_('COM_TEMPLATES_OVERRIDE_ACTION'); ?>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php $flag = 0; ?>
+				<?php foreach ($result as $values) : ?>
+					<?php foreach ($values as $value) : ?>
 						<?php $client = ApplicationHelper::getClientInfo($value['client']); ?>
 						<?php $path = $client->path . '/templates/' . $value['template'] . base64_decode($value['id']); ?>
 						<?php if (file_exists($path) && $this->template->extension_id === $value['extension_id']) : ?>
+							<?php $flag = 1; ?>
 							<tr>
 								<td>
 									<a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_templates&view=template&id=' . (int) $value['extension_id'] . '&file=' . $value['id']); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?>"> <?php echo base64_decode($value['id']); ?> </a>
@@ -75,12 +72,16 @@ usort(
 										<?php echo $value['modifiedDate']; ?>
 									<?php endif; ?>
 								</td>
+								<td>
+									<span class="badge badge-info"><?php echo $value['action'] ?></span>
+								</td>
 							</tr>
 						<?php endif; ?>
 					<?php endforeach; ?>
-				</tbody>
-			</table>
-		<?php else : ?>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<?php if(!$flag || count($result) === 0) : ?>
 			<joomla-alert type="success" role="alert" class="joomla-alert--show">
 				<span class="icon-info" aria-hidden="true"></span>
 				<?php echo Text::_('COM_TEMPLATES_OVERRIDE_UPTODATE'); ?>
