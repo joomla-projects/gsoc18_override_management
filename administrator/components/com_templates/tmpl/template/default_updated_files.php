@@ -57,7 +57,7 @@ usort(
 					<?php foreach ($result as $value) : ?>
 						<?php $client = ApplicationHelper::getClientInfo($value['client']); ?>
 						<?php $path = $client->path . '/templates/' . $value['template'] . base64_decode($value['id']); ?>
-						<?php if (file_exists($path)) : ?>
+						<?php if (file_exists($path) && $this->template->extension_id === $value['extension_id']) : ?>
 							<tr>
 								<td>
 									<a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_templates&view=template&id=' . (int) $value['extension_id'] . '&file=' . $value['id']); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?>"> <?php echo base64_decode($value['id']); ?> </a>
