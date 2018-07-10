@@ -57,7 +57,7 @@ $result = json_decode($params->get('overridefiles'), JSON_HEX_QUOT);
 							<?php $flag = 1; ?>
 							<tr>
 								<td>
-									<a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_templates&view=template&id=' . (int) $value['extension_id'] . '&file=' . $value['id']); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?>"> <?php echo base64_decode($value['id']); ?> </a>
+									<a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_templates&view=template&id=' . (int) $value['extension_id'] . '&file=' . $value['id']); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?>"><?php echo base64_decode($value['id']); ?></a>
 								</td>
 								<td>
 									<span class="badge badge-success"><?php echo $value['template']; ?></span>
@@ -73,7 +73,7 @@ $result = json_decode($params->get('overridefiles'), JSON_HEX_QUOT);
 									<?php endif; ?>
 								</td>
 								<td>
-									<span class="badge badge-info"><?php echo $value['action'] ?></span>
+									<span class="badge badge-info"><?php echo $value['action']; ?></span>
 								</td>
 							</tr>
 						<?php endif; ?>
