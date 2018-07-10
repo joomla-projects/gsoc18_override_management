@@ -304,7 +304,7 @@ if ($this->type == 'font')
 <?php echo $this->loadTemplate('description'); ?>
 <?php echo JHtml::_('bootstrap.endTab'); ?>
 
-<?php if ($this->pluginState['plg_installer_override']->enabled) : ?>
+<?php if ($this->pluginState) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'files', JText::_('COM_TEMPLATES_TAB_UPDATED_FILES')); ?>
 	<?php echo $this->loadTemplate('updated_files'); ?>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>

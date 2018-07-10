@@ -11,6 +11,7 @@ namespace Joomla\Component\Templates\Administrator\View\Template;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 
 /**
@@ -143,7 +144,7 @@ class HtmlView extends BaseHtmlView
 		$this->state       = $this->get('State');
 		$this->template    = $this->get('Template');
 		$this->preview     = $this->get('Preview');
-		$this->pluginState = $this->get('PluginState');
+		$this->pluginState = PluginHelper::isEnabled('installer', 'override');
 
 		$params       = ComponentHelper::getParams('com_templates');
 		$imageTypes   = explode(',', $params->get('image_formats'));

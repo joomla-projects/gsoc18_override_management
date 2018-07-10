@@ -233,27 +233,6 @@ class TemplateModel extends FormModel
 	}
 
 	/**
-	 * Method to get the state of the Installer Override Plugin.
-	 *
-	 * @return  array  Array of relevant plugins and whether they are enabled or not.
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function getPluginState()
-	{
-		$db = $this->getDbo();
-		$query = $db->getQuery(true)
-			->select('name, enabled')
-			->from($db->quoteName('#__extensions'))
-			->where($db->quoteName('type') . ' = ' . $db->quote('plugin'))
-			->where($db->quoteName('folder') . ' IN (' . $db->quote('system') . ',' . $db->quote('installer') . ')')
-			->where($db->quoteName('element') . ' = ' . $db->quote('override'));
-		$db->setQuery($query);
-
-		return $db->loadObjectList('name');
-	}
-
-	/**
 	 * Method to get a list of all the files to edit in a template.
 	 *
 	 * @return  array  A nested array of relevant files.
