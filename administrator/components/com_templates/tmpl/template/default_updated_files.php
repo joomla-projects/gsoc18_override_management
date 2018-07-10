@@ -30,12 +30,6 @@ $result = json_decode($params->get('overridefiles'), JSON_HEX_QUOT);
 						<?php echo Text::_('COM_TEMPLATES_OVERRIDE_TEMPLATE_FILE'); ?>
 					</th>
 					<th>
-						<?php echo Text::_('COM_TEMPLATES_OVERRIDE_TEMPLATE_ELEMENT'); ?>
-					</th>
-					<th>
-						<?php echo Text::_('COM_TEMPLATES_OVERRIDE_LOCATION'); ?>
-					</th>
-					<th>
 						<?php echo Text::_('COM_TEMPLATES_OVERRIDE_MODIFIED_DATE'); ?>
 					</th>
 					<th>
@@ -54,12 +48,6 @@ $result = json_decode($params->get('overridefiles'), JSON_HEX_QUOT);
 							<tr>
 								<td>
 									<a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_templates&view=template&id=' . (int) $value['extension_id'] . '&file=' . $value['id']); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?>"><?php echo base64_decode($value['id']); ?></a>
-								</td>
-								<td>
-									<span class="badge badge-success"><?php echo $value['template']; ?></span>
-								</td>
-								<td>
-									<span class="badge badge-success"><?php echo $client->name; ?></span>
 								</td>
 								<td>
 									<?php if (empty($value['modifiedDate'])) : ?>
