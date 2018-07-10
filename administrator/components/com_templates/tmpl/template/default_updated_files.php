@@ -84,7 +84,7 @@ $result = json_decode($params->get('overridefiles'), JSON_HEX_QUOT);
 		<?php if(!$flag || count($result) === 0) : ?>
 			<joomla-alert type="success" role="alert" class="joomla-alert--show">
 				<span class="icon-info" aria-hidden="true"></span>
-				<?php echo Text::_('COM_TEMPLATES_OVERRIDE_UPTODATE'); ?>
+				<?php echo Text::sprintf('COM_TEMPLATES_OVERRIDE_UPTODATE', $params->get('numupdate')); ?>
 			</joomla-alert>
 		<?php endif; ?>
 	</div>
