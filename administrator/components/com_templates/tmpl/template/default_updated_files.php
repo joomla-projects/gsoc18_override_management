@@ -23,10 +23,6 @@ $result = json_decode($params->get('overridefiles'), JSON_HEX_QUOT);
 
 <div class="row">
 	<div class="col-md-12">
-		<joomla-alert type="info" role="alert" class="joomla-alert--show">
-			<span class="icon-info" aria-hidden="true"></span>
-			<?php echo Text::_('COM_TEMPLATES_OVERRIDE_UPDATE_INFO'); ?>
-		</joomla-alert>
 		<table class="table table-striped">
 			<thead>
 				<tr>
