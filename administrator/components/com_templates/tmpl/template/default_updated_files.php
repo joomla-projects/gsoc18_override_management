@@ -18,7 +18,12 @@ use Joomla\CMS\Application\ApplicationHelper;
 
 $plugin = PluginHelper::getPlugin('installer', 'override');
 $params = new Registry($plugin->params);
-$result = json_decode($params->get('overridefiles'), JSON_HEX_QUOT);
+if (json_decode($params->get('overridefiles'), JSON_HEX_QUOT))
+{
+	$result = json_decode($params->get('overridefiles'), JSON_HEX_QUOT);
+} else {
+	$result = array();
+}
 ?>
 
 <div class="row">
