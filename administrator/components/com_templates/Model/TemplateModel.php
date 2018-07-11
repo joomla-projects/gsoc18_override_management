@@ -83,6 +83,7 @@ class TemplateModel extends FormModel
 		$temp = new \stdClass;
 		$temp->id = base64_encode($path . $name);
 		$temp->client = $template->client_id;
+		$temp->template = $template->element;
 		$temp->extension_id = $template->extension_id;
 
 		if ($coreFile = $this->getCoreFile($path . $name, $template->client_id))
