@@ -141,6 +141,7 @@ class PlgInstallerOverride extends CMSPlugin
 				if ($after[$i]->coreFile !== $before[$i]->coreFile)
 				{
 					$after[$i]->action = $action;
+					unset($after[$i]->coreFile);
 					$result[] = $after[$i];
 				}
 			}

@@ -81,10 +81,8 @@ class TemplateModel extends FormModel
 	protected function storeFileInfo($path, $name, $template)
 	{
 		$temp = new \stdClass;
-		$temp->name = $name;
 		$temp->id = base64_encode($path . $name);
 		$temp->client = $template->client_id;
-		$temp->template = $template->element;
 		$temp->extension_id = $template->extension_id;
 
 		if ($coreFile = $this->getCoreFile($path . $name, $template->client_id))
