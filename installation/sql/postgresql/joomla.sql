@@ -1568,6 +1568,24 @@ INSERT INTO "#__tags" ("id", "parent_id", "lft", "rgt", "level", "path", "title"
 SELECT setval('#__tags_id_seq', 2, false);
 
 --
+-- Table structure for table `#__template_overrides`
+--
+
+CREATE TABLE IF NOT EXISTS "#__template_overrides" (
+  "id" serial NOT NULL,
+  "template" varchar(50) DEFAULT '' NOT NULL,
+  "state" smallint DEFAULT 0 NOT NULL,
+  "hash_id" varchar(255) DEFAULT '' NOT NULL,
+  "client_id" smallint DEFAULT 0 NOT NULL,
+  "extension_id" bigint DEFAULT 0,
+  "created_date" timestamp without time zone DEFAULT '1970-01-01 00:00:00' NOT NULL,
+  "modified_date" timestamp without time zone DEFAULT '1970-01-01 00:00:00' NOT NULL,
+  PRIMARY KEY ("id")
+);
+CREATE INDEX "#__template_overrides_idx_template" ON "#__template_overrides" ("template");
+CREATE INDEX "#__template_overrides_idx_extension_id" ON "#__template_overrides" ("extension_id");
+
+--
 -- Table structure for table `#__template_styles`
 --
 

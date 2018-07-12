@@ -1563,6 +1563,26 @@ INSERT INTO `#__tags` (`id`, `parent_id`, `lft`, `rgt`, `level`, `path`, `title`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `#__template_overrides`
+--
+
+CREATE TABLE IF NOT EXISTS `#__template_overrides` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `template` varchar(50) NOT NULL DEFAULT '',
+  `state` tinyint(1) NOT NULL DEFAULT 0,
+  `hash_id` varchar(255) NOT NULL DEFAULT '',
+  `client_id` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `extension_id` int(11) DEFAULT 0,
+  `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `idx_template` (`template`),
+  KEY `idx_extension_id` (`extension_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=9;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `#__template_styles`
 --
 
