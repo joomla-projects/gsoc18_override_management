@@ -145,6 +145,7 @@ class HtmlView extends BaseHtmlView
 		$this->template    = $this->get('Template');
 		$this->preview     = $this->get('Preview');
 		$this->pluginState = PluginHelper::isEnabled('installer', 'override');
+		$this->updatedList = $this->get('UpdatedList'); 
 
 		$params       = ComponentHelper::getParams('com_templates');
 		$imageTypes   = explode(',', $params->get('image_formats'));
