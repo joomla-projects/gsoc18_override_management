@@ -135,9 +135,16 @@
 
         if (cStateActiveSwitchDiff === 'jform_show_diff0' && JformShowDiff) {
           diffMain.style.display = 'none';
+		  setTimeout(function () {
+					console.log(JformShowDiff.spans);
+			}, 500);
           // console.log('Todo set state of jform_show_diff');
         } else if (cStateActiveSwitchDiff === 'jform_show_diff1' && JformShowDiff) {
           diffMain.style.display = 'block';
+		  setTimeout(function () {
+					console.log(JformShowDiff.spans);
+			}, 500);
+
           // console.log('Todo set state of jform_show_diff');
         }
       }
