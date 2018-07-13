@@ -299,8 +299,15 @@ class PlgInstallerOverride extends CMSPlugin
 			$query->clear('values');
 
 			// Insert values.
-			$values = array($this->db->quote($pk->template), $this->db->quote($pk->id), $this->db->quote($pk->extension_id), 0, $this->db->quote($pk->action), (int) $pk->client, $this->db->quote($pk->modifiedDate),
-							$this->db->quote($pk->modifiedDate));
+			$values = array(
+				$this->db->quote($pk->template),
+				$this->db->quote($pk->id),
+				$this->db->quote($pk->extension_id),
+				0,
+				$this->db->quote($pk->action),
+				(int) $pk->client, $this->db->quote($pk->modifiedDate),
+				$this->db->quote($pk->modifiedDate)
+			);
 
 			$query->values(implode(',', $values));
 
