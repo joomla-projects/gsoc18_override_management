@@ -162,7 +162,7 @@ class TemplateModel extends FormModel
 		$template = $this->getTemplate();
 
 		$query->from($db->quoteName('#__template_overrides', 'a'))
-			->where('extension_id = '	 . $db->quote($template->extension_id));
+			->where('extension_id = ' . $db->quote($template->extension_id));
 
 		// Reset the query.
 		$db->setQuery($query);
