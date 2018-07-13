@@ -1,9 +1,4 @@
 /**
-* PLEASE DO NOT MODIFY THIS FILE. WORK ON THE ES6 VERSION.
-* OTHERWISE YOUR CHANGES WILL BE REPLACED ON THE NEXT BUILD.
-**/
-
-/**
  * PLEASE DO NOT MODIFY THIS FILE. WORK ON THE ES6 VERSION.
  * OTHERWISE YOUR CHANGES WILL BE REPLACED ON THE NEXT BUILD.
  * */
@@ -13,9 +8,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 (function () {
-  document.addEventListener('DOMContentLoaded', function () {
-    var decodeHtmlspecialChars = function decodeHtmlspecialChars(text) {
-      var map = {
+  document.addEventListener('DOMContentLoaded', () => {
+    const decodeHtmlspecialChars = function decodeHtmlspecialChars(text) {
+      const map = {
         '&amp;': '&',
         '&#038;': '&',
         '&lt;': '<',
@@ -27,23 +22,23 @@
         '&#8211;': '–',
         '&#8212;': '—',
         '&#8230;': '…',
-        '&#8221;': '”'
+        '&#8221;': '”',
       };
 
-      return text.replace(/\&[\w\d\#]{2,5}\;/g, function (m) {
-        var n = map[m];
+      return text.replace(/\&[\w\d\#]{2,5}\;/g, (m) => {
+        const n = map[m];
         return n;
       });
     };
 
-    var compare = function compare(original, changed) {
-      var display = changed.nextElementSibling;
-      var color = '';
-      var pre = null;
-      var diff = JsDiff.diffLines(original.innerHTML, changed.innerHTML);
-      var fragment = document.createDocumentFragment();
+    const compare = function compare(original, changed) {
+      const display = changed.nextElementSibling;
+      let color = '';
+      let pre = null;
+      const diff = JsDiff.diffLines(original.innerHTML, changed.innerHTML);
+      const fragment = document.createDocumentFragment();
 
-      diff.forEach(function (part) {
+      diff.forEach((part) => {
         if (part.added) {
           color = '#a6f3a6';
         } else if (part.removed) {
@@ -61,18 +56,19 @@
       display.appendChild(fragment);
     };
 
-    var override = document.getElementById('override-pane');
-    var corePane = document.getElementById('core-pane');
-    var diffMain = document.getElementById('diff-main');
 
-    var conditionalSection = document.getElementById('conditional-section');
+    const override = document.getElementById('override-pane');
+    const corePane = document.getElementById('core-pane');
+    const diffMain = document.getElementById('diff-main');
 
-    var JformShowCore = document.getElementById('jform_show_core');
-    var JformShowDiff = document.getElementById('jform_show_diff');
+    const conditionalSection = document.getElementById('conditional-section');
+
+    const JformShowCore = document.getElementById('jform_show_core');
+    const JformShowDiff = document.getElementById('jform_show_diff');
 
     if (JformShowCore && corePane) {
-      JformShowCore.addEventListener('change', function (e) {
-        var displayCore = corePane.style.display;
+      JformShowCore.addEventListener('change', (e) => {
+        const displayCore = corePane.style.display;
 
         if (displayCore === 'none' && e.target.id === 'jform_show_core1') {
           corePane.style.display = 'block';
@@ -83,8 +79,8 @@
           override.className = 'col-md-12';
         }
 
-        var coreState = {
-          activeSwitch: e.target.id
+        const coreState = {
+          activeSwitch: e.target.id,
         };
 
         if (typeof Storage !== 'undefined') {
@@ -94,8 +90,8 @@
     }
 
     if (JformShowDiff && diffMain) {
-      JformShowDiff.addEventListener('change', function (e) {
-        var displayDiff = diffMain.style.display;
+      JformShowDiff.addEventListener('change', (e) => {
+        const displayDiff = diffMain.style.display;
 
         if (displayDiff === 'none' && e.target.id === 'jform_show_diff1') {
           diffMain.style.display = 'block';
@@ -103,8 +99,8 @@
           diffMain.style.display = 'none';
         }
 
-        var diffState = {
-          activeSwitch: e.target.id
+        const diffState = {
+          activeSwitch: e.target.id,
         };
 
         if (typeof Storage !== 'undefined') {
@@ -113,13 +109,13 @@
       });
     }
 
-    var setPrestate = function setPrestate() {
+    const setPrestate = function setPrestate() {
       if (typeof Storage !== 'undefined') {
         // Fetch the Storage elements
-        var cState = JSON.parse(localStorage.getItem('coreSwitchState'));
-        var dState = JSON.parse(localStorage.getItem('diffSwitchState'));
-        var cStateActiveSwitchCore = 'jform_show_core0';
-        var cStateActiveSwitchDiff = 'jform_show_diff0';
+        const cState = JSON.parse(localStorage.getItem('coreSwitchState'));
+        const dState = JSON.parse(localStorage.getItem('diffSwitchState'));
+        let cStateActiveSwitchCore = 'jform_show_core0';
+        let cStateActiveSwitchDiff = 'jform_show_diff0';
 
         if (cState.activeSwitch !== undefined) {
           cStateActiveSwitchCore = cState.activeSwitch;
@@ -131,7 +127,7 @@
         } else if (cStateActiveSwitchCore === 'jform_show_core1' && JformShowCore) {
           corePane.style.display = 'block';
           override.className = 'col-md-6';
-          setTimeout(function () {
+          setTimeout(() => {
             JformShowCore.inputs[1].parentNode.classList.add('active');
             JformShowCore.inputs[1].checked = true;
             JformShowCore.inputs[0].checked = false;
@@ -148,7 +144,7 @@
           diffMain.style.display = 'none';
         } else if (cStateActiveSwitchDiff === 'jform_show_diff1' && JformShowDiff) {
           diffMain.style.display = 'block';
-          setTimeout(function () {
+          setTimeout(() => {
             JformShowDiff.inputs[1].parentNode.classList.add('active');
             JformShowDiff.inputs[1].checked = true;
             JformShowDiff.inputs[0].checked = false;
@@ -166,10 +162,10 @@
       override.className = 'col-md-12';
     }
 
-    var diffs = [].slice.call(document.querySelectorAll('#original'));
+    const diffs = [].slice.call(document.querySelectorAll('#original'));
 
-    for (var i = 0, l = diffs.length; i < l; i += 1) {
+    for (let i = 0, l = diffs.length; i < l; i += 1) {
       compare(diffs[i], diffs[i].nextElementSibling);
     }
   });
-})();
+}());
