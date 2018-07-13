@@ -137,6 +137,56 @@ class TemplateModel extends FormModel
 	}
 
 	/**
+	 * Method to get all updated file list.
+	 *
+	 * @return  object  stdClass object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function getUpdatedList()
+	{
+		// Get a db connection.
+		$db = Factory::getDbo();
+
+		// Create a new query object.
+		$query = $db->getQuery(true);
+
+		// Select the required fields from the table
+		$query->select(
+			$this->getState(
+				'list.select',
+				'a.template, a.hash_id, a.extension_id, a.state, a.action, a.client_id, a.created_date, a.modified_date'
+			)
+		);
+
+		$template = $this->getTemplate();
+
+		$query->from($db->quoteName('#__template_overrides', 'a'))
+			->where('extension_id = '	 . $db->quote($template->extension_id));
+
+		// Reset the query.
+		$db->setQuery($query);
+
+		// Load the results as a list of stdClass objects.
+		$pks = $db->loadObjectList();
+
+		$results = array();
+
+		foreach ($pks as $pk)
+		{
+			$client = ApplicationHelper::getClientInfo($pk->client_id);
+			$path = $client->path . '/templates/' . $pk->template . base64_decode($pk->hash_id);
+
+			if (file_exists($path))
+			{
+				$results[] = $pk;
+			}
+		}
+
+		return $results;
+	}
+
+	/**
 	 * Method to get a list of all the core files of override files.
 	 *
 	 * @return  array  A array of all core files.
