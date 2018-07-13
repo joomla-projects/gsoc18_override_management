@@ -1579,7 +1579,7 @@ CREATE TABLE IF NOT EXISTS `#__template_overrides` (
   PRIMARY KEY (`id`),
   KEY `idx_template` (`template`),
   KEY `idx_extension_id` (`extension_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=9;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
