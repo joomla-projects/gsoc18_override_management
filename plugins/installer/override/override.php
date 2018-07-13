@@ -183,31 +183,9 @@ class PlgInstallerOverride extends CMSPlugin
 		{
 			$span = '<span class="badge badge-light">' . $num . '</span>';
 			$this->app->enqueueMessage(Text::sprintf('PLG_INSTALLER_OVERRIDE_FILE_UPDATED', $span), 'notice');
+			$this->saveOverrides($result);
 		}
 
-		$oldData = json_decode($this->params->get('overridefiles'), JSON_HEX_QUOT);
-
-		$results = array();
-		$results[] = $result;
-
-		foreach ($oldData as $value)
-		{
-			if (count($value) !== 0)
-			{
-				$results[] = $value;
-			}
-		}
-
-		$numupdate = (int) $this->params->get('numupdate');
-
-		if (count($results) > $numupdate)
-		{
-			$results = array_slice($results, 0, $numupdate);
-		}
-
-		$this->params->set('overridefiles', json_encode($results, JSON_HEX_QUOT));
-
-		return $this->saveParams();
 	}
 
 	/**
@@ -289,55 +267,53 @@ class PlgInstallerOverride extends CMSPlugin
 	}
 
 	/**
-	 * Save the plugin parameters
+	 * Save the updated files.
+	 *
+	 * @param   array  $pks  Updated files.
 	 *
 	 * @return  boolean
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	private function saveParams()
+	private function saveOverrides($pks)
 	{
+		// Insert columns.
+		$columns = array(
+			'template',
+			'hash_id',
+			'extension_id',
+			'state',
+			'action',
+			'client_id',
+			'created_date',
+			'modified_date'
+		);
+
+		// Create a insert query.
 		$query = $this->db->getQuery(true)
-				->update($this->db->quoteName('#__extensions'))
-				->set($this->db->quoteName('params') . ' = ' . $this->db->quote($this->params->toString('JSON')))
-				->where($this->db->quoteName('type') . ' = ' . $this->db->quote('plugin'))
-				->where($this->db->quoteName('folder') . ' = ' . $this->db->quote('installer'))
-				->where($this->db->quoteName('element') . ' = ' . $this->db->quote('override'));
+						->insert($this->db->quoteName('#__template_overrides'))
+						->columns($this->db->quoteName($columns));
 
-		try
+		foreach ($pks as $pk)
 		{
-			// Lock the tables to prevent multiple plugin executions causing a race condition
-			$this->db->lockTable('#__extensions');
-		}
-		catch (Exception $e)
-		{
-			// If we can't lock the tables it's too risky to continue execution
-			return false;
-		}
+			$query->clear('values');
 
-		try
-		{
-			// Update the plugin parameters
-			$result = $this->db->setQuery($query)->execute();
-		}
-		catch (Exception $exc)
-		{
-			// If we failed to execute
-			$this->db->unlockTables();
-			$result = false;
-		}
+			// Insert values.
+			$values = array($this->db->quote($pk->template), $this->db->quote($pk->id), $this->db->quote($pk->extension_id), 0, $this->db->quote($pk->action), (int) $pk->client, $this->db->quote($pk->modifiedDate),
+							$this->db->quote($pk->modifiedDate));
 
-		try
-		{
-			// Unlock the tables after writing
-			$this->db->unlockTables();
-		}
-		catch (Exception $e)
-		{
-			// If we can't lock the tables assume we have somehow failed
-			$result = false;
-		}
+			$query->values(implode(',', $values));
 
-		return $result;
+			try
+			{
+				// Set the query using our newly populated query object and execute it.
+				$this->db->setQuery($query);
+				$this->db->execute();
+			}
+			catch (\RuntimeException $e)
+			{
+				return $e;
+			}
+		}
 	}
 }
