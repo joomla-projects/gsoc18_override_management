@@ -25,7 +25,7 @@ JHtml::_('script', 'com_templates/admin-template-compare.min.js', array('version
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tabstate');
-JHtml::_('behavior.multiselect');
+JHtml::_('behavior.multiselect', 'updateForm');
 
 $input = JFactory::getApplication()->input;
 
