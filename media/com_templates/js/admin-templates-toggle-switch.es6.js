@@ -1,4 +1,9 @@
 /**
+* PLEASE DO NOT MODIFY THIS FILE. WORK ON THE ES6 VERSION.
+* OTHERWISE YOUR CHANGES WILL BE REPLACED ON THE NEXT BUILD.
+* */
+
+/**
  * PLEASE DO NOT MODIFY THIS FILE. WORK ON THE ES6 VERSION.
  * OTHERWISE YOUR CHANGES WILL BE REPLACED ON THE NEXT BUILD.
  * */
@@ -9,54 +14,6 @@
  */
 (function () {
   document.addEventListener('DOMContentLoaded', () => {
-    const decodeHtmlspecialChars = function decodeHtmlspecialChars(text) {
-      const map = {
-        '&amp;': '&',
-        '&#038;': '&',
-        '&lt;': '<',
-        '&gt;': '>',
-        '&quot;': '"',
-        '&#039;': "'",
-        '&#8217;': '’',
-        '&#8216;': '‘',
-        '&#8211;': '–',
-        '&#8212;': '—',
-        '&#8230;': '…',
-        '&#8221;': '”',
-      };
-
-      return text.replace(/\&[\w\d\#]{2,5}\;/g, (m) => {
-        const n = map[m];
-        return n;
-      });
-    };
-
-    const compare = function compare(original, changed) {
-      const display = changed.nextElementSibling;
-      let color = '';
-      let pre = null;
-      const diff = JsDiff.diffLines(original.innerHTML, changed.innerHTML);
-      const fragment = document.createDocumentFragment();
-
-      diff.forEach((part) => {
-        if (part.added) {
-          color = '#a6f3a6';
-        } else if (part.removed) {
-          color = '#f8cbcb';
-        } else {
-          color = '';
-        }
-        pre = document.createElement('pre');
-        pre.style.backgroundColor = color;
-        pre.className = 'diffview';
-        pre.appendChild(document.createTextNode(decodeHtmlspecialChars(part.value)));
-        fragment.appendChild(pre);
-      });
-
-      display.appendChild(fragment);
-    };
-
-
     const override = document.getElementById('override-pane');
     const corePane = document.getElementById('core-pane');
     const diffMain = document.getElementById('diff-main');
@@ -73,18 +30,18 @@
         if (displayCore === 'none' && e.target.id === 'jform_show_core1') {
           corePane.style.display = 'block';
           override.className = 'col-md-6';
+          JformShowCore.spans[0].classList.remove('active');
+          JformShowCore.spans[1].classList.add('active');
           Joomla.editors.instances.jform_core.refresh();
         } else if (displayCore === 'block' && e.target.id === 'jform_show_core0') {
+          JformShowCore.spans[0].classList.add('active');
+          JformShowCore.spans[1].classList.remove('active');
           corePane.style.display = 'none';
           override.className = 'col-md-12';
         }
 
-        const coreState = {
-          activeSwitch: e.target.id,
-        };
-
         if (typeof Storage !== 'undefined') {
-          localStorage.setItem('coreSwitchState', JSON.stringify(coreState));
+          localStorage.setItem('coreSwitchState', e.target.id);
         }
       });
     }
@@ -95,30 +52,30 @@
 
         if (displayDiff === 'none' && e.target.id === 'jform_show_diff1') {
           diffMain.style.display = 'block';
+          JformShowDiff.spans[0].classList.remove('active');
+          JformShowDiff.spans[1].classList.add('active');
         } else if (displayDiff === 'block' && e.target.id === 'jform_show_diff0') {
+          JformShowDiff.spans[0].classList.add('active');
+          JformShowDiff.spans[1].classList.remove('active');
           diffMain.style.display = 'none';
         }
 
-        const diffState = {
-          activeSwitch: e.target.id,
-        };
-
         if (typeof Storage !== 'undefined') {
-          localStorage.setItem('diffSwitchState', JSON.stringify(diffState));
+          localStorage.setItem('diffSwitchState', e.target.id);
         }
       });
     }
 
     const setPrestate = function setPrestate() {
-      if (typeof Storage !== 'undefined') {
-        // Fetch the Storage elements
-        const cState = JSON.parse(localStorage.getItem('coreSwitchState'));
-        const dState = JSON.parse(localStorage.getItem('diffSwitchState'));
+      // Fetch the Storage elements
+      const cState = localStorage.getItem('coreSwitchState');
+      const dState = localStorage.getItem('diffSwitchState');
+      if (typeof Storage !== 'undefined' && (cState || dState)) {
         let cStateActiveSwitchCore = 'jform_show_core0';
         let cStateActiveSwitchDiff = 'jform_show_diff0';
 
-        if (cState.activeSwitch !== undefined) {
-          cStateActiveSwitchCore = cState.activeSwitch;
+        if (cState) {
+          cStateActiveSwitchCore = cState;
         }
 
         if (cStateActiveSwitchCore === 'jform_show_core0' && JformShowCore) {
@@ -136,8 +93,8 @@
           }, 500);
         }
 
-        if (dState.activeSwitch !== undefined) {
-          cStateActiveSwitchDiff = dState.activeSwitch;
+        if (dState) {
+          cStateActiveSwitchDiff = dState;
         }
 
         if (cStateActiveSwitchDiff === 'jform_show_diff0' && JformShowDiff) {
@@ -160,12 +117,6 @@
     } else if (override && conditionalSection) {
       conditionalSection.className = 'col-md-12';
       override.className = 'col-md-12';
-    }
-
-    const diffs = [].slice.call(document.querySelectorAll('#original'));
-
-    for (let i = 0, l = diffs.length; i < l; i += 1) {
-      compare(diffs[i], diffs[i].nextElementSibling);
     }
   });
 }());

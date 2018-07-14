@@ -20,7 +20,8 @@ JText::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_DIFF');
 JText::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_DIFF');
 
 JHtml::_('script', 'vendor/diff/diff.min.js', array('version' => 'auto', 'relative' => true));
-JHtml::_('script', 'com_templates/admin-template-compare.min.js', array('version' => 'auto', 'relative' => true));
+JHtml::_('script', 'com_templates/admin-templates-compare.min.js', array('version' => 'auto', 'relative' => true));
+JHtml::_('script', 'com_templates/admin-templates-toggle-switch.min.js', array('version' => 'auto', 'relative' => true));
 
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');

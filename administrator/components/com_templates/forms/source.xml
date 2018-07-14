@@ -41,7 +41,6 @@
 		<field
 			name="show_core"
 			type="radio"
-			disabled="true"
 			class="switcher switcher-primary"
 			default="0"
 		>

@@ -45,6 +45,7 @@
 	border: 0.5px solid grey;
 	overflow: auto;
 	padding: 10px;
+	background-color: #FFF;
 }
 
 #core-pane .CodeMirror-code {
@@ -53,5 +54,5 @@
 
 #jform_show_core, #jform_show_diff {
 	display: inline;
-	margin-right: 70px;
+	margin-right: 4em;
 }
