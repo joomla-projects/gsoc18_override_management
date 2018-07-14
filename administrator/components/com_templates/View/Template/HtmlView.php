@@ -284,7 +284,7 @@ class HtmlView extends BaseHtmlView
 
 		if (count($this->updatedList) !==0)
 		{
-			\JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'template.deleteHistory', 'JTOOLBAR_DELETE');
+			\JToolbarHelper::custom('template.deleteOverrideHistory', 'delete', 'move', 'JTOOLBAR_DELETE', true, 'updateForm');
 		}
 
 		if ($this->type == 'home')

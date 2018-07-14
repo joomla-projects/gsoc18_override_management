@@ -60,7 +60,6 @@ $input = Factory::getApplication()->input;
 										<?php echo $value->modified_date; ?>
 									<?php endif; ?>
 								</td>
-
 								<td>
 									<span class="badge badge-info"><?php echo $value->action; ?></span>
 								</td>
