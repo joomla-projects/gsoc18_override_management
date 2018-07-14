@@ -129,7 +129,12 @@ Joomla.Modal = {
 	 * @returns {void}
 	 */
 	Joomla.submitbutton = function( task, formSelector, validate ) {
-		var form = document.querySelector( '#' + formSelector || 'form.form-validate' );
+		var form = document.querySelector( formSelector || 'form.form-validate' );
+
+		if (typeof formSelector === 'string' && form === null)
+		{
+			var form = document.querySelector( '#' + formSelector);
+		}
 
 		if (form) {
 
