@@ -18,10 +18,26 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 function show_diff_changed() {
-	alert('show diff changed');
+	var JformShowDiff = document.getElementById('jform_show_diff');
+	if (JformShowDiff.inputs[0] && JformShowDiff.inputs[0].checked === true)
+	{
+		console.log('hide diff');
+	}
+	if (JformShowDiff.inputs[0] && JformShowDiff.inputs[0].checked === false)
+	{
+		console.log('show diff');
+	}
 }
 function show_core_changed() {
-	alert('show core changed');
+	var JformShowCore = document.getElementById('jform_show_core');
+	if (JformShowCore.inputs[0] && JformShowCore.inputs[0].checked === true)
+	{
+		console.log('hide core');
+	}
+	if (JformShowCore.inputs[0] && JformShowCore.inputs[0].checked === false)
+	{
+		console.log('show core');
+	}
 }
 (function () {
 	document.addEventListener('DOMContentLoaded', function () {
