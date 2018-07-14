@@ -168,7 +168,8 @@ abstract class JHtmlJGrid
 	 * @see     JHtmlJGrid::state()
 	 * @since   1.6
 	 */
-	public static function published($value, $i, $prefix = '', $enabled = true, $checkbox = 'cb', $publish_up = null, $publish_down = null, $formId = null)
+	public static function published($value, $i, $prefix = '', $enabled = true, $checkbox = 'cb', $publish_up = null, $publish_down = null,
+		$formId = null)
 	{
 		if (is_array($prefix))
 		{
@@ -406,7 +407,8 @@ abstract class JHtmlJGrid
 	 *
 	 * @since   1.6
 	 */
-	public static function orderDown($i, $task = 'orderdown', $prefix = '', $text = 'JLIB_HTML_MOVE_DOWN', $enabled = true, $checkbox = 'cb', $formId = null)
+	public static function orderDown($i, $task = 'orderdown', $prefix = '', $text = 'JLIB_HTML_MOVE_DOWN', $enabled = true, $checkbox = 'cb',
+		$formId = null)
 	{
 		if (is_array($prefix))
 		{
