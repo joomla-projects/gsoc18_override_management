@@ -158,17 +158,17 @@ abstract class JHtmlJGrid
 	 * @param   integer       $i             The row index
 	 * @param   string|array  $prefix        An optional task prefix or an array of options
 	 * @param   boolean       $enabled       An optional setting for access control on the action.
-	 * @param   string        $formId        An optional form selector.
 	 * @param   string        $checkbox      An optional prefix for checkboxes.
 	 * @param   string        $publish_up    An optional start publishing date.
 	 * @param   string        $publish_down  An optional finish publishing date.
+	 * @param   string        $formId        An optional form selector.
 	 *
 	 * @return  string  The HTML markup
 	 *
 	 * @see     JHtmlJGrid::state()
 	 * @since   1.6
 	 */
-	public static function published($value, $i, $prefix = '', $enabled = true, $formId = null, $checkbox = 'cb', $publish_up = null, $publish_down = null)
+	public static function published($value, $i, $prefix = '', $enabled = true, $checkbox = 'cb', $publish_up = null, $publish_down = null, $formId = null)
 	{
 		if (is_array($prefix))
 		{
@@ -255,15 +255,15 @@ abstract class JHtmlJGrid
 	 * @param   integer       $i         The row index
 	 * @param   string|array  $prefix    An optional task prefix or an array of options
 	 * @param   boolean       $enabled   An optional setting for access control on the action.
-	 * @param   string        $formId    An optional form selector.
 	 * @param   string        $checkbox  An optional prefix for checkboxes.
+	 * @param   string        $formId    An optional form selector.
 	 *
 	 * @return  string  The HTML markup
 	 *
 	 * @see     JHtmlJGrid::state()
 	 * @since   1.6
 	 */
-	public static function isdefault($value, $i, $prefix = '', $enabled = true, $formId = null, $checkbox = 'cb')
+	public static function isdefault($value, $i, $prefix = '', $enabled = true, $checkbox = 'cb', $formId = null)
 	{
 		if (is_array($prefix))
 		{
@@ -334,14 +334,14 @@ abstract class JHtmlJGrid
 	 * @param   string        $time        The time that the object was checked out.
 	 * @param   string|array  $prefix      An optional task prefix or an array of options
 	 * @param   boolean       $enabled     True to enable the action.
-	 * @param   string        $formId      An optional form selector.
 	 * @param   string        $checkbox    An optional prefix for checkboxes.
+	 * @param   string        $formId      An optional form selector.
 	 *
 	 * @return  string  The HTML markup
 	 *
 	 * @since   1.6
 	 */
-	public static function checkedout($i, $editorName, $time, $prefix = '', $enabled = false, $formId = null, $checkbox = 'cb')
+	public static function checkedout($i, $editorName, $time, $prefix = '', $enabled = false, $checkbox = 'cb', $formId = null)
 	{
 		if (is_array($prefix))
 		{
@@ -370,14 +370,14 @@ abstract class JHtmlJGrid
 	 * @param   string|array  $prefix    An optional task prefix or an array of options
 	 * @param   string        $text      An optional text to display
 	 * @param   boolean       $enabled   An optional setting for access control on the action.
-	 * @param   string        $formId    An optional form selector.
 	 * @param   string        $checkbox  An optional prefix for checkboxes.
+	 * @param   string        $formId    An optional form selector.
 	 *
 	 * @return  string  The HTML markup
 	 *
 	 * @since   1.6
 	 */
-	public static function orderUp($i, $task = 'orderup', $prefix = '', $text = 'JLIB_HTML_MOVE_UP', $enabled = true, $formId = null, $checkbox = 'cb')
+	public static function orderUp($i, $task = 'orderup', $prefix = '', $text = 'JLIB_HTML_MOVE_UP', $enabled = true, $checkbox = 'cb', $formId = null)
 	{
 		if (is_array($prefix))
 		{
@@ -399,14 +399,14 @@ abstract class JHtmlJGrid
 	 * @param   string|array  $prefix    An optional task prefix or an array of options
 	 * @param   string        $text      An optional text to display
 	 * @param   boolean       $enabled   An optional setting for access control on the action.
-	 * @param   string        $formId    An optional form selector.
 	 * @param   string        $checkbox  An optional prefix for checkboxes.
+	 * @param   string        $formId    An optional form selector.
 	 *
 	 * @return  string  The HTML markup
 	 *
 	 * @since   1.6
 	 */
-	public static function orderDown($i, $task = 'orderdown', $prefix = '', $text = 'JLIB_HTML_MOVE_DOWN', $enabled = true, $formId = null, $checkbox = 'cb')
+	public static function orderDown($i, $task = 'orderdown', $prefix = '', $text = 'JLIB_HTML_MOVE_DOWN', $enabled = true, $checkbox = 'cb', $formId = null)
 	{
 		if (is_array($prefix))
 		{

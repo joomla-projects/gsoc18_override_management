@@ -142,13 +142,13 @@ abstract class JHtmlGrid
 	 * @param   boolean  $checkedOut  True if item is checked out
 	 * @param   string   $name        The name of the form element
 	 * @param   string   $stub        The name of stub identifier
-	 * @param   string   $form        An optional form selector.
+	 * @param   string   $formId      An optional form selector.
 	 *
 	 * @return  mixed    String of html with a checkbox if item is not checked out, null if checked out.
 	 *
 	 * @since   1.5
 	 */
-	public static function id($rowNum, $recId, $formId = null, $checkedOut = false, $name = 'cid', $stub = 'cb')
+	public static function id($rowNum, $recId, $checkedOut = false, $name = 'cid', $stub = 'cb', $formId = null)
 	{
 		if ($formId !== null)
 		{
