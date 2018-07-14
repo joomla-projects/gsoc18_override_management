@@ -43,7 +43,7 @@
 			type="radio"
 			class="switcher switcher-primary"
 			default="0"
-			onchange="show_core_changed"
+			onchange="showCoreChanged"
 		>
 			<option value="0">COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_CORE</option>
 			<option value="1">COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_CORE</option>
@@ -54,7 +54,7 @@
 			type="radio"
 			class="switcher switcher-primary"
 			default="0"
-			onchange="show_diff_changed"
+			onchange="showDiffChanged"
 		>
 			<option value="0">COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_DIFF</option>
 			<option value="1">COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_DIFF</option>
