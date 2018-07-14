@@ -62,12 +62,12 @@ class StandardButton extends BasicButton
 	/**
 	 * Fetch the HTML for the button
 	 *
-	 * @param   string   $type  Unused string.
-	 * @param   string   $name  The name of the button icon class.
-	 * @param   string   $text  Button text.
-	 * @param   string   $task  Task associated with the button.
-	 * @param   boolean  $list  True to allow lists
-	 * @param   string  $formId The id of action form.
+	 * @param   string   $type    Unused string.
+	 * @param   string   $name    The name of the button icon class.
+	 * @param   string   $text    Button text.
+	 * @param   string   $task    Task associated with the button.
+	 * @param   boolean  $list    True to allow lists
+	 * @param   string   $formId  The id of action form.
 	 *
 	 * @return  string  HTML string for the button
 	 *
