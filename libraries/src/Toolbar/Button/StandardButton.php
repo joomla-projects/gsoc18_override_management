@@ -77,7 +77,7 @@ class StandardButton extends BasicButton
 	 */
 	public function fetchButton($type = 'Standard', $name = '', $text = '', $task = '', $list = true, $formId = null)
 	{
-		if($formId !== null)
+		if ($formId !== null)
 		{
 			$this->name($name)
 				->text($text)
