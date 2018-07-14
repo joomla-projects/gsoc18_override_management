@@ -17,17 +17,20 @@ use Joomla\CMS\Factory;
 $input = Factory::getApplication()->input;
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_templates&view=template&id=' . $input->getInt('id') . '&file=' . $this->file); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_templates&view=template&id=' . $input->getInt('id') . '&file=' . $this->file); ?>" method="post" name="updateForm" id="updateForm">
 	<div class="row">
 		<div class="col-md-12">
 			<?php if(count($this->updatedList) !== 0) : ?>
 				<table class="table">
 					<thead>
 						<tr>
-							<th style="width:1%" class="nowrap text-center">
+							<th style="width:5%" class="nowrap text-center">
 								<?php echo HTMLHelper::_('grid.checkall'); ?>
 							</th>
-							<th style="width:25%">
+							<th style="width:7%" class="nowrap">
+								<?php echo Text::_('JSTATUS'); ?>
+							</th>
+							<th style="width:30%">
 								<?php echo Text::_('COM_TEMPLATES_OVERRIDE_TEMPLATE_FILE'); ?>
 							</th>
 							<th>
@@ -42,7 +45,10 @@ $input = Factory::getApplication()->input;
 						<?php foreach ($this->updatedList as $i => $value) : ?>
 							<tr class="row<?php echo $i % 2; ?>">
 								<td class="text-center">
-									<?php echo HTMLHelper::_('grid.id', $i, $value->hash_id); ?>
+									<?php echo HTMLHelper::_('grid.id', $i, $value->hash_id, false, 'cid', 'cb', 'updateForm'); ?>
+								</td>
+								<td>
+									<?php echo HTMLHelper::_('jgrid.published', $value->state, $i, 'template.', 1, 'cb', null, null, 'updateForm'); ?>
 								</td>
 								<td>
 									<a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_templates&view=template&id=' . (int) $value->extension_id . '&file=' . $value->hash_id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?>"><?php echo base64_decode($value->hash_id); ?></a>
@@ -54,6 +60,7 @@ $input = Factory::getApplication()->input;
 										<?php echo $value->modified_date; ?>
 									<?php endif; ?>
 								</td>
+
 								<td>
 									<span class="badge badge-info"><?php echo $value->action; ?></span>
 								</td>
@@ -63,7 +70,7 @@ $input = Factory::getApplication()->input;
 				</table>
 				<input type="hidden" name="task" value="">
 				<input type="hidden" name="boxchecked" value="0">
-				<?php echo JHtml::_('form.token'); ?>
+				<?php echo HTMLHelper::_('form.token'); ?>
 			<?php else : ?>
 				<joomla-alert type="success" role="alert" class="joomla-alert--show">
 					<span class="icon-info" aria-hidden="true"></span>
