@@ -41,6 +41,7 @@ class TemplateController extends BaseController
 		$this->registerTask('apply', 'save');
 		$this->registerTask('unpublish', 'publish');
 		$this->registerTask('publish',   'publish');
+		$this->registerTask('deleteOverrideHistory', 'publish');
 	}
 
 	/**
@@ -88,7 +89,7 @@ class TemplateController extends BaseController
 		$id   = $this->input->get('id');
 
 		$ids    = $this->input->get('cid', array(), 'array');
-		$values = array('publish' => 1, 'unpublish' => 0);
+		$values = array('publish' => 1, 'unpublish' => 0, 'deleteOverrideHistory' => -3);
 		$task   = $this->getTask();
 		$value  = ArrayHelper::getValue($values, $task, 0, 'int');
 
@@ -112,9 +113,13 @@ class TemplateController extends BaseController
 				{
 					$ntext = 'COM_TEMPLATES_N_OVERRIDE_CHECKED';
 				}
-				else
+				else if ($value == 0)
 				{
 					$ntext = 'COM_TEMPLATES_N_OVERRIDE_UNCHECKED';
+				}
+				else if ($value === -3)
+				{
+					$ntext = 'COM_TEMPLATES_N_OVERRIDE_DELEATED';
 				}
 
 				$this->setMessage(\JText::plural($ntext, count($ids)));

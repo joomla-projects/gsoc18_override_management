@@ -299,9 +299,17 @@ class TemplateModel extends FormModel
 
 		foreach ($ids as $id)
 		{
-			$query->update($db->quoteName('#__template_overrides'))
-						->set($db->quoteName('state') . ' = ' . $db->quote($value))
-						->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
+			if ($value === -3)
+			{
+				$query->delete($db->quoteName('#__template_overrides'))
+							->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
+			}
+			else if ($value === 1 || $value === 0)
+			{
+				$query->update($db->quoteName('#__template_overrides'))
+				->set($db->quoteName('state') . ' = ' . $db->quote($value))
+				->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
+			}
 
 			try
 			{
