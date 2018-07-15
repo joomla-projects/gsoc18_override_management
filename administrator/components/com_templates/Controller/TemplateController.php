@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\Utilities\ArrayHelper;
 use Joomla\Component\Installer\Administrator\Model\InstallModel;
 
 /**
@@ -38,6 +39,8 @@ class TemplateController extends BaseController
 
 		// Apply, Save & New, and Save As copy should be standard on forms.
 		$this->registerTask('apply', 'save');
+		$this->registerTask('unpublish', 'publish');
+		$this->registerTask('publish',   'publish');
 	}
 
 	/**
@@ -64,6 +67,60 @@ class TemplateController extends BaseController
 		$app  = \JFactory::getApplication();
 		$file = base64_encode('home');
 		$id   = $this->input->get('id');
+		$url  = 'index.php?option=com_templates&view=template&id=' . $id . '&file=' . $file;
+		$this->setRedirect(\JRoute::_($url, false));
+	}
+
+	/**
+	 * Marked as Checked/Unchecked of override history.
+	 *
+	 * @return  void
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function publish()
+	{
+		// Check for request forgeries.
+		\JSession::checkToken() or jexit(\JText::_('JINVALID_TOKEN'));
+
+		$app  = \JFactory::getApplication();
+		$file = $this->input->get('file');
+		$id   = $this->input->get('id');
+
+		$ids    = $this->input->get('cid', array(), 'array');
+		$values = array('publish' => 1, 'unpublish' => 0);
+		$task   = $this->getTask();
+		$value  = ArrayHelper::getValue($values, $task, 0, 'int');
+
+		if (empty($ids))
+		{
+			$this->setMessage(\JText::_('COM_TEMPLATES_ERROR_NO_FILE_SELECTED'), 'warning');
+		}
+		else
+		{
+			/* @var \Joomla\Component\Templates\Administrator\Model\TemplateModel $model */
+			$model = $this->getModel();
+
+			// Change the state of the records.
+			if (!$model->publish($ids, $value))
+			{
+				$this->setMessage(implode('<br>', $model->getErrors()), 'warning');
+			}
+			else
+			{
+				if ($value == 1)
+				{
+					$ntext = 'COM_TEMPLATES_N_OVERRIDE_CHECKED';
+				}
+				else
+				{
+					$ntext = 'COM_TEMPLATES_N_OVERRIDE_UNCHECKED';
+				}
+
+				$this->setMessage(\JText::plural($ntext, count($ids)));
+			}
+		}
+
 		$url  = 'index.php?option=com_templates&view=template&id=' . $id . '&file=' . $file;
 		$this->setRedirect(\JRoute::_($url, false));
 	}

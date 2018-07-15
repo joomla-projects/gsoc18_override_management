@@ -283,6 +283,42 @@ class TemplateModel extends FormModel
 	}
 
 	/**
+	 * Method to update status of list.
+	 *
+	 * @param   array  $ids  The base path.
+	 * @param   array  $value  The file name.
+	 *
+	 * @return  integer Number of files changed.
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function publish($ids, $value)
+	{
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true);
+
+		foreach ($ids as $id)
+		{
+			$query->update($db->quoteName('#__template_overrides'))
+						->set($db->quoteName('state') . ' = ' . $db->quote($value))
+						->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
+
+			try
+			{
+				// Set the query using our newly populated query object and execute it.
+				$db->setQuery($query);
+				$result = $db->execute();
+			}
+			catch (\RuntimeException $e)
+			{
+				return $e;
+			}
+		}
+
+		return $result;
+	}
+
+	/**
 	 * Method to get a list of all the files to edit in a template.
 	 *
 	 * @return  array  A nested array of relevant files.
