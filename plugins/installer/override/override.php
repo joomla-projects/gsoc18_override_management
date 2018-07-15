@@ -267,6 +267,38 @@ class PlgInstallerOverride extends CMSPlugin
 	}
 
 	/**
+	 * Check for existing id.
+	 *
+	 * @param   string  $id  Hash id of file.
+	 *
+	 * @return   boolean  True/False
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function load($id)
+	{
+		$db = Factory::getDbo();
+
+		// Create a new query object.
+		$query = $db->getQuery(true);
+
+		$query
+			->select($db->quoteName('hash_id'))
+			->from($db->quoteName('#__template_overrides'))
+			->where($db->quoteName('hash_id') . ' = '. $db->quote($id));
+
+		$db->setQuery($query);
+		$results = $db->loadObjectList();
+
+		if (count($results) === 1)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Save the updated files.
 	 *
 	 * @param   array  $pks  Updated files.
@@ -277,6 +309,8 @@ class PlgInstallerOverride extends CMSPlugin
 	 */
 	private function saveOverrides($pks)
 	{
+		$db = Factory::getDbo();
+
 		// Insert columns.
 		$columns = array(
 			'template',
@@ -290,32 +324,58 @@ class PlgInstallerOverride extends CMSPlugin
 		);
 
 		// Create a insert query.
-		$query = $this->db->getQuery(true)
-						->insert($this->db->quoteName('#__template_overrides'))
-						->columns($this->db->quoteName($columns));
+		$insertQuery = $db->getQuery(true)
+			->insert($db->quoteName('#__template_overrides'))
+			->columns($db->quoteName($columns));
 
 		foreach ($pks as $pk)
 		{
-			$query->clear('values');
+			$insertQuery->clear('values');
+
+			if ($this->load($pk->id))
+			{
+				$updateQuery = $db->getQuery(true)
+					->update($db->quoteName('#__template_overrides'))
+					->set(
+						array($db->quoteName('modified_date') . ' = ' . $db->quote($pk->modifiedDate),
+						$db->quoteName('action') . ' = ' . $db->quote($pk->action),
+						$db->quoteName('state') . ' = ' . 0)
+						)
+					->where($db->quoteName('hash_id') . ' = ' . $db->quote($pk->id));
+
+					try
+					{
+						// Set the query using our newly populated query object and execute it.
+						$db->setQuery($updateQuery);
+						$db->execute();
+					}
+					catch (\RuntimeException $e)
+					{
+						return $e;
+					}
+
+				continue;
+			}
 
 			// Insert values.
 			$values = array(
-				$this->db->quote($pk->template),
-				$this->db->quote($pk->id),
-				$this->db->quote($pk->extension_id),
+				$db->quote($pk->template),
+				$db->quote($pk->id),
+				$db->quote($pk->extension_id),
 				0,
-				$this->db->quote($pk->action),
-				(int) $pk->client, $this->db->quote($pk->modifiedDate),
-				$this->db->quote($pk->modifiedDate)
+				$db->quote($pk->action),
+				(int) $pk->client,
+				$db->quote($pk->modifiedDate),
+				$db->quote($pk->modifiedDate)
 			);
 
-			$query->values(implode(',', $values));
+			$insertQuery->values(implode(',', $values));
 
 			try
 			{
 				// Set the query using our newly populated query object and execute it.
-				$this->db->setQuery($query);
-				$this->db->execute();
+				$db->setQuery($insertQuery);
+				$db->execute();
 			}
 			catch (\RuntimeException $e)
 			{

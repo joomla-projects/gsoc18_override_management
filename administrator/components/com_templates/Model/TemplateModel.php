@@ -163,7 +163,7 @@ class TemplateModel extends FormModel
 
 		$query->from($db->quoteName('#__template_overrides', 'a'))
 			->where('extension_id = ' . $db->quote($template->extension_id))
-			->order($db->quoteName('a.modified_date') . 'ASC');
+			->order($db->quoteName('a.modified_date') . 'DESC');
 
 		// Reset the query.
 		$db->setQuery($query);
