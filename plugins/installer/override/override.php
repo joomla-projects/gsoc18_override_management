@@ -334,6 +334,11 @@ class PlgInstallerOverride extends CMSPlugin
 		{
 			$insertQuery->clear('values');
 
+			if (empty($pk->modifiedDate))
+			{
+				$pk->modifiedDate = '0000-00-00 00:00:00';
+			}
+
 			if ($this->load($pk->id, $pk->extension_id))
 			{
 				$updateQuery = $db->getQuery(true)
