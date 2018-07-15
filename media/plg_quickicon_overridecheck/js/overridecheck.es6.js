@@ -29,14 +29,14 @@
               for (let i = 0, len = linkSpan.length; i < len; i += 1) {
                 linkSpan[i].innerHTML = Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_UPTODATE');
               }
-            }
+            } else {
+              // Scroll to page top
+              window.scrollTo(0, 0);
 
-            // Scroll to page top
-            window.scrollTo(0, 0);
-
-            link.classList.add('danger');
-            for (let i = 0, len = linkSpan.length; i < len; i += 1) {
-              linkSpan[i].innerHTML = Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_OVERRIDEFOUND').replace('%s', `<span class="badge badge-light">${updateInfoList.length}</span>`);
+              link.classList.add('danger');
+              for (let i = 0, len = linkSpan.length; i < len; i += 1) {
+                linkSpan[i].innerHTML = Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_OVERRIDEFOUND').replace('%s', `<span class="badge badge-light">${updateInfoList.length}</span>`);
+              }
             }
           } else {
             // An error occurred
