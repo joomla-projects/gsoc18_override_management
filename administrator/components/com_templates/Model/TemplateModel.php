@@ -321,8 +321,8 @@ class TemplateModel extends FormModel
 			if ($value === -3)
 			{
 				$query->delete($db->quoteName('#__template_overrides'))
-							->where($db->quoteName('hash_id') . ' = ' . $db->quote($id))
-							->where($db->quoteName('extension_id') . ' = ' . $db->quote($exid));
+					->where($db->quoteName('hash_id') . ' = ' . $db->quote($id))
+					->where($db->quoteName('extension_id') . ' = ' . $db->quote($exid));
 			}
 			elseif ($value === 1 || $value === 0)
 			{
