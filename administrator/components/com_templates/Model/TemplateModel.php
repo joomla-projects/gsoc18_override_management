@@ -140,12 +140,13 @@ class TemplateModel extends FormModel
 	 * Method to get all updated file list.
 	 *
 	 * @param   boolean  $state  The optional parameter if you want unchecked list.
+	 * @param   boolean  $all    The optional parameter if you want all list.
 	 *
 	 * @return  object  stdClass object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getUpdatedList($state = false)
+	public function getUpdatedList($state = false, $all = false)
 	{
 		// Get a db connection.
 		$db = Factory::getDbo();
@@ -164,7 +165,11 @@ class TemplateModel extends FormModel
 		$template = $this->getTemplate();
 
 		$query->from($db->quoteName('#__template_overrides', 'a'));
-		$query->where('extension_id = ' . $db->quote($template->extension_id));
+
+		if (!$all)
+		{
+			$query->where('extension_id = ' . $db->quote($template->extension_id));
+		}
 
 		if ($state)
 		{
@@ -298,14 +303,15 @@ class TemplateModel extends FormModel
 	/**
 	 * Method to update status of list.
 	 *
-	 * @param   array  $ids  The base path.
-	 * @param   array  $value  The file name.
+	 * @param   array    $ids    The base path.
+	 * @param   array    $value  The file name.
+	 * @param   integer  $exid   The tenplate extension id.
 	 *
 	 * @return  integer Number of files changed.
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function publish($ids, $value)
+	public function publish($ids, $value, $exid)
 	{
 		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
@@ -315,13 +321,15 @@ class TemplateModel extends FormModel
 			if ($value === -3)
 			{
 				$query->delete($db->quoteName('#__template_overrides'))
-					->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
+							->where($db->quoteName('hash_id') . ' = ' . $db->quote($id))
+							->where($db->quoteName('extension_id') . ' = ' . $db->quote($exid));
 			}
 			else if ($value === 1 || $value === 0)
 			{
 				$query->update($db->quoteName('#__template_overrides'))
 				->set($db->quoteName('state') . ' = ' . $db->quote($value))
-				->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
+				->where($db->quoteName('hash_id') . ' = ' . $db->quote($id))
+				->where($db->quoteName('extension_id') . ' = ' . $db->quote($exid));
 			}
 
 			try

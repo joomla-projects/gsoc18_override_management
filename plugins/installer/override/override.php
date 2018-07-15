@@ -269,13 +269,14 @@ class PlgInstallerOverride extends CMSPlugin
 	/**
 	 * Check for existing id.
 	 *
-	 * @param   string  $id  Hash id of file.
+	 * @param   string   $id    Hash id of file.
+	 * @param   integer  $exid  Extension id of file.
 	 *
 	 * @return   boolean  True/False
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function load($id)
+	public function load($id, $exid)
 	{
 		$db = Factory::getDbo();
 
@@ -285,7 +286,8 @@ class PlgInstallerOverride extends CMSPlugin
 		$query
 			->select($db->quoteName('hash_id'))
 			->from($db->quoteName('#__template_overrides'))
-			->where($db->quoteName('hash_id') . ' = '. $db->quote($id));
+			->where($db->quoteName('hash_id') . ' = '. $db->quote($id))
+			->where($db->quoteName('extension_id') . ' = '. $db->quote($exid));
 
 		$db->setQuery($query);
 		$results = $db->loadObjectList();
@@ -332,7 +334,7 @@ class PlgInstallerOverride extends CMSPlugin
 		{
 			$insertQuery->clear('values');
 
-			if ($this->load($pk->id))
+			if ($this->load($pk->id, $pk->extension_id))
 			{
 				$updateQuery = $db->getQuery(true)
 					->update($db->quoteName('#__template_overrides'))
@@ -341,7 +343,8 @@ class PlgInstallerOverride extends CMSPlugin
 						$db->quoteName('action') . ' = ' . $db->quote($pk->action),
 						$db->quoteName('state') . ' = ' . 0)
 						)
-					->where($db->quoteName('hash_id') . ' = ' . $db->quote($pk->id));
+					->where($db->quoteName('hash_id') . ' = ' . $db->quote($pk->id))
+					->where($db->quoteName('extension_id') . ' = ' . $db->quote($pk->extension_id));
 
 					try
 					{

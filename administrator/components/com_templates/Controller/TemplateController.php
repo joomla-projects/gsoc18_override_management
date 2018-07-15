@@ -13,10 +13,6 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Router\Route;
-use Joomla\CMS\Factory;
-use Joomla\CMS\Session\Session;
 use Joomla\Component\Installer\Administrator\Model\InstallModel;
 
 /**
@@ -86,9 +82,9 @@ class TemplateController extends BaseController
 	public function publish()
 	{
 		// Check for request forgeries.
-		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+		\JSession::checkToken() or jexit(\JText::_('JINVALID_TOKEN'));
 
-		$app  = Factory::getApplication();
+		$app  = \JFactory::getApplication();
 		$file = $this->input->get('file');
 		$id   = $this->input->get('id');
 
@@ -99,7 +95,7 @@ class TemplateController extends BaseController
 
 		if (empty($ids))
 		{
-			$this->setMessage(Text::_('COM_TEMPLATES_ERROR_NO_FILE_SELECTED'), 'warning');
+			$this->setMessage(\JText::_('COM_TEMPLATES_ERROR_NO_FILE_SELECTED'), 'warning');
 		}
 		else
 		{
@@ -107,17 +103,17 @@ class TemplateController extends BaseController
 			$model = $this->getModel();
 
 			// Change the state of the records.
-			if (!$model->publish($ids, $value))
+			if (!$model->publish($ids, $value, $id))
 			{
 				$this->setMessage(implode('<br>', $model->getErrors()), 'warning');
 			}
 			else
 			{
-				if ($value === 1)
+				if ($value == 1)
 				{
 					$ntext = 'COM_TEMPLATES_N_OVERRIDE_CHECKED';
 				}
-				else if ($value === 0)
+				else if ($value == 0)
 				{
 					$ntext = 'COM_TEMPLATES_N_OVERRIDE_UNCHECKED';
 				}
@@ -126,12 +122,12 @@ class TemplateController extends BaseController
 					$ntext = 'COM_TEMPLATES_N_OVERRIDE_DELEATED';
 				}
 
-				$this->setMessage(Text::plural($ntext, count($ids)));
+				$this->setMessage(\JText::plural($ntext, count($ids)));
 			}
 		}
 
 		$url  = 'index.php?option=com_templates&view=template&id=' . $id . '&file=' . $file;
-		$this->setRedirect(Route::_($url, false));
+		$this->setRedirect(\JRoute::_($url, false));
 	}
 
 	/**
