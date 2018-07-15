@@ -139,11 +139,13 @@ class TemplateModel extends FormModel
 	/**
 	 * Method to get all updated file list.
 	 *
+	 * @param   boolean  $state  The optional parameter if you want unchecked list.
+	 *
 	 * @return  object  stdClass object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getUpdatedList()
+	public function getUpdatedList($state = false)
 	{
 		// Get a db connection.
 		$db = Factory::getDbo();
@@ -161,9 +163,15 @@ class TemplateModel extends FormModel
 
 		$template = $this->getTemplate();
 
-		$query->from($db->quoteName('#__template_overrides', 'a'))
-			->where('extension_id = ' . $db->quote($template->extension_id))
-			->order($db->quoteName('a.modified_date') . 'DESC');
+		$query->from($db->quoteName('#__template_overrides', 'a'));
+		$query->where('extension_id = ' . $db->quote($template->extension_id));
+
+		if ($state)
+		{
+			$query->where('state = ' . 0);
+		}
+
+		$query->order($db->quoteName('a.modified_date') . 'DESC');
 
 		// Reset the query.
 		$db->setQuery($query);
@@ -172,6 +180,11 @@ class TemplateModel extends FormModel
 		$pks = $db->loadObjectList();
 
 		$results = array();
+
+		if ($state)
+		{
+			return $pks;
+		}
 
 		foreach ($pks as $pk)
 		{
@@ -302,13 +315,13 @@ class TemplateModel extends FormModel
 			if ($value === -3)
 			{
 				$query->delete($db->quoteName('#__template_overrides'))
-					->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
+							->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
 			}
 			else if ($value === 1 || $value === 0)
 			{
 				$query->update($db->quoteName('#__template_overrides'))
-					->set($db->quoteName('state') . ' = ' . $db->quote($value))
-					->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
+				->set($db->quoteName('state') . ' = ' . $db->quote($value))
+				->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
 			}
 
 			try
