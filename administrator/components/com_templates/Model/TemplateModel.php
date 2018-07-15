@@ -314,33 +314,45 @@ class TemplateModel extends FormModel
 	public function publish($ids, $value, $exid)
 	{
 		$db = Factory::getDbo();
-		$query = $db->getQuery(true);
 
 		foreach ($ids as $id)
 		{
 			if ($value === -3)
 			{
-				$query->delete($db->quoteName('#__template_overrides'))
+				$deleteQuery = $db->getQuery(true)
+					->delete($db->quoteName('#__template_overrides'))
 					->where($db->quoteName('hash_id') . ' = ' . $db->quote($id))
 					->where($db->quoteName('extension_id') . ' = ' . $db->quote($exid));
+
+				try
+				{
+					// Set the query using our newly populated query object and execute it.
+					$db->setQuery($deleteQuery);
+					$result = $db->execute();
+				}
+				catch (\RuntimeException $e)
+				{
+					return $e;
+				}
 			}
 			elseif ($value === 1 || $value === 0)
 			{
-				$query->update($db->quoteName('#__template_overrides'))
+				$updateQuery = $db->getQuery(true)
+					->update($db->quoteName('#__template_overrides'))
 					->set($db->quoteName('state') . ' = ' . $db->quote($value))
 					->where($db->quoteName('hash_id') . ' = ' . $db->quote($id))
 					->where($db->quoteName('extension_id') . ' = ' . $db->quote($exid));
-			}
 
-			try
-			{
-				// Set the query using our newly populated query object and execute it.
-				$db->setQuery($query);
-				$result = $db->execute();
-			}
-			catch (\RuntimeException $e)
-			{
-				return $e;
+				try
+				{
+					// Set the query using our newly populated query object and execute it.
+					$db->setQuery($updateQuery);
+					$result = $db->execute();
+				}
+				catch (\RuntimeException $e)
+				{
+					return $e;
+				}
 			}
 		}
 
