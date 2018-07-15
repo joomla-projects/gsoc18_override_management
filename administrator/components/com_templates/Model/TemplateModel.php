@@ -194,7 +194,7 @@ class TemplateModel extends FormModel
 		foreach ($pks as $pk)
 		{
 			$client = ApplicationHelper::getClientInfo($pk->client_id);
-			$path = $client->path . '/templates/' . $pk->template . base64_decode($pk->hash_id);
+			$path = Path::clean($client->path . '/templates/' . $pk->template . base64_decode($pk->hash_id));
 
 			if (file_exists($path))
 			{
@@ -327,9 +327,9 @@ class TemplateModel extends FormModel
 			elseif ($value === 1 || $value === 0)
 			{
 				$query->update($db->quoteName('#__template_overrides'))
-				->set($db->quoteName('state') . ' = ' . $db->quote($value))
-				->where($db->quoteName('hash_id') . ' = ' . $db->quote($id))
-				->where($db->quoteName('extension_id') . ' = ' . $db->quote($exid));
+					->set($db->quoteName('state') . ' = ' . $db->quote($value))
+					->where($db->quoteName('hash_id') . ' = ' . $db->quote($id))
+					->where($db->quoteName('extension_id') . ' = ' . $db->quote($exid));
 			}
 
 			try
