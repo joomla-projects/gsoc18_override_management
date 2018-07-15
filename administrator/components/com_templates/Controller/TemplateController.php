@@ -798,4 +798,36 @@ class TemplateController extends BaseController
 			$this->setRedirect(\JRoute::_($url, false));
 		}
 	}
+
+	/**
+	 * Fetch and report updates in \JSON format, for A\JAX requests
+	 *
+	 * @return void
+	 *
+	 * @since __DEPLOY_VERSION__
+	 */
+	public function ajax()
+	{
+		$app = $this->app;
+
+		if (!Session::checkToken('get'))
+		{
+			$app->setHeader('status', 403, true);
+			$app->sendHeaders();
+			echo Text::_('JINVALID_TOKEN');
+			$app->close();
+		}
+
+		// Created only for test.
+		$session = \JFactory::getSession();
+
+		/* @var \Joomla\Component\Templates\Administrator\Model\TemplateModel $model */
+		$model = $this->getModel();
+
+		$result = $model->getUpdatedList(true, true);
+
+		echo json_encode($result);
+
+		$app->close();
+	}
 }
