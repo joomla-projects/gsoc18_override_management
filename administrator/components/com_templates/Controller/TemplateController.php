@@ -13,6 +13,10 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Factory;
 use Joomla\Component\Installer\Administrator\Model\InstallModel;
 
 /**
@@ -82,9 +86,9 @@ class TemplateController extends BaseController
 	public function publish()
 	{
 		// Check for request forgeries.
-		\JSession::checkToken() or jexit(\JText::_('JINVALID_TOKEN'));
+		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
-		$app  = \JFactory::getApplication();
+		$app  = Factory::getApplication();
 		$file = $this->input->get('file');
 		$id   = $this->input->get('id');
 
@@ -95,7 +99,7 @@ class TemplateController extends BaseController
 
 		if (empty($ids))
 		{
-			$this->setMessage(\JText::_('COM_TEMPLATES_ERROR_NO_FILE_SELECTED'), 'warning');
+			$this->setMessage(Text::_('COM_TEMPLATES_ERROR_NO_FILE_SELECTED'), 'warning');
 		}
 		else
 		{
@@ -113,21 +117,21 @@ class TemplateController extends BaseController
 				{
 					$ntext = 'COM_TEMPLATES_N_OVERRIDE_CHECKED';
 				}
-				else if ($value == 0)
+				elseif ($value == 0)
 				{
 					$ntext = 'COM_TEMPLATES_N_OVERRIDE_UNCHECKED';
 				}
-				else if ($value === -3)
+				elseif ($value === -3)
 				{
 					$ntext = 'COM_TEMPLATES_N_OVERRIDE_DELEATED';
 				}
 
-				$this->setMessage(\JText::plural($ntext, count($ids)));
+				$this->setMessage(Text::plural($ntext, count($ids)));
 			}
 		}
 
 		$url  = 'index.php?option=com_templates&view=template&id=' . $id . '&file=' . $file;
-		$this->setRedirect(\JRoute::_($url, false));
+		$this->setRedirect(Route::_($url, false));
 	}
 
 	/**

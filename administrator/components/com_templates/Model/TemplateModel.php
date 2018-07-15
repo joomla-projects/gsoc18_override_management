@@ -324,7 +324,7 @@ class TemplateModel extends FormModel
 							->where($db->quoteName('hash_id') . ' = ' . $db->quote($id))
 							->where($db->quoteName('extension_id') . ' = ' . $db->quote($exid));
 			}
-			else if ($value === 1 || $value === 0)
+			elseif ($value === 1 || $value === 0)
 			{
 				$query->update($db->quoteName('#__template_overrides'))
 				->set($db->quoteName('state') . ' = ' . $db->quote($value))

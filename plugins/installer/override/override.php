@@ -286,8 +286,8 @@ class PlgInstallerOverride extends CMSPlugin
 		$query
 			->select($db->quoteName('hash_id'))
 			->from($db->quoteName('#__template_overrides'))
-			->where($db->quoteName('hash_id') . ' = '. $db->quote($id))
-			->where($db->quoteName('extension_id') . ' = '. $db->quote($exid));
+			->where($db->quoteName('hash_id') . ' = ' . $db->quote($id))
+			->where($db->quoteName('extension_id') . ' = ' . $db->quote($exid));
 
 		$db->setQuery($query);
 		$results = $db->loadObjectList();
