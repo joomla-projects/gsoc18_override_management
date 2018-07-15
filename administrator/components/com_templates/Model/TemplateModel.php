@@ -179,12 +179,12 @@ class TemplateModel extends FormModel
 		// Load the results as a list of stdClass objects.
 		$pks = $db->loadObjectList();
 
-		$results = array();
-
 		if ($state)
 		{
 			return $pks;
 		}
+
+		$results = array();
 
 		foreach ($pks as $pk)
 		{
@@ -315,7 +315,7 @@ class TemplateModel extends FormModel
 			if ($value === -3)
 			{
 				$query->delete($db->quoteName('#__template_overrides'))
-							->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
+					->where($db->quoteName('hash_id') . ' = ' . $db->quote($id));
 			}
 			else if ($value === 1 || $value === 0)
 			{
