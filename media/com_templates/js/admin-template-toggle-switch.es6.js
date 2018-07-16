@@ -3,6 +3,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 (() => {
+  'use strict';
+
   window.showDiffChanged = function showDiffChanged() {
     const JformShowDiff = document.getElementById('jform_show_diff');
     const diffMain = document.getElementById('diff-main');
