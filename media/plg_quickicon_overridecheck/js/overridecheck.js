@@ -27,27 +27,35 @@
           var linkSpan = link.querySelectorAll('span.j-links-link');
           var updateInfoList = JSON.parse(response);
 
-          if (updateInfoList instanceof Array) {
-            if (updateInfoList.length === 0) {
-              // No overrides found
-              link.classList.add('success');
-              for (var i = 0, len = linkSpan.length; i < len; i += 1) {
-                linkSpan[i].innerHTML = Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_UPTODATE');
+          if (updateInfoList.installerOverride !== 'disabled') {
+            if (updateInfoList instanceof Array) {
+              if (updateInfoList.length === 0) {
+                // No overrides found
+                link.classList.add('success');
+                for (var i = 0, len = linkSpan.length; i < len; i += 1) {
+                  linkSpan[i].innerHTML = Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_UPTODATE');
+                }
+              } else {
+                // Scroll to page top
+                window.scrollTo(0, 0);
+
+                link.classList.add('danger');
+                for (var _i = 0, _len = linkSpan.length; _i < _len; _i += 1) {
+                  linkSpan[_i].innerHTML = Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_OVERRIDEFOUND').replace('%s', '<span class="badge badge-light">' + updateInfoList.length + '</span>');
+                }
               }
             } else {
-              // Scroll to page top
-              window.scrollTo(0, 0);
-
+              // An error occurred
               link.classList.add('danger');
-              for (var _i = 0, _len = linkSpan.length; _i < _len; _i += 1) {
-                linkSpan[_i].innerHTML = Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_OVERRIDEFOUND').replace('%s', '<span class="badge badge-light">' + updateInfoList.length + '</span>');
+              for (var _i2 = 0, _len2 = linkSpan.length; _i2 < _len2; _i2 += 1) {
+                linkSpan[_i2].innerHTML = Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_ERROR');
               }
             }
           } else {
-            // An error occurred
             link.classList.add('danger');
-            for (var _i2 = 0, _len2 = linkSpan.length; _i2 < _len2; _i2 += 1) {
-              linkSpan[_i2].innerHTML = Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_ERROR');
+            link.setAttribute('href', 'index.php?option=com_plugins&view=plugin&layout=edit&extension_id=491');
+            for (var _i3 = 0, _len3 = linkSpan.length; _i3 < _len3; _i3 += 1) {
+              linkSpan[_i3].innerHTML = Joomla.JText._('PLG_QUICKICON_OVERRIDECHECK_ERROR_ENABLE');
             }
           }
         },

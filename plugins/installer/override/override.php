@@ -186,6 +186,8 @@ class PlgInstallerOverride extends CMSPlugin
 			$this->saveOverrides($result);
 		}
 
+		// Delete stored session value.
+		$this->purge();
 	}
 
 	/**
@@ -312,6 +314,7 @@ class PlgInstallerOverride extends CMSPlugin
 	private function saveOverrides($pks)
 	{
 		$db = Factory::getDbo();
+		$today = Factory::getDate();
 
 		// Insert columns.
 		$columns = array(
@@ -333,6 +336,8 @@ class PlgInstallerOverride extends CMSPlugin
 		foreach ($pks as $pk)
 		{
 			$insertQuery->clear('values');
+
+			$createdDate = $today->format('y-m-d h:i:s');
 
 			if (empty($pk->modifiedDate))
 			{
@@ -373,7 +378,7 @@ class PlgInstallerOverride extends CMSPlugin
 				0,
 				$db->quote($pk->action),
 				(int) $pk->client,
-				$db->quote($pk->modifiedDate),
+				$db->quote($createdDate),
 				$db->quote($pk->modifiedDate)
 			);
 
