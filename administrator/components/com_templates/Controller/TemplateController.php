@@ -17,6 +17,7 @@ use Joomla\CMS\Session\Session;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Component\Installer\Administrator\Model\InstallModel;
 
 /**
