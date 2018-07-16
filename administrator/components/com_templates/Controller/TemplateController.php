@@ -818,6 +818,16 @@ class TemplateController extends BaseController
 			$app->close();
 		}
 
+		// Checks status of installer override plugin.
+		if (!PluginHelper::isEnabled('installer', 'override'))
+		{
+			$error = array('installerOverride' => 'disabled');
+
+			echo json_encode($error);
+
+			$app->close();
+		}
+
 		// Created only for test.
 		$session = \JFactory::getSession();
 

@@ -59,10 +59,9 @@ class PlgQuickiconOverrideCheck extends CMSPlugin
 		Factory::getDocument()->addScriptOptions('js-override-check', $options);
 
 		Text::script('PLG_QUICKICON_OVERRIDECHECK_ERROR', true);
+		Text::script('PLG_QUICKICON_OVERRIDECHECK_ERROR_ENABLE', true);
 		Text::script('PLG_QUICKICON_OVERRIDECHECK_UPTODATE', true);
 		Text::script('PLG_QUICKICON_OVERRIDECHECK_OVERRIDEFOUND', true);
-		Text::script('PLG_QUICKICON_OVERRIDECHECK_OVERRIDEFOUND_MESSAGE', true);
-		Text::script('PLG_QUICKICON_OVERRIDECHECK_OVERRIDEFOUND_BUTTON', true);
 
 		HTMLHelper::_('behavior.core');
 		HTMLHelper::_('script', 'plg_quickicon_overridecheck/overridecheck.js', array('version' => 'auto', 'relative' => true));
