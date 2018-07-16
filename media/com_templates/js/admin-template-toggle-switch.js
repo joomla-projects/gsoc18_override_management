@@ -64,7 +64,7 @@ function showCoreChanged() {
         localStorage.setItem('coreSwitchState', 'checked');
       }
     }
-  }, 500);
+  }, 50);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () {
       JformShowDiff.inputs[0].checked = 'false';
       JformShowDiff.inputs[1].checked = 'true';
-    }, 500);
+    }, 50);
     showDiffChanged();
   }
 
