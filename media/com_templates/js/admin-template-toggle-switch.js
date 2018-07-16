@@ -63,7 +63,7 @@
         JformShowCore.inputs[1].parentNode.classList.add('active');
         setTimeout(function () {
           Joomla.editors.instances.jform_core.refresh();
-        }, 200);
+        }, 500);
 
         if (typeof Storage !== 'undefined') {
           localStorage.setItem('coreSwitchState', 'checked');
