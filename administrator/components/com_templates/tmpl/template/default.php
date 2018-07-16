@@ -122,7 +122,7 @@ if ($this->type == 'font')
 							<?php echo $this->form->getInput('core'); ?>
 						</div>
 					</div>
-					<div class="col-md-12" style="display:none" id="diff-main">
+					<div class="col-md-12" id="diff-main">
 						<p class="lead"><?php echo JText::_('COM_TEMPLATES_FILE_COMPARE_PANE'); ?></p>
 						<div class="diff-pane">
 							<div class="diffview" style="display:none" id="original"><?php echo htmlspecialchars($coreFileContent, ENT_COMPAT, 'UTF-8'); ?></div>

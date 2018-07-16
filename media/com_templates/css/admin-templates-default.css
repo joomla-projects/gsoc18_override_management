@@ -48,6 +48,14 @@
 	background-color: #FFF;
 }
 
+#diff-main.active {
+	display: block;
+}
+
+#diff-main {
+	display: none;
+}
+
 #core-pane .CodeMirror-code {
 	background-color: #F0F0EE;
 }

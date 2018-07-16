@@ -10,8 +10,8 @@
 		var diffMain = document.getElementById('diff-main');
 
 		setTimeout(function () {
-			if (JformShowDiff.inputs[0] && JformShowDiff.inputs[0].checked === true) {
-				diffMain.style.display = 'none';
+			if (JformShowDiff.inputs[0] && JformShowDiff.inputs[0].checked === true && diffMain) {
+				diffMain.classList.remove('active');
 				JformShowDiff.spans[0].classList.add('active');
 				JformShowDiff.spans[1].classList.remove('active');
 
@@ -20,8 +20,8 @@
 				}
 			}
 
-			if (JformShowDiff.inputs[0] && JformShowDiff.inputs[0].checked === false) {
-				diffMain.style.display = 'block';
+			if (JformShowDiff.inputs[0] && JformShowDiff.inputs[0].checked === false && diffMain) {
+				diffMain.classList.add('active');
 				JformShowDiff.spans[0].classList.remove('active');
 				JformShowDiff.spans[1].classList.add('active');
 				JformShowDiff.inputs[1].parentNode.classList.add('active');
@@ -30,7 +30,7 @@
 					localStorage.setItem('diffSwitchState', 'checked');
 				}
 			}
-		}, 200);
+		}, 500);
 	};
 
 	window.showCoreChanged = function showCoreChanged() {
@@ -73,7 +73,7 @@
 			setTimeout(function () {
 				JformShowDiff.inputs[0].checked = 'false';
 				JformShowDiff.inputs[1].checked = 'true';
-			}, 200);
+			}, 500);
 			window.showDiffChanged();
 		}
 
@@ -81,7 +81,7 @@
 			setTimeout(function () {
 				JformShowCore.inputs[0].checked = 'false';
 				JformShowCore.inputs[1].checked = 'true';
-			}, 200);
+			}, 500);
 			window.showCoreChanged();
 		}
 	});
