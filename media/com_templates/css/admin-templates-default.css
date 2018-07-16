@@ -56,6 +56,14 @@
 	display: none;
 }
 
+#core-pane.active {
+	display: block;
+}
+
+#core-pane {
+	display: none;
+}
+
 #core-pane .CodeMirror-code {
 	background-color: #F0F0EE;
 }

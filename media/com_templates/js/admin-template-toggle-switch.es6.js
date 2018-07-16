@@ -1,18 +1,13 @@
 /**
-* PLEASE DO NOT MODIFY THIS FILE. WORK ON THE ES6 VERSION.
-* OTHERWISE YOUR CHANGES WILL BE REPLACED ON THE NEXT BUILD.
-**/
-
-/**
  * @copyright  Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
-(function () {
+(() => {
   window.showDiffChanged = function showDiffChanged() {
-    var JformShowDiff = document.getElementById('jform_show_diff');
-    var diffMain = document.getElementById('diff-main');
+    const JformShowDiff = document.getElementById('jform_show_diff');
+    const diffMain = document.getElementById('diff-main');
 
-    setTimeout(function () {
+    setTimeout(() => {
       if (JformShowDiff.inputs[0] && JformShowDiff.inputs[0].checked === true && diffMain) {
         diffMain.classList.remove('active');
         JformShowDiff.spans[0].classList.add('active');
@@ -37,12 +32,15 @@
   };
 
   window.showCoreChanged = function showCoreChanged() {
-    var JformShowCore = document.getElementById('jform_show_core');
-    var override = document.getElementById('override-pane');
-    var corePane = document.getElementById('core-pane');
+    const JformShowCore = document.getElementById('jform_show_core');
+    const override = document.getElementById('override-pane');
+    const corePane = document.getElementById('core-pane');
 
-    setTimeout(function () {
-      if (JformShowCore.inputs[0] && JformShowCore.inputs[0].checked === true && corePane && override) {
+    setTimeout(() => {
+      if (JformShowCore.inputs[0]
+          && JformShowCore.inputs[0].checked === true
+          && corePane
+          && override) {
         JformShowCore.spans[0].classList.add('active');
         JformShowCore.spans[1].classList.remove('active');
         corePane.classList.remove('active');
@@ -53,13 +51,16 @@
         }
       }
 
-      if (JformShowCore.inputs[0] && JformShowCore.inputs[0].checked === false && corePane && override) {
+      if (JformShowCore.inputs[0]
+          && JformShowCore.inputs[0].checked === false
+          && corePane
+          && override) {
         corePane.classList.add('active');
         override.className = 'col-md-6';
         JformShowCore.spans[0].classList.remove('active');
         JformShowCore.spans[1].classList.add('active');
         JformShowCore.inputs[1].parentNode.classList.add('active');
-        setTimeout(function () {
+        setTimeout(() => {
           Joomla.editors.instances.jform_core.refresh();
         }, 200);
 
@@ -70,12 +71,12 @@
     }, 500);
   };
 
-  document.addEventListener('DOMContentLoaded', function () {
-    var JformShowDiff = document.getElementById('jform_show_diff');
-    var JformShowCore = document.getElementById('jform_show_core');
+  document.addEventListener('DOMContentLoaded', () => {
+    const JformShowDiff = document.getElementById('jform_show_diff');
+    const JformShowCore = document.getElementById('jform_show_core');
 
     if (typeof Storage !== 'undefined' && localStorage.getItem('diffSwitchState') && JformShowDiff) {
-      setTimeout(function () {
+      setTimeout(() => {
         JformShowDiff.inputs[0].checked = 'false';
         JformShowDiff.inputs[1].checked = 'true';
       }, 500);
@@ -83,7 +84,7 @@
     }
 
     if (typeof Storage !== 'undefined' && localStorage.getItem('coreSwitchState') && JformShowCore) {
-      setTimeout(function () {
+      setTimeout(() => {
         JformShowCore.inputs[0].checked = 'false';
         JformShowCore.inputs[1].checked = 'true';
       }, 500);
