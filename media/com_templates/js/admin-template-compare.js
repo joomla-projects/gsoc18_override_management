@@ -26,8 +26,7 @@
       };
 
       return text.replace(/\&[\w\d\#]{2,5}\;/g, function (m) {
-        var n = map[m];
-        return n;
+        var n = map[m];return n;
       });
     };
 
@@ -57,7 +56,6 @@
     };
 
     var diffs = [].slice.call(document.querySelectorAll('#original'));
-
     for (var i = 0, l = diffs.length; i < l; i += 1) {
       compare(diffs[i], diffs[i].nextElementSibling);
     }
