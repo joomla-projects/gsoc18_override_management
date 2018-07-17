@@ -48,7 +48,7 @@ $input = Factory::getApplication()->input;
 						<?php foreach ($this->updatedList as $i => $value) : ?>
 							<tr class="row<?php echo $i % 2; ?>">
 								<td class="text-center">
-									<?php echo HTMLHelper::_('grid.id', $i, $value->hash_id, false, 'cid', 'cb', 'updateForm'); ?>
+									<?php echo HTMLHelper::_('grid.id', $i, $value->hash_id, false, 'cid', 'cb', '', 'updateForm'); ?>
 								</td>
 								<td>
 									<?php echo HTMLHelper::_('jgrid.published', $value->state, $i, 'template.', 1, 'cb', null, null, 'updateForm'); ?>
