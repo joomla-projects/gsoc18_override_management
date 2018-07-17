@@ -139,14 +139,15 @@ class TemplateModel extends FormModel
 	/**
 	 * Method to get all updated file list.
 	 *
-	 * @param   boolean  $state  The optional parameter if you want unchecked list.
-	 * @param   boolean  $all    The optional parameter if you want all list.
+	 * @param   boolean  $state    The optional parameter if you want unchecked list.
+	 * @param   boolean  $all      The optional parameter if you want all list.
+	 * @param   boolean  $cleanup  The optional parameter if you want to clean record which is no more required.
 	 *
 	 * @return  object  stdClass object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getUpdatedList($state = false, $all = false)
+	public function getUpdatedList($state = false, $all = false, $cleanup = false)
 	{
 		// Get a db connection.
 		$db = Factory::getDbo();
@@ -199,6 +200,12 @@ class TemplateModel extends FormModel
 			if (file_exists($path))
 			{
 				$results[] = $pk;
+			}
+			elseif ($cleanup)
+			{
+				$cleanupIds = array();
+				$cleanupIds[] = $pk->hash_id;
+				$this->publish($cleanupIds, -3, $pk->extension_id);
 			}
 		}
 
@@ -398,6 +405,9 @@ class TemplateModel extends FormModel
 
 				return false;
 			}
+
+			// Clean up override history
+			$this->getUpdatedList(false, true, true);
 		}
 
 		return $result;
