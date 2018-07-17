@@ -227,7 +227,7 @@ class TemplateModel extends FormModel
 		// Intialize the array variable to store core file list.
 		$this->coreFileList = array();
 
-		$app    = Factory::getApplication();
+		$app = Factory::getApplication();
 
 		foreach ($templates as $template)
 		{
@@ -312,9 +312,9 @@ class TemplateModel extends FormModel
 	 *
 	 * @param   array    $ids    The base path.
 	 * @param   array    $value  The file name.
-	 * @param   integer  $exid   The tenplate extension id.
+	 * @param   integer  $exid   The template extension id.
 	 *
-	 * @return  integer Number of files changed.
+	 * @return  integer  Number of files changed.
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
