@@ -26,7 +26,6 @@ HTMLHelper::_('script', 'com_templates/admin-template-compare.min.js', array('ve
 
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
-JHtml::_('behavior.tabstate');
 HTMLHelper::_('behavior.multiselect', 'updateForm');
 
 $input = JFactory::getApplication()->input;
@@ -59,8 +58,8 @@ if ($this->type == 'font')
 	");
 }
 ?>
-<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'editor')); ?>
-<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'editor', JText::_('COM_TEMPLATES_TAB_EDITOR')); ?>
+<?php echo JHtml::_('uitab.startTabSet', 'myTab', array('active' => 'editor')); ?>
+<?php echo JHtml::_('uitab.addTab', 'myTab', 'editor', JText::_('COM_TEMPLATES_TAB_EDITOR')); ?>
 <div class="row">
 	<div class="col-md-6" id="conditional-section">
 		<?php if ($this->type == 'file') : ?>
@@ -227,9 +226,9 @@ if ($this->type == 'font')
 		<?php endif; ?>
 	</div>
 </div>
-<?php echo JHtml::_('bootstrap.endTab'); ?>
+<?php echo JHtml::_('uitab.endTab'); ?>
 
-<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'overrides', JText::_('COM_TEMPLATES_TAB_OVERRIDES')); ?>
+<?php echo JHtml::_('uitab.addTab', 'myTab', 'overrides', JText::_('COM_TEMPLATES_TAB_OVERRIDES')); ?>
 <div class="row">
 	<div class="col-md-4">
 		<legend><?php echo JText::_('COM_TEMPLATES_OVERRIDES_MODULES'); ?></legend>
@@ -301,19 +300,19 @@ if ($this->type == 'font')
 		</ul>
 	</div>
 </div>
-<?php echo JHtml::_('bootstrap.endTab'); ?>
+<?php echo JHtml::_('uitab.endTab'); ?>
 
-<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'description', JText::_('COM_TEMPLATES_TAB_DESCRIPTION')); ?>
+<?php echo JHtml::_('uitab.addTab', 'myTab', 'description', JText::_('COM_TEMPLATES_TAB_DESCRIPTION')); ?>
 <?php echo $this->loadTemplate('description'); ?>
-<?php echo JHtml::_('bootstrap.endTab'); ?>
+<?php echo JHtml::_('uitab.endTab'); ?>
 
 <?php if ($this->pluginState) : ?>
-	<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'files', Text::_('COM_TEMPLATES_TAB_UPDATED_FILES')); ?>
+	<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'files', Text::_('COM_TEMPLATES_TAB_UPDATED_FILES')); ?>
 	<?php echo $this->loadTemplate('updated_files'); ?>
-	<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+	<?php echo HTMLHelper::_('uitab.endTab'); ?>
 <?php endif; ?>
 
-<?php echo JHtml::_('bootstrap.endTabSet'); ?>
+<?php echo JHtml::_('uitab.endTabSet'); ?>
 
 <?php // Collapse Modal
 $copyModalData = array(
