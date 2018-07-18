@@ -1,4 +1,4 @@
-<?php
+	<?php
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_templates
@@ -21,8 +21,9 @@ Text::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_CORE');
 Text::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_DIFF');
 Text::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_DIFF');
 
-HTMLHelper::_('script', 'vendor/diff/diff.min.js', array('version' => 'auto', 'relative' => true));
-HTMLHelper::_('script', 'com_templates/admin-template-compare.min.js', array('version' => 'auto', 'relative' => true));
+JHtml::_('script', 'vendor/diff/diff.min.js', array('version' => 'auto', 'relative' => true));
+JHtml::_('script', 'com_templates/admin-template-compare.min.js', array('version' => 'auto', 'relative' => true));
+JHtml::_('script', 'com_templates/admin-template-toggle-switch.min.js', array('version' => 'auto', 'relative' => true));
 
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
@@ -78,10 +79,8 @@ if ($this->type == 'font')
 	</div>
 	<?php if ($this->type == 'file' && !empty($this->source->coreFile)) : ?>
 		<div class="col-md-6 text-right">
-			<?php $layout_core_button = new FileLayout('diffview.core', JPATH_COMPONENT_ADMINISTRATOR . '/layouts'); ?>
-			<?php echo $layout_core_button->render(array()); ?>
-			<?php $layout_diff_button = new FileLayout('diffview.diff', JPATH_COMPONENT_ADMINISTRATOR . '/layouts'); ?>
-			<?php echo $layout_diff_button->render(array()); ?>
+			<?php echo $this->form->getInput('show_core'); ?>
+			<?php echo $this->form->getInput('show_diff'); ?>
 		</div>
 	<?php endif; ?>
 </div>
@@ -120,14 +119,24 @@ if ($this->type == 'font')
 				<?php if (!empty($this->source->coreFile)) : ?>
 					<?php $coreFileContent = file_get_contents($this->source->coreFile); ?>
 					<?php $overrideFileContent = file_get_contents($this->source->filePath); ?>
+<<<<<<< HEAD
 					<div style="display:none" class="col-md-6" id="core-pane">
 						<p class="lead"><?php echo Text::_('COM_TEMPLATES_FILE_CORE_PANE'); ?></p>
+=======
+					<div class="col-md-6" id="core-pane">
+						<p class="lead"><?php echo JText::_('COM_TEMPLATES_FILE_CORE_PANE'); ?></p>
+>>>>>>> ad6707d6e03fc6b8e1645a95f22091b6f428bc97
 						<div class="editor-border">
 							<?php echo $this->form->getInput('core'); ?>
 						</div>
 					</div>
+<<<<<<< HEAD
 					<div class="col-md-12" style="display:none" id="diff-main">
 						<p class="lead"><?php echo Text::_('COM_TEMPLATES_FILE_COMPARE_PANE'); ?></p>
+=======
+					<div class="col-md-12" id="diff-main">
+						<p class="lead"><?php echo JText::_('COM_TEMPLATES_FILE_COMPARE_PANE'); ?></p>
+>>>>>>> ad6707d6e03fc6b8e1645a95f22091b6f428bc97
 						<div class="diff-pane">
 							<div class="diffview" style="display:none" id="original"><?php echo htmlspecialchars($coreFileContent, ENT_COMPAT, 'UTF-8'); ?></div>
 							<div class="diffview" style="display:none" id="changed"><?php echo htmlspecialchars($overrideFileContent, ENT_COMPAT, 'UTF-8'); ?></div>
