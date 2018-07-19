@@ -70,10 +70,15 @@
 
 #jform_show_core {
 	display: inline;
-	margin-right: 100px;
+	margin-right: 7em;
 }
 
 #jform_show_diff {
 	display: inline;
-	margin-right: 50px;
+	margin-right: 5.3em;
+}
+
+.switcher-label-0, .switcher-label-1{
+	min-width: 4.5em;
+	max-width: 4.5em;
 }
