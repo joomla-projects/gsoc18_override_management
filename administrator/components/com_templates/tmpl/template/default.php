@@ -26,6 +26,7 @@ HTMLHelper::_('script', 'com_templates/admin-template-compare.min.js', array('ve
 
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
+JHtml::_('behavior.tabstate');
 HTMLHelper::_('behavior.multiselect', 'updateForm');
 
 $input = JFactory::getApplication()->input;
