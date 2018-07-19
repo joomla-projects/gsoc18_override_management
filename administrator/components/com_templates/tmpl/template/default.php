@@ -10,22 +10,25 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
 
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-JText::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_CORE');
-JText::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_CORE');
-JText::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_DIFF');
-JText::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_DIFF');
+Text::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_CORE');
+Text::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_CORE');
+Text::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_SHOW_DIFF');
+Text::script('COM_TEMPLATES_LAYOUTS_DIFFVIEW_HIDE_DIFF');
 
-JHtml::_('script', 'vendor/diff/diff.min.js', array('version' => 'auto', 'relative' => true));
-JHtml::_('script', 'com_templates/admin-template-compare.min.js', array('version' => 'auto', 'relative' => true));
-JHtml::_('script', 'com_templates/admin-template-toggle-switch.min.js', array('version' => 'auto', 'relative' => true));
+HTMLHelper::_('script', 'vendor/diff/diff.min.js', array('version' => 'auto', 'relative' => true));
+HTMLHelper::_('script', 'com_templates/admin-template-compare.min.js', array('version' => 'auto', 'relative' => true));
+HTMLHelper::_('script', 'com_templates/admin-template-toggle-switch.min.js', array('version' => 'auto', 'relative' => true));
 
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tabstate');
+HTMLHelper::_('behavior.multiselect', 'updateForm');
 
 $input = JFactory::getApplication()->input;
 
@@ -304,9 +307,9 @@ if ($this->type == 'font')
 <?php echo JHtml::_('bootstrap.endTab'); ?>
 
 <?php if ($this->pluginState) : ?>
-	<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'files', JText::_('COM_TEMPLATES_TAB_UPDATED_FILES')); ?>
+	<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'files', Text::_('COM_TEMPLATES_TAB_UPDATED_FILES')); ?>
 	<?php echo $this->loadTemplate('updated_files'); ?>
-	<?php echo JHtml::_('bootstrap.endTab'); ?>
+	<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 <?php endif; ?>
 
 <?php echo JHtml::_('bootstrap.endTabSet'); ?>
