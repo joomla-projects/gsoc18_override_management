@@ -75,10 +75,11 @@
 
 #jform_show_diff {
 	display: inline;
-	margin-right: 5.3em;
+	margin-right: 4.5em;
 }
 
 .switcher-label-0, .switcher-label-1{
 	min-width: 4.5em;
 	max-width: 4.5em;
+	text-align: left;
 }
