@@ -99,13 +99,20 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 										<div><a href="<?php echo $this->escape($url); ?>"><?php echo $this->escape($url); ?></a></div>
 									<?php endif; ?>
 								</td>
-								<td class="d-none d-md-table-cell text-center">
-									<?php if (!empty($item->updated) && $this->pluginState) : ?>
-										<span class="badge badge-warning"><?php echo JText::sprintf('COM_TEMPLATES_UPDATED', $item->updated); ?></span>
-									<?php else : ?>
+								<?php if ($this->pluginState) : ?>
+									<td class="d-none d-md-table-cell text-center">
+										<?php if (!empty($item->updated)) : ?>
+											<span class="badge badge-warning"><?php echo JText::sprintf('COM_TEMPLATES_UPDATED', $item->updated); ?></span>
+										<?php else : ?>
+											<span class="badge badge-success"><?php echo JText::_('COM_TEMPLATES_UPTODATE'); ?></span>
+										<?php endif; ?>
+									</td>
+								<?php endif; ?>
+								<?php if (!$this->pluginState) : ?>
+									<td class="d-none d-md-table-cell text-center">
 										<span class="badge badge-light"><?php echo JText::_('COM_TEMPLATES_ERROR_ENABLE'); ?></span>
-									<?php endif; ?>
-								</td>
+									</td>
+								<?php endif; ?>
 							</tr>
 							<?php endforeach; ?>
 						</tbody>
