@@ -1,4 +1,4 @@
-	CREATE TABLE IF NOT EXISTS "#__template_overrides" (
+CREATE TABLE IF NOT EXISTS "#__template_overrides" (
   "id" serial NOT NULL,
   "template" varchar(50) DEFAULT '' NOT NULL,
   "hash_id" varchar(255) DEFAULT '' NOT NULL,
