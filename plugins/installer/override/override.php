@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Date\Date;
 
 /**
  * Override Plugin
@@ -314,7 +315,6 @@ class PlgInstallerOverride extends CMSPlugin
 	private function saveOverrides($pks)
 	{
 		$db = Factory::getDbo();
-		$today = Factory::getDate();
 
 		// Insert columns.
 		$columns = array(
@@ -337,11 +337,18 @@ class PlgInstallerOverride extends CMSPlugin
 		{
 			$insertQuery->clear('values');
 
-			$createdDate = $today->format('y-m-d h:i:s');
+			$tz = new \DateTimeZone(Factory::getApplication()->get('offset'));
+			$date = new Date('now');
+			$date->setTimezone($tz);
+			$createdDate = $date->toSql(true);
 
 			if (empty($pk->modifiedDate))
 			{
 				$pk->modifiedDate = '0000-00-00 00:00:00';
+			}
+			else
+			{
+				$pk->modifiedDate = $createdDate;
 			}
 
 			if ($this->load($pk->id, $pk->extension_id))
