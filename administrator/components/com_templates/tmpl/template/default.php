@@ -120,13 +120,13 @@ if ($this->type == 'font')
 					<?php $coreFileContent = file_get_contents($this->source->coreFile); ?>
 					<?php $overrideFileContent = file_get_contents($this->source->filePath); ?>
 					<div class="col-md-6" id="core-pane">
-						<p class="lead"><?php echo JText::_('COM_TEMPLATES_FILE_CORE_PANE'); ?></p>
+						<p class="lead"><?php echo Text::_('COM_TEMPLATES_FILE_CORE_PANE'); ?></p>
 						<div class="editor-border">
 							<?php echo $this->form->getInput('core'); ?>
 						</div>
 					</div>
 					<div class="col-md-12" id="diff-main">
-						<p class="lead"><?php echo JText::_('COM_TEMPLATES_FILE_COMPARE_PANE'); ?></p>
+						<p class="lead"><?php echo Text::_('COM_TEMPLATES_FILE_COMPARE_PANE'); ?></p>
 						<div class="diff-pane">
 							<div class="diffview" style="display:none" id="original"><?php echo htmlspecialchars($coreFileContent, ENT_COMPAT, 'UTF-8'); ?></div>
 							<div class="diffview" style="display:none" id="changed"><?php echo htmlspecialchars($overrideFileContent, ENT_COMPAT, 'UTF-8'); ?></div>
