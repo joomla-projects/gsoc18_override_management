@@ -56,9 +56,25 @@
 			corePane.classList.add('active');
 			override.className = 'col-md-6';
 
-			setTimeout(function () {
+			// Callback executed when JformShowCore was found
+			function handleJformCore() {
 				Joomla.editors.instances.jform_core.refresh();
-			}, 1000);
+				console.log('handleJformCore');
+			}
+
+			// Set up the mutation observer
+			var observerJformShowCore = new MutationObserver(function (mutations, me) {
+				if (Joomla.editors.instances.jform_core) {
+					handleJformCore();
+					me.disconnect();
+					return;
+				}
+			});
+
+			// Start observing
+			observerJformShowCore.observe(corePane, {
+				attributes: true
+			});
 
 			if (typeof Storage !== 'undefined') {
 				localStorage.setItem('coreSwitchState', 'checked');
@@ -81,17 +97,54 @@
 		}
 
 		if (typeof Storage !== 'undefined' && localStorage.getItem('coreSwitchState') && JformShowCore) {
-			setTimeout(function () {
+
+			// Callback executed when JformShowCore was found
+			function handleJformShowCore() {
 				JformShowCore.newActive = 1;
 				JformShowCore.switch();
-			}, 500);
+			}
+
+			// Set up the mutation observer
+			var observerJformShowCore = new MutationObserver(function (mutations, me) {
+				if (JformShowDiff) {
+					handleJformShowCore();
+					me.disconnect();
+					return;
+				}
+			});
+
+			// Start observing
+			observerJformShowCore.observe(JformShowCore, {
+				childList: true,
+				subtree: true
+			});
+
 			showCoreChangedOn();
 		}
+
 		if (typeof Storage !== 'undefined' && localStorage.getItem('diffSwitchState') && JformShowDiff) {
-			setTimeout(function () {
+
+			// Callback executed when JformShowDiff was found
+			function handleJformShowDiff() {
 				JformShowDiff.newActive = 1;
 				JformShowDiff.switch();
-			}, 500);
+			}
+
+			// Set up the mutation observer
+			var observerJformShowDiff = new MutationObserver(function (mutations, me) {
+				if (JformShowDiff) {
+					handleJformShowDiff();
+					me.disconnect();
+					return;
+				}
+			});
+
+			// Start observing
+			observerJformShowDiff.observe(JformShowDiff, {
+				childList: true,
+				subtree: true
+			});
+
 			showDiffChangedOn();
 		}
 	});
