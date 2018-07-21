@@ -5,7 +5,7 @@
 (() => {
   'use strict';
 
-  const showDiffChangedOff = function showDiffChangedOff() {
+  const showDiffChangedOff = () => {
     const diffMain = document.getElementById('diff-main');
 
     if (diffMain) {
@@ -17,7 +17,7 @@
     }
   };
 
-  const showDiffChangedOn = function showDiffChangedOn() {
+  const showDiffChangedOn = () => {
     const diffMain = document.getElementById('diff-main');
 
     if (diffMain) {
@@ -29,7 +29,7 @@
     }
   };
 
-  const showCoreChangedOff = function showCoreChangedOff() {
+  const showCoreChangedOff = () => {
     const override = document.getElementById('override-pane');
     const corePane = document.getElementById('core-pane');
 
@@ -43,7 +43,7 @@
     }
   };
 
-  const showCoreChangedOn = function showCoreChangedOn() {
+  const showCoreChangedOn = () => {
     const override = document.getElementById('override-pane');
     const corePane = document.getElementById('core-pane');
 
@@ -80,6 +80,7 @@
       JformShowCore.newActive = 1;
       JformShowCore.switch();
     }
+
     if (typeof Storage !== 'undefined' && localStorage.getItem('coreSwitchState') && JformShowCore) {
       // Set up the mutation observer
       const observerJformShowCore = new MutationObserver(((mutations, me) => {
