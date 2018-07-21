@@ -342,8 +342,11 @@ class PlgInstallerOverride extends CMSPlugin
 			$date->setTimezone($tz);
 			$createdDate = $date->toSql(true);
 
-			$pk->modifiedDate = '0000-00-00 00:00:00';
-			if (!empty($pk->modifiedDate))
+			if (empty($pk->modifiedDate))
+			{
+				$pk->modifiedDate = '0000-00-00 00:00:00';
+			}
+			else
 			{
 				$pk->modifiedDate = $createdDate;
 			}
