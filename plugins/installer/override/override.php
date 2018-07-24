@@ -142,7 +142,6 @@ class PlgInstallerOverride extends CMSPlugin
 				if ($after[$i]->coreFile !== $before[$i]->coreFile)
 				{
 					$after[$i]->action = $action;
-					unset($after[$i]->coreFile);
 					$result[] = $after[$i];
 				}
 			}
@@ -342,13 +341,13 @@ class PlgInstallerOverride extends CMSPlugin
 			$date->setTimezone($tz);
 			$createdDate = $date->toSql(true);
 
-			if (empty($pk->modifiedDate))
+			if (empty($pk->coreFile))
 			{
-				$pk->modifiedDate = '0000-00-00 00:00:00';
+				$modifiedDate = '0000-00-00 00:00:00';
 			}
 			else
 			{
-				$pk->modifiedDate = $createdDate;
+				$modifiedDate = $createdDate;
 			}
 
 			if ($this->load($pk->id, $pk->extension_id))
@@ -356,7 +355,7 @@ class PlgInstallerOverride extends CMSPlugin
 				$updateQuery = $db->getQuery(true)
 					->update($db->quoteName('#__template_overrides'))
 					->set(
-						array($db->quoteName('modified_date') . ' = ' . $db->quote($pk->modifiedDate),
+						array($db->quoteName('modified_date') . ' = ' . $db->quote($modifiedDate),
 						$db->quoteName('action') . ' = ' . $db->quote($pk->action),
 						$db->quoteName('state') . ' = ' . 0)
 						)
@@ -386,7 +385,7 @@ class PlgInstallerOverride extends CMSPlugin
 				$db->quote($pk->action),
 				(int) $pk->client,
 				$db->quote($createdDate),
-				$db->quote($pk->modifiedDate)
+				$db->quote($modifiedDate)
 			);
 
 			$insertQuery->values(implode(',', $values));
