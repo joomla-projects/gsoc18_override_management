@@ -343,7 +343,7 @@ class PlgInstallerOverride extends CMSPlugin
 
 			if (empty($pk->coreFile))
 			{
-				$modifiedDate = '0000-00-00 00:00:00';
+				$modifiedDate = $db->getNullDate();
 			}
 			else
 			{
