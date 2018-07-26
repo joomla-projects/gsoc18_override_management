@@ -209,6 +209,26 @@ class TemplateModel extends FormModel
 			}
 		}
 
+		// Get timezone for converting the created and modified date.
+		$tz = new \DateTimeZone(Factory::getApplication()->get('offset'));
+
+		foreach ($results as $result)
+		{
+			if ((int) $result->created_date)
+			{
+				$created_date = new Date($result->created_date);
+				$created_date->setTimezone($tz);
+				$result->created_date = $created_date->toSql(true);
+			}
+
+			if ((int) $result->modified_date)
+			{
+				$modified_date = new Date($result->modified_date);
+				$modified_date->setTimezone($tz);
+				$result->modified_date = $modified_date->toSql(true);
+			}
+		}
+
 		return $results;
 	}
 
