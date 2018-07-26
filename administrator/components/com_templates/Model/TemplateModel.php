@@ -197,8 +197,24 @@ class TemplateModel extends FormModel
 			$client = ApplicationHelper::getClientInfo($pk->client_id);
 			$path = Path::clean($client->path . '/templates/' . $pk->template . base64_decode($pk->hash_id));
 
+			$tz = new \DateTimeZone(Factory::getApplication()->get('offset'));
+
 			if (file_exists($path))
 			{
+				if ((int) $pk->created_date)
+				{
+					$created_date = new Date($pk->created_date);
+					$created_date->setTimezone($tz);
+					$pk->created_date = $created_date->toSql(true);
+				}
+
+				if ((int) $pk->modified_date)
+				{
+					$modified_date = new Date($pk->modified_date);
+					$modified_date->setTimezone($tz);
+					$pk->modified_date = $modified_date->toSql(true);
+				}
+
 				$results[] = $pk;
 			}
 			elseif ($cleanup)
@@ -206,26 +222,6 @@ class TemplateModel extends FormModel
 				$cleanupIds = array();
 				$cleanupIds[] = $pk->hash_id;
 				$this->publish($cleanupIds, -3, $pk->extension_id);
-			}
-		}
-
-		// Get timezone for converting the created and modified date.
-		$tz = new \DateTimeZone(Factory::getApplication()->get('offset'));
-
-		foreach ($results as $result)
-		{
-			if ((int) $result->created_date)
-			{
-				$created_date = new Date($result->created_date);
-				$created_date->setTimezone($tz);
-				$result->created_date = $created_date->toSql(true);
-			}
-
-			if ((int) $result->modified_date)
-			{
-				$modified_date = new Date($result->modified_date);
-				$modified_date->setTimezone($tz);
-				$result->modified_date = $modified_date->toSql(true);
 			}
 		}
 
