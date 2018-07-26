@@ -197,24 +197,8 @@ class TemplateModel extends FormModel
 			$client = ApplicationHelper::getClientInfo($pk->client_id);
 			$path = Path::clean($client->path . '/templates/' . $pk->template . base64_decode($pk->hash_id));
 
-			$tz = new \DateTimeZone(Factory::getApplication()->get('offset'));
-
 			if (file_exists($path))
 			{
-				if ((int) $pk->created_date)
-				{
-					$created_date = new Date($pk->created_date);
-					$created_date->setTimezone($tz);
-					$pk->created_date = $created_date->toSql(true);
-				}
-
-				if ((int) $pk->modified_date)
-				{
-					$modified_date = new Date($pk->modified_date);
-					$modified_date->setTimezone($tz);
-					$pk->modified_date = $modified_date->toSql(true);
-				}
-
 				$results[] = $pk;
 			}
 			elseif ($cleanup)
