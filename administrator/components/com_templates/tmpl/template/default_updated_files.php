@@ -58,14 +58,14 @@ $input = Factory::getApplication()->input;
 								</td>
 								<td>
 									<?php $created_date = $value->created_date; ?>
-									<?php echo $created_date > 0 ? HTMLHelper::_('date', $created_date, 'Y-m-d H:i:s') : '-'; ?>
+									<?php echo $created_date > 0 ? HTMLHelper::_('date', $created_date, Text::_('DATE_FORMAT_FILTER_DATETIME')) : '-'; ?>
 								</td>
 								<td>
 									<?php if ($value->modified_date === '0000-00-00 00:00:00') : ?>
 										<span class="badge badge-warning"><?php echo Text::_('COM_TEMPLATES_OVERRIDE_CORE_REMOVED'); ?></span>
 									<?php else : ?>
 										<?php $modified_date = $value->modified_date; ?>
-										<?php echo $modified_date > 0 ? HTMLHelper::_('date', $modified_date, 'Y-m-d H:i:s') : '-'; ?>
+										<?php echo $modified_date > 0 ? HTMLHelper::_('date', $modified_date, Text::_('DATE_FORMAT_FILTER_DATETIME')) : '-'; ?>
 									<?php endif; ?>
 								</td>
 								<td>
