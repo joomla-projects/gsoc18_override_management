@@ -26,6 +26,7 @@ use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Http\HttpFactory;
 use Joomla\CMS\Installer\Installer;
+use Joomla\CMS\Plugin\PluginHelper;
 
 jimport('joomla.filesystem.folder');
 jimport('joomla.filesystem.file');
@@ -63,12 +64,12 @@ class UpdateModel extends BaseDatabaseModel
 			// "Minor & Patch Release for Current version AND Next Major Release".
 			case 'sts':
 			case 'next':
-				$updateURL = 'https://update.joomla.org/core/test/next_major_list.xml';
+				$updateURL = 'https://update.joomla.org/core/sts/list_sts.xml';
 				break;
 
 			// "Testing"
 			case 'testing':
-				$updateURL = 'https://update.joomla.org/core/test/next_major_list.xml';
+				$updateURL = 'https://update.joomla.org/core/test/list_test.xml';
 				break;
 
 			// "Custom"
@@ -92,7 +93,7 @@ class UpdateModel extends BaseDatabaseModel
 			 * case 'nochange':
 			 */
 			default:
-				$updateURL = 'https://update.joomla.org/core/test/next_major_list.xml';
+				$updateURL = 'https://update.joomla.org/core/list.xml';
 		}
 
 		$db = $this->getDbo();
@@ -408,7 +409,7 @@ class UpdateModel extends BaseDatabaseModel
 	public function createRestorationFile($basename = null)
 	{
 		// Load overrides plugin.
-		\JPluginHelper::importPlugin('installer');
+		PluginHelper::importPlugin('installer');
 
 		// Get a password
 		$password = UserHelper::genRandomPassword(32);
@@ -850,9 +851,9 @@ ENDDATA;
 	public function cleanUp()
 	{
 		// Load overrides plugin.
-		\JPluginHelper::importPlugin('installer');
+		PluginHelper::importPlugin('installer');
 
-		$app = \JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// Trigger on before joomla event.
 		$app->triggerEvent('onJoomlaAfterUpdate');
