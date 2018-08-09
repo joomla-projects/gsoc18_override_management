@@ -7,6 +7,8 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const decodeHtmlspecialChars = (text) => {
+      /* eslint-disable */
+
       const map = {
         '&amp;': '&',
         '&#038;': '&',
@@ -24,6 +26,8 @@
 
       return text.replace(/\&[\w\d\#]{2,5}\;/g, (m) => { const n = map[m]; return n; });
     };
+
+    /* eslint-enable */
 
     const compare = (original, changed) => {
       const display = changed.nextElementSibling;
