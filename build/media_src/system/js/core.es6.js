@@ -699,7 +699,7 @@ Joomla.Modal = {
 
     cb.checked = true;
     newForm.boxchecked.value = 1;
-    Joomla.submitform(task);
+    Joomla.submitform(task, newForm);
 
     return false;
   };
