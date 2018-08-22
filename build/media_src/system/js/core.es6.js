@@ -161,11 +161,11 @@ Joomla.Modal = {
    * @returns {void}
    */
   Joomla.submitbutton = (task, formSelector, validate) => {
-    const form = document.querySelector(formSelector || 'form.form-validate');
+    let form = document.querySelector(formSelector || 'form.form-validate');
     let newValidate = validate;
 
     if (typeof formSelector === 'string' && form === null) {
-      const form = document.querySelector('#' + formSelector);
+      form = document.querySelector(`#${formSelector}`);
     }
 
     if (form) {
@@ -668,13 +668,14 @@ Joomla.Modal = {
    * @return {boolean}
    */
   Joomla.listItemTask = (id, task, form = null) => {
+    let newForm = form;
     if (form !== null) {
-      const form = document.getElementById(form);
+      newForm = document.getElementById(form);
     } else {
-      const form = document.adminForm;
+      newForm = document.adminForm;
     }
 
-    const cb = form[id];
+    const cb = newForm[id];
     let i = 0;
     let cbx;
 
@@ -685,7 +686,7 @@ Joomla.Modal = {
 
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      cbx = form[`cb${i}`];
+      cbx = newForm[`cb${i}`];
 
       if (!cbx) {
         break;
@@ -697,7 +698,7 @@ Joomla.Modal = {
     }
 
     cb.checked = true;
-    form.boxchecked.value = 1;
+    newForm.boxchecked.value = 1;
     Joomla.submitform(task);
 
     return false;
