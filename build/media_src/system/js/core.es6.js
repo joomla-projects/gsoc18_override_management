@@ -164,6 +164,10 @@ Joomla.Modal = {
     const form = document.querySelector(formSelector || 'form.form-validate');
     let newValidate = validate;
 
+    if (typeof formSelector === 'string' && form === null) {
+      let form = document.querySelector('#' + formSelector);
+    }
+
     if (form) {
       if (newValidate === undefined || newValidate === null) {
         const pressbutton = task.split('.');
@@ -596,6 +600,8 @@ Joomla.Modal = {
     let newForm = form;
     if (typeof newForm === 'undefined') {
       newForm = document.getElementById('adminForm');
+    } else if (typeof form === 'string') {
+      newForm = document.getElementById(form);
     }
 
     newForm.boxchecked.value = isitchecked
@@ -643,6 +649,8 @@ Joomla.Modal = {
     let newForm = form;
     if (typeof newForm === 'undefined') {
       newForm = document.getElementById('adminForm');
+    } else if (typeof form === 'string') {
+      newForm = document.getElementById(form);
     }
 
     newForm.filter_order.value = order;
@@ -655,11 +663,17 @@ Joomla.Modal = {
    *
    * @param  {string}  id    The id
    * @param  {string}  task  The task
+   * @param  {string}  form  The optional form
    *
    * @return {boolean}
    */
-  Joomla.listItemTask = (id, task) => {
-    const form = document.adminForm;
+  Joomla.listItemTask = (id, task, form = null) => {
+    if (form !== null) {
+      const form = document.getElementById(form);
+    } else {
+      const form = document.adminForm;
+    }
+
     const cb = form[id];
     let i = 0;
     let cbx;
