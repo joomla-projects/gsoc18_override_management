@@ -165,7 +165,7 @@ Joomla.Modal = {
     let newValidate = validate;
 
     if (typeof formSelector === 'string' && form === null) {
-      let form = document.querySelector('#' + formSelector);
+      const form = document.querySelector('#' + formSelector);
     }
 
     if (form) {
