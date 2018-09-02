@@ -72,7 +72,7 @@ if ($this->type == 'font')
 <div class="row">
 	<div class="col-md-6" id="conditional-section">
 		<?php if($this->type == 'file') : ?>
-			<p class="lead"><?php echo Text::sprintf('COM_TEMPLATES_TEMPLATE_FILENAME', Path::clean($this->source->filename), $this->template->element); ?></p>
+			<p class="lead"><?php echo Text::sprintf('COM_TEMPLATES_TEMPLATE_FILENAME', $this->source->filename, $this->template->element); ?></p>
 			<p class="lead path hidden"><?php echo $this->source->filename; ?></p>
 		<?php endif; ?>
 		<?php if($this->type == 'image') : ?>
