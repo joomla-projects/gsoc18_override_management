@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\FileLayout;
@@ -71,7 +72,7 @@ if ($this->type == 'font')
 <div class="row">
 	<div class="col-md-6" id="conditional-section">
 		<?php if($this->type == 'file') : ?>
-			<p class="lead"><?php echo Text::sprintf('COM_TEMPLATES_TEMPLATE_FILENAME', $this->source->filename, $this->template->element); ?></p>
+			<p class="lead"><?php echo Text::sprintf('COM_TEMPLATES_TEMPLATE_FILENAME', Path::clean($this->source->filename), $this->template->element); ?></p>
 			<p class="lead path hidden"><?php echo $this->source->filename; ?></p>
 		<?php endif; ?>
 		<?php if($this->type == 'image') : ?>
@@ -113,7 +114,7 @@ if ($this->type == 'font')
 		<?php if ($this->type == 'file') : ?>
 			<div class="row">
 				<div class="col-md-12" id="override-pane">
-					<?php $overrideCheck = explode(DIRECTORY_SEPARATOR, $this->source->filename); ?>
+					<?php $overrideCheck = explode(DIRECTORY_SEPARATOR, Path::clean($this->source->filename)); ?>
 					<?php if ($overrideCheck['1'] === 'html') : ?>
 						<h2><?php echo JText::_('COM_TEMPLATES_FILE_OVERRIDE_PANE'); ?></h2>
 					<?php endif; ?>
